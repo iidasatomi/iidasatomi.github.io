@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>飯田さとみ（いいださとみ）| ヘアメイクアップアーティスト 東京 | Satomi Iida Hair &amp; Makeup Artist</title>
 <meta name="description" content="飯田さとみ（いいださとみ／Satomi Iida）は東京を拠点に活動するフリーランスのヘアメイクアップアーティスト・メイクアップアーティスト。広告・CM、テレビ、音楽、ファッション、エディトリアルのヘアメイクを担当。海外案件・海外撮影にも対応。Freelance Hair & Makeup Artist based in Tokyo, available for international productions.">
-<meta name="keywords" content="飯田さとみ,いいださとみ,飯田智己,Satomi Iida,ヘアメイク,ヘアメイクアップアーティスト,メイクアップアーティスト,ヘアメイク 東京,Hair & Makeup Artist,Hair and Makeup Artist Tokyo,Makeup Artist Tokyo,海外案件,海外撮影">
+<meta name="keywords" content="飯田さとみ,いいださとみ,飯田智己,Satomi Iida,ヘアメイク,ヘアメイクアップアーティスト,メイクアップアーティスト,ヘアメイク 東京,Hair & Makeup Artist,Hair and Makeup Artist Tokyo,Makeup Artist Tokyo,海外案件,海外撮影,企業研修,ヘアメイク研修,ヘアメイク講習,ファッションショー,ショー ヘアメイク">
 <meta name="author" content="飯田さとみ Satomi Iida">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://satomi-iida.com/">
@@ -28,7 +28,7 @@
   "image": "https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida.jpg",
   "address": {"@type": "PostalAddress", "addressLocality": "Tokyo", "addressCountry": "JP"},
   "areaServed": ["Tokyo", "Japan", "Worldwide"],
-  "knowsAbout": ["Hair and Makeup", "ヘアメイク", "Makeup", "Commercial", "Television", "Music Video", "Fashion", "Editorial"],
+  "knowsAbout": ["Hair and Makeup", "ヘアメイク", "Makeup", "Commercial", "Television", "Music Video", "Fashion", "Editorial", "Fashion Show", "企業ヘアメイク研修", "Corporate Hair and Makeup Training"],
   "sameAs": ["https://www.instagram.com/______iis/", "https://silverfoxpro.com/ourteam/iida-satomi/"]
 }
 </script>
@@ -134,6 +134,31 @@
   .contact p{margin:18px auto 34px;color:#444;font-size:14px;max-width:46ch}
   .contact .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 
+  /* Training */
+  .train-list{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+  .train-list li{padding:18px 4px;border-bottom:1px solid var(--line);font-size:15px;letter-spacing:.04em}
+  .train-list li.etc{color:var(--muted)}
+  .show-line{margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+  .show-line .caps{color:var(--muted)}
+  .show-line p{margin-top:10px;font-family:var(--serif);font-size:clamp(20px,2vw,26px)}
+
+  /* Contact form */
+  .cform{max-width:720px;margin:0 auto;text-align:left;display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}
+  .cform .full{grid-column:1/-1}
+  .cform label{display:block;font-size:12px;letter-spacing:.08em;color:#444;margin-bottom:8px}
+  .cform label .req{color:#a33;margin-left:4px}
+  .cform input,.cform select,.cform textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:0;padding:12px 14px;-webkit-appearance:none;appearance:none}
+  .cform select{background-image:linear-gradient(45deg,transparent 50%,#888 50%),linear-gradient(135deg,#888 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+  .cform textarea{min-height:170px;resize:vertical}
+  .cform input:focus,.cform select:focus,.cform textarea:focus{outline:none;border-color:var(--ink)}
+  .cform .send{grid-column:1/-1;text-align:center;margin-top:6px}
+  .cform button{cursor:pointer;background:#fff;font:inherit;color:var(--ink)}
+  .cform button[disabled]{opacity:.5;cursor:wait}
+  .cform .hp{position:absolute;left:-9999px}
+  .form-msg{grid-column:1/-1;text-align:center;font-size:14px;min-height:1.5em}
+  .form-msg.ok{color:#2d6a3e}.form-msg.err{color:#a33}
+  .contact .alt{margin-top:34px;font-size:13px;color:var(--muted)}
+
   footer{padding:36px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
   footer nav{gap:22px}
 
@@ -164,6 +189,8 @@
     .about .img img{min-height:0;aspect-ratio:4/5}
   }
   @media (max-width:560px){
+    .cform{grid-template-columns:1fr}
+    .train-list{grid-template-columns:1fr}
     .grid,.videos{grid-template-columns:1fr}
     .grid .wide,.videos .wide{grid-column:auto}
     .cols{grid-template-columns:1fr}
@@ -179,12 +206,13 @@
     <a class="logo" href="#top">SATOMI IIDA</a>
     <nav class="main" id="nav">
       <a class="caps" href="#portfolio">Portfolio</a>
+      <a class="caps" href="#training">Training</a>
       <a class="caps" href="#credits">Credits</a>
       <a class="caps" href="#about">About</a>
       <a class="ig" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a class="btn caps" href="#contact">Contact for Bookings</a>
+      <a class="btn caps" href="#contact">お問い合わせ Contact</a>
     </nav>
     <button class="menu-toggle" aria-label="Menu" aria-controls="nav"><span></span><span></span></button>
   </div>
@@ -207,6 +235,7 @@
         <a class="u" href="#commercial">Commercial &amp; Advertising</a>
         <a class="u" href="#mv">Music Video</a>
         <a class="u" href="#cm">Commercial</a>
+        <a class="u" href="#training">Show &amp; Training</a>
       </div>
     </div>
   </section>
@@ -274,6 +303,28 @@
     </div>
   </section>
 
+  <!-- Show & Corporate training -->
+  <section id="training">
+    <div class="split">
+      <div class="side"><div class="stick reveal">
+        <h2>企業研修<br><span style="font-size:.62em;letter-spacing:.06em">Corporate Training</span></h2>
+        <p>企業・団体向けに、ヘアメイクの研修や講習を行っています。内容や人数、時間は目的に合わせてご相談ください。</p>
+        <p>Hair and makeup training and workshops for companies and organizations, tailored to your goals, group size and schedule.</p>
+        <div class="links"><a class="caps u" href="#contact">研修のご相談 Inquire</a></div>
+      </div></div>
+      <div class="reveal">
+        <div class="caps" style="color:var(--muted);margin-bottom:14px">企業ヘアメイク研修　Selected Clients</div>
+        <ul class="train-list">
+          <li>コンフォートホテル</li><li>ソフトバンク</li><li>日産ギャラリー</li><li>バロックジャパン</li><li>岡三証券</li><li>三井アウトレットパーク</li><li>三井住友海上あいおい生命保険</li><li class="etc">etc.</li>
+        </ul>
+        <div class="show-line">
+          <div class="caps">ショー　Show</div>
+          <p>桂由美 Grand Collection Tokyo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Credits -->
   <section class="credits" id="credits">
     <h2 class="reveal">Credits</h2>
@@ -291,8 +342,10 @@
         <ul><li>King &amp; Prince</li><li>WEST.</li><li>timelesz</li><li>Aぇ! group</li><li>BAD HOP</li><li>Hikari Mori</li><li>Koshi Mizukami</li><li>Nobuyuki Suzuki</li><li>Nao Asahi</li><li>EXIT</li><li>Atsuya Furuta</li><li>Keita Inagaki</li></ul>
       </div>
       <div class="reveal">
-        <h3 class="caps">Productions</h3>
-        <ul><li>Commercial</li><li>Corporate</li><li>Television</li><li>Music</li><li>Fashion</li><li>Editorial</li><li>Portrait</li></ul>
+        <h3 class="caps">Show</h3>
+        <ul><li>SHOW 桂由美 Grand Collection Tokyo</li></ul>
+        <h3 class="caps" style="margin-top:28px">Productions</h3>
+        <ul><li>Commercial</li><li>Corporate</li><li>Television</li><li>Music</li><li>Fashion</li><li>Show</li><li>Editorial</li><li>Portrait</li><li>Corporate Training</li></ul>
       </div>
     </div>
   </section>
@@ -301,9 +354,9 @@
   <section class="about" id="about">
     <div class="txt reveal">
       <h2>About<br><span style="font-size:.6em;letter-spacing:.1em">プロフィール</span></h2>
-      <p class="jp">飯田さとみ（いいださとみ）は、東京を拠点に、広告・CM・テレビ・ファッション・音楽・エディトリアルの現場で活動するフリーランスのヘアメイクアップアーティスト／メイクアップアーティスト。大型の広告キャンペーンやテレビ番組から、アーティスト、俳優、アスリート、企業の撮影まで幅広く担当。被写体、カメラ、そして現場全体を理解したうえで、一つひとつの仕事に向き合っています。大規模な撮影では、ヘアメイクチームの手配にも対応。海外案件・海外撮影のご依頼も承ります。</p>
+      <p class="jp">飯田さとみ（いいださとみ）は、東京を拠点に、広告・CM・テレビ・ファッション・音楽・エディトリアルの現場で活動するフリーランスのヘアメイクアップアーティスト／メイクアップアーティスト。大型の広告キャンペーンやテレビ番組から、アーティスト、俳優、アスリート、企業の撮影まで幅広く担当。被写体、カメラ、そして現場全体を理解したうえで、一つひとつの仕事に向き合っています。大規模な撮影では、ヘアメイクチームの手配にも対応。ファッションショーのヘアメイクや、企業向けのヘアメイク研修・講習も行っています。海外案件・海外撮影のご依頼も承ります。</p>
       <p>Satomi Iida is a freelance hair and makeup artist based in Tokyo, working across advertising, television, fashion, music and editorial productions.</p>
-      <p>Her experience ranges from major commercial campaigns and television productions to artists, actors, athletes and corporate shoots. She approaches each project with an understanding of the person, the camera and the production. For larger shoots, she can coordinate additional hair and makeup artists.</p>
+      <p>Her experience ranges from major commercial campaigns and television productions to artists, actors, athletes and corporate shoots. She approaches each project with an understanding of the person, the camera and the production. For larger shoots, she can coordinate additional hair and makeup artists. She also works on fashion shows and leads hair and makeup training for companies.</p>
       <p>Available for productions in Tokyo, across Japan and internationally.</p>
     </div>
     <div class="img"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida.jpg" alt="飯田さとみ Satomi Iida, hair and makeup artist"></div>
@@ -312,11 +365,36 @@
   <!-- Contact -->
   <section class="contact" id="contact">
     <h2 class="reveal">ヘアメイクのご依頼<br><span style="font-size:.55em;letter-spacing:.08em">Looking for Hair &amp; Makeup?</span></h2>
-    <p class="reveal">ご依頼・スケジュールのお問い合わせはこちらから。<br>For bookings and availability, please get in touch.</p>
-    <div class="row reveal">
-      <a class="btn caps" href="https://silverfoxpro.com/contact/" target="_blank" rel="noopener">お問い合わせ Contact</a>
-      <a class="btn caps" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener">Instagram</a>
-    </div>
+    <p class="reveal">撮影・ショー・企業研修のご依頼、スケジュールのお問い合わせはこちらから。<br>For bookings, shows, training and availability, please get in touch.</p>
+    <form class="cform reveal" id="cform" novalidate>
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div><label for="f-name">お名前 Name<span class="req">*</span></label><input id="f-name" name="お名前 Name" required autocomplete="name"></div>
+      <div><label for="f-company">会社名・媒体名 Company</label><input id="f-company" name="会社名 Company" autocomplete="organization"></div>
+      <div><label for="f-email">メールアドレス Email<span class="req">*</span></label><input id="f-email" type="email" name="email" required autocomplete="email"></div>
+      <div><label for="f-tel">電話番号 Phone</label><input id="f-tel" type="tel" name="電話番号 Phone" autocomplete="tel"></div>
+      <div><label for="f-type">ご依頼の種類 Type</label>
+        <select id="f-type" name="ご依頼の種類 Type">
+          <option>CM・広告 Commercial / Advertising</option>
+          <option>ミュージックビデオ Music Video</option>
+          <option>雑誌・エディトリアル Editorial</option>
+          <option>テレビ Television</option>
+          <option>ショー Show</option>
+          <option>企業研修・講習 Corporate Training</option>
+          <option>その他 Other</option>
+        </select></div>
+      <div><label for="f-place">場所 Location</label>
+        <select id="f-place" name="場所 Location">
+          <option>東京 Tokyo</option>
+          <option>国内 Japan (outside Tokyo)</option>
+          <option>海外 Overseas</option>
+          <option>未定 TBD</option>
+        </select></div>
+      <div class="full"><label for="f-date">撮影日・実施日 Date</label><input id="f-date" name="撮影日 Date" placeholder="例）2026年12月中旬 / Mid-December 2026"></div>
+      <div class="full"><label for="f-msg">ご依頼内容 Message<span class="req">*</span></label><textarea id="f-msg" name="ご依頼内容 Message" required></textarea></div>
+      <div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
+      <div class="send"><button type="submit" class="btn caps" id="f-send">送信する Send</button></div>
+    </form>
+    <p class="alt reveal">Instagram　<a class="u" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener">@______iis</a></p>
   </section>
 
 </main>
@@ -403,6 +481,32 @@
     if (e.key === 'Escape') close();
     if (e.key === 'ArrowLeft') show(idx - 1);
     if (e.key === 'ArrowRight') show(idx + 1);
+  });
+
+  // Contact form (FormSubmit)
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/photobyhiro@icloud.com';
+  const cform = document.getElementById('cform'), fmsg = document.getElementById('form-msg'), fsend = document.getElementById('f-send');
+  cform.addEventListener('submit', async e => {
+    e.preventDefault();
+    fmsg.className = 'form-msg'; fmsg.textContent = '';
+    const bad = [...cform.querySelectorAll('[required]')].find(el => !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value)));
+    if (bad) { fmsg.className = 'form-msg err'; fmsg.textContent = '必須項目を入力してください。 Please fill in the required fields.'; bad.focus(); return; }
+    if (cform._honey.value) return;
+    const data = Object.fromEntries(new FormData(cform));
+    delete data._honey;
+    data._subject = '【satomi-iida.com】お問い合わせ ' + (data['お名前 Name'] || '');
+    data._replyto = data.email;
+    data._template = 'table';
+    fsend.disabled = true; fsend.textContent = '送信中… Sending';
+    try {
+      const r = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status);
+      cform.reset();
+      fmsg.className = 'form-msg ok'; fmsg.textContent = '送信しました。ありがとうございます。折り返しご連絡いたします。 Thank you, your message has been sent.';
+    } catch (err) {
+      fmsg.className = 'form-msg err'; fmsg.textContent = '送信できませんでした。時間をおいて再度お試しいただくか、Instagramからご連絡ください。 Sorry, something went wrong.';
+    } finally { fsend.disabled = false; fsend.textContent = '送信する Send'; }
   });
 
   // Fade-in on scroll
