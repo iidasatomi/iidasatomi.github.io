@@ -69,7 +69,7 @@
   /* Hero */
   .hero{display:grid;grid-template-columns:50% 50%;border-bottom:1px solid var(--line)}
   .hero-img{display:flex;align-items:center;justify-content:center;padding:clamp(40px,6vw,80px) var(--pad)}
-  .hero-img img{width:clamp(200px,20vw,280px);aspect-ratio:5/8;border-radius:50%;object-fit:cover;object-position:center 22%}
+  .hero-img img{width:clamp(200px,20vw,280px);aspect-ratio:5/8;border-radius:50%;object-fit:cover;object-position:52% 40%}
   .hero-text{padding:clamp(36px,7vw,96px) var(--pad);display:flex;flex-direction:column;justify-content:center}
   .hero-text h1{font-family:var(--sans);font-weight:400;font-size:clamp(26px,2.8vw,36px);letter-spacing:.12em}
   .hero-text h1 .kana{display:block;margin-top:6px;font-size:13px;letter-spacing:.2em;color:var(--muted)}
@@ -77,8 +77,8 @@
   .hero-text .role{margin-top:14px;font-size:clamp(14px,1.3vw,17px);letter-spacing:.08em;text-transform:uppercase}
   .hero-text .rep{margin-top:16px;color:var(--ink)}
   .hero-text .ja{margin-top:18px;color:var(--muted);font-size:13px;letter-spacing:.08em;line-height:1.9}
-  .cats{margin-top:clamp(40px,7vw,90px);display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-  .cats a{font-family:var(--serif);font-size:clamp(20px,2vw,26px);letter-spacing:.03em;text-transform:uppercase}
+  .cats{margin-top:clamp(32px,5vw,64px);display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+  .cats a{font-family:var(--serif);font-size:clamp(15px,1.35vw,18px);letter-spacing:.06em;text-transform:uppercase}
   .cats a:hover{opacity:.55}
 
   /* Sections */
@@ -120,12 +120,12 @@
   .cols ul{list-style:none;font-size:14px;line-height:2;color:#333}
 
   /* About */
-  .about{display:grid;grid-template-columns:1fr auto;align-items:center;max-width:1100px}
+  .about{display:grid;grid-template-columns:minmax(0,620px) auto;justify-content:center;align-items:center;column-gap:clamp(32px,6vw,96px)}
   .about .txt{padding:clamp(48px,7vw,110px) var(--pad)}
   .about h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,34px);text-transform:uppercase}
   .about p{margin-top:20px;font-size:15px;color:#333;max-width:48ch}
   .about p.jp{font-size:14px;line-height:2;color:#555}
-  .about .img{padding:clamp(48px,7vw,110px) var(--pad)}
+  .about .img{padding:clamp(48px,7vw,110px) var(--pad) clamp(48px,7vw,110px) 0}
   .about .img img{width:clamp(130px,13vw,170px);aspect-ratio:5/8;border-radius:50%;object-fit:cover;object-position:center 22%}
 
   /* Contact */
@@ -186,7 +186,7 @@
     .split.rev .side{order:0}
     .stick{position:static}
     .cols{grid-template-columns:1fr 1fr}
-    .about .img{order:-1;padding-bottom:0}
+    .about .img{order:-1;padding:48px var(--pad) 0}
     .about .img img{width:140px}
   }
   @media (max-width:560px){
@@ -224,7 +224,7 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-img">
-      <img src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida.jpg" alt="飯田さとみ Satomi Iida, freelance hair and makeup artist">
+      <img src="images/62A168BF-D196-47E1-9E0D-2A70005C9ADB.jpg" alt="飯田さとみ Satomi Iida, freelance hair and makeup artist">
     </div>
     <div class="hero-text">
       <h1>飯田さとみ<span class="kana">いいださとみ</span></h1>
@@ -252,9 +252,15 @@
       <div class="grid" data-gallery>
         <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-1.jpg" alt="Fashion shoot hair and makeup by Satomi Iida"></div>
         <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-3.jpg" alt="Fashion portrait with hair and makeup by Satomi Iida"></div>
-        <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-5.jpg" alt="Editorial portrait, hair and makeup by Satomi Iida"></div>
         <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-4.jpg" alt="Fashion editorial, hair and makeup by Satomi Iida"></div>
         <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-2.jpg" alt="Model portrait, hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="images/C2246181-4DDE-41D6-91BD-AA5B7A5D7B13.jpg" alt="ヘアメイク 飯田さとみ Fashion portrait, hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="images/E109BB80-B18E-42C6-A492-609E60590C6C.jpg" alt="ヘアメイク 飯田さとみ Editorial, hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="images/99FB0BBF-87AB-4A10-A583-DE0A01EBADAF.jpg" alt="ヘアメイク 飯田さとみ Beauty, hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="images/6C85B05C-187B-4063-AE85-9AB5B70C785B.jpg" alt="ヘアメイク 飯田さとみ Beauty portrait, hair and makeup by Satomi Iida"></div>
+        <div class="tile wide reveal" style="aspect-ratio:4/3"><img loading="lazy" src="images/S__221700105_0.jpg" alt="ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"></div>
+        <div class="tile wide reveal" style="aspect-ratio:4/3"><img loading="lazy" src="images/S__221700104_0.jpg" alt="ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"></div>
+        <div class="tile wide reveal" style="aspect-ratio:4/3"><img loading="lazy" src="images/S__221700102.jpg" alt="ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"></div>
       </div>
     </div>
   </section>
@@ -434,7 +440,7 @@
   });
 
   // TV commercial stills, cut from the collage images
-  const CROPS = [["Satomi-IIDA0005-1","Komatsu",28,60,436,244],["Satomi-IIDA0005-1","Ishida Best",526,60,434,243],["Satomi-IIDA0005-1","Asahi Kasei",1022,59,437,244],["Satomi-IIDA0005-1","Nitori",27,324,434,243],["Satomi-IIDA0005-1","School project",526,324,436,245],["Satomi-IIDA0005-1","TV commercial",1022,321,438,245],["Satomi-IIDA0005-1","Aderans",27,584,434,245],["Satomi-IIDA0005-1","Kao Humming",525,585,435,243],["Satomi-IIDA0005-1","Idemitsu",1023,582,437,245],["Satomi-IIDA0004","Sony",27,67,434,243],["Satomi-IIDA0004","Rakuten Mobile",528,66,437,244],["Satomi-IIDA0004","JA Niigata",1031,66,435,244],["Satomi-IIDA0004","McDonald's",27,327,431,241],["Satomi-IIDA0004","ACUVUE OASYS",530,324,435,244],["Satomi-IIDA0004","KDDI",1031,324,435,244],["Satomi-IIDA0004","American Express x Hilton",27,582,434,244],["Satomi-IIDA0004","ReFa",529,582,435,244],["Satomi-IIDA0004","Western Digital",1032,582,438,246]];
+  const CROPS = [["Satomi-IIDA0005-1","Komatsu",28,60,436,244],["Satomi-IIDA0005-1","Ishida Best",526,60,434,243],["Satomi-IIDA0005-1","Asahi Kasei",1022,59,437,244],["Satomi-IIDA0005-1","Nitori",27,324,434,243],["Satomi-IIDA0005-1","School project",526,324,436,245],["Satomi-IIDA0005-1","TV commercial",1022,321,438,245],["Satomi-IIDA0005-1","Kao Humming",525,585,435,243],["Satomi-IIDA0005-1","Idemitsu",1023,582,437,245],["Satomi-IIDA0004","Sony",27,67,434,243],["Satomi-IIDA0004","Rakuten Mobile",528,66,437,244],["Satomi-IIDA0004","JA Niigata",1031,66,435,244],["Satomi-IIDA0004","ACUVUE OASYS",530,324,435,244],["Satomi-IIDA0004","KDDI",1031,324,435,244],["Satomi-IIDA0004","American Express x Hilton",27,582,434,244],["Satomi-IIDA0004","ReFa",529,582,435,244],["Satomi-IIDA0004","Western Digital",1032,582,438,246]];
   const anchor = document.getElementById('print');
   CROPS.forEach(([file, name, x, y, w, h]) => {
     const t = document.createElement('div');
