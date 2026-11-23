@@ -120,13 +120,13 @@
   .cols ul{list-style:none;font-size:14px;line-height:2;color:#333}
 
   /* About */
-  .about{display:grid;grid-template-columns:minmax(0,620px) auto;justify-content:center;align-items:center;column-gap:clamp(32px,6vw,96px)}
-  .about .txt{padding:clamp(48px,7vw,110px) var(--pad)}
+  .about{display:grid;grid-template-columns:minmax(0,600px) auto;justify-content:center;align-items:center;column-gap:clamp(28px,3vw,44px)}
+  .about .txt{padding:clamp(48px,7vw,110px) 0 clamp(48px,7vw,110px) var(--pad)}
   .about h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,34px);text-transform:uppercase}
-  .about p{margin-top:20px;font-size:15px;color:#333;max-width:48ch}
+  .about p{margin-top:20px;font-size:15px;color:#333}
   .about p.jp{font-size:14px;line-height:2;color:#555}
   .about .img{padding:clamp(48px,7vw,110px) var(--pad) clamp(48px,7vw,110px) 0}
-  .about .img img{width:clamp(130px,13vw,170px);aspect-ratio:5/8;border-radius:50%;object-fit:cover;object-position:center 22%}
+  .about .img img{width:clamp(170px,17vw,230px);aspect-ratio:4/5;object-fit:cover;object-position:center 20%}
 
   /* Contact */
   .contact{text-align:center;padding:clamp(64px,9vw,130px) var(--pad)}
@@ -187,7 +187,8 @@
     .stick{position:static}
     .cols{grid-template-columns:1fr 1fr}
     .about .img{order:-1;padding:48px var(--pad) 0}
-    .about .img img{width:140px}
+    .about .img img{width:180px}
+    .about .txt{padding:32px var(--pad) 56px}
   }
   @media (max-width:560px){
     .cform{grid-template-columns:1fr}
