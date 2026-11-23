@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://satomi-iida.com/sitemap.xml
