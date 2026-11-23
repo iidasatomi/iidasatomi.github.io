@@ -96,6 +96,8 @@
   .tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
   .tile:hover img{transform:scale(1.025)}
   .portrait{aspect-ratio:4/5}
+  .tile.crop img{position:absolute;max-width:none;height:auto;object-fit:initial}
+  .cm-label{grid-column:1/-1;margin-top:14px;color:var(--muted)}
   .land{aspect-ratio:16/9}
 
   /* Video */
@@ -137,7 +139,8 @@
   /* Lightbox */
   .lb{position:fixed;inset:0;background:rgba(255,255,255,.97);display:none;align-items:center;justify-content:center;z-index:100;padding:60px 70px}
   .lb.open{display:flex}
-  .lb img{max-width:100%;max-height:100%;object-fit:contain}
+  .lb-frame{position:relative;overflow:hidden}
+  .lb-frame img{position:absolute;left:0;top:0;max-width:none;max-height:none}
   .lb button{position:absolute;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:13px;letter-spacing:.14em;color:var(--ink);padding:14px}
   .lb .close{top:14px;right:18px}
   .lb .prev{left:10px;top:50%;transform:translateY(-50%);font-size:28px}
@@ -234,8 +237,8 @@
       </div></div>
       <div class="grid" data-gallery>
         <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida-Honda-Prelude.jpg" alt="Hair and makeup by Satomi Iida for a Honda Prelude commercial"></div>
-        <div class="tile land reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0005-1.jpg" alt="Satomi Iida hair and makeup for a TV commercial"></div>
-        <div class="tile land reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0004.jpg" alt="Satomi Iida hair and makeup for an advertising campaign"></div>
+        <div class="cm-label caps" id="tvcm">TV Commercials</div>
+        <div class="cm-label caps" id="print" style="margin-top:22px">Advertising &amp; Talent</div>
         <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0002.jpg" alt="Satomi Iida hair and makeup work for advertising"></div>
         <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0003.jpg" alt="Satomi Iida hair and makeup work for music artists"></div>
         <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0001.jpg" alt="Satomi Iida hair and makeup work for talent and celebrities"></div>
@@ -327,7 +330,7 @@
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
   <button class="close caps" aria-label="Close">Close ✕</button>
   <button class="prev" aria-label="Previous">‹</button>
-  <img alt="">
+  <div class="lb-frame"><img alt=""></div>
   <button class="next" aria-label="Next">›</button>
 </div>
 
@@ -348,10 +351,39 @@
     }, { once: true });
   });
 
+  // TV commercial stills, cut from the collage images
+  const CROPS = [["Satomi-IIDA0005-1","Komatsu",28,60,436,244],["Satomi-IIDA0005-1","Ishida Best",526,60,434,243],["Satomi-IIDA0005-1","Asahi Kasei",1022,59,437,244],["Satomi-IIDA0005-1","Nitori",27,324,434,243],["Satomi-IIDA0005-1","School project",526,324,436,245],["Satomi-IIDA0005-1","TV commercial",1022,321,438,245],["Satomi-IIDA0005-1","Aderans",27,584,434,245],["Satomi-IIDA0005-1","Kao Humming",525,585,435,243],["Satomi-IIDA0005-1","Idemitsu",1023,582,437,245],["Satomi-IIDA0004","Sony",27,67,434,243],["Satomi-IIDA0004","Rakuten Mobile",528,66,437,244],["Satomi-IIDA0004","JA Niigata",1031,66,435,244],["Satomi-IIDA0004","McDonald's",27,327,431,241],["Satomi-IIDA0004","ACUVUE OASYS",530,324,435,244],["Satomi-IIDA0004","KDDI",1031,324,435,244],["Satomi-IIDA0004","American Express x Hilton",27,582,434,244],["Satomi-IIDA0004","ReFa",529,582,435,244],["Satomi-IIDA0004","Western Digital",1032,582,438,246]];
+  const anchor = document.getElementById('print');
+  CROPS.forEach(([file, name, x, y, w, h]) => {
+    const t = document.createElement('div');
+    t.className = 'tile crop reveal';
+    t.style.aspectRatio = w + '/' + h;
+    t.innerHTML = '<img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/' + file + '.jpg">';
+    const im = t.firstChild;
+    im.alt = 'TV commercial — ' + name + ' — hair and makeup by Satomi Iida';
+    im.dataset.crop = [x, y, w, h].join(',');
+    im.style.width = (1500 / w * 100) + '%';
+    im.style.left = (-x / w * 100) + '%';
+    im.style.top = (-y / h * 100) + '%';
+    anchor.before(t);
+  });
+
   // Lightbox
-  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  const lb = document.getElementById('lb'), frame = lb.querySelector('.lb-frame'), lbImg = frame.querySelector('img');
   let set = [], idx = 0;
-  const show = i => { idx = (i + set.length) % set.length; lbImg.src = set[idx].src; lbImg.alt = set[idx].alt; };
+  const fit = () => {
+    const el = set[idx], nw = lbImg.naturalWidth, nh = lbImg.naturalHeight;
+    if (!nw) return;
+    const [x, y, w, h] = el.dataset.crop ? el.dataset.crop.split(',').map(Number) : [0, 0, nw, nh];
+    const padX = innerWidth < 560 ? 24 : 140, padY = 120;
+    const s = Math.min((innerWidth - padX) / w, (innerHeight - padY) / h, el.dataset.crop ? 2 : 1);
+    frame.style.width = w * s + 'px'; frame.style.height = h * s + 'px';
+    lbImg.style.width = nw * s + 'px'; lbImg.style.height = nh * s + 'px';
+    lbImg.style.left = -x * s + 'px'; lbImg.style.top = -y * s + 'px';
+  };
+  lbImg.addEventListener('load', fit);
+  addEventListener('resize', () => lb.classList.contains('open') && fit());
+  const show = i => { idx = (i + set.length) % set.length; lbImg.alt = set[idx].alt; if (lbImg.src === set[idx].src) fit(); else lbImg.src = set[idx].src; };
   document.querySelectorAll('[data-gallery]').forEach(g => {
     const imgs = [...g.querySelectorAll('img')];
     imgs.forEach((img, i) => img.parentElement.addEventListener('click', () => {
