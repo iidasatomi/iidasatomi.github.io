@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satomi Iida 飯田さとみ — Hair &amp; Makeup Artist, Tokyo</title>
+<meta name="description" content="Satomi Iida (飯田さとみ) is a Tokyo-based hair and makeup artist working across advertising, television, fashion, music and editorial productions.">
+<link rel="canonical" href="https://satomi-iida.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Satomi Iida 飯田さとみ — Hair & Makeup Artist, Tokyo">
+<meta property="og:description" content="Hair & makeup for advertising, television, fashion, music and editorial productions.">
+<meta property="og:url" content="https://satomi-iida.com/">
+<meta property="og:image" content="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Questrial&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1c1c; --muted:#6b6b6b; --line:#d9d9d9; --bg:#ffffff; --soft:#f6f5f3;
+    --serif:"Cormorant Garamond", "Times New Roman", serif;
+    --sans:"Questrial", "Helvetica Neue", Arial, sans-serif;
+    --pad:clamp(20px,4vw,48px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .u{border-bottom:1px solid currentColor;padding-bottom:1px}
+  .caps{text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px var(--pad)}
+  .logo{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);letter-spacing:.04em;white-space:nowrap}
+  nav{display:flex;align-items:center;gap:28px}
+  nav a.caps:hover{opacity:.55}
+  .ig{display:inline-flex}
+  .ig svg{width:16px;height:16px}
+  .btn{display:inline-block;border:1px solid var(--ink);padding:11px 22px;transition:background .2s,color .2s}
+  .btn:hover{background:var(--ink);color:#fff}
+  .menu-toggle{display:none;background:none;border:0;cursor:pointer;width:28px;height:20px;position:relative}
+  .menu-toggle span{position:absolute;left:0;right:0;height:1px;background:var(--ink)}
+  .menu-toggle span:nth-child(1){top:4px}.menu-toggle span:nth-child(2){top:14px}
+
+  /* Hero */
+  .hero{display:grid;grid-template-columns:54% 46%;border-bottom:1px solid var(--line)}
+  .hero-img{background:var(--soft);min-height:420px}
+  .hero-img img{width:100%;height:100%;object-fit:cover;object-position:center 20%;max-height:calc(100vh - 70px)}
+  .hero-text{padding:clamp(36px,7vw,96px) var(--pad);display:flex;flex-direction:column;justify-content:center}
+  .hero-text h1{font-family:var(--sans);font-weight:400;font-size:clamp(24px,2.6vw,32px);letter-spacing:.06em;text-transform:uppercase}
+  .hero-text .role{margin-top:14px;font-size:clamp(14px,1.3vw,17px);letter-spacing:.08em;text-transform:uppercase}
+  .hero-text .rep{margin-top:16px;color:var(--ink)}
+  .hero-text .ja{margin-top:6px;color:var(--muted);font-size:13px;letter-spacing:.1em}
+  .cats{margin-top:clamp(40px,7vw,90px);display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+  .cats a{font-family:var(--serif);font-size:clamp(20px,2vw,26px);letter-spacing:.03em;text-transform:uppercase}
+  .cats a:hover{opacity:.55}
+
+  /* Sections */
+  section{border-bottom:1px solid var(--line)}
+  .split{display:grid;grid-template-columns:32% 68%;gap:clamp(24px,4vw,64px);padding:clamp(48px,7vw,96px) var(--pad)}
+  .split.rev{grid-template-columns:68% 32%}
+  .split.rev .side{order:2}
+  .side h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,34px);line-height:1.2;text-transform:uppercase;letter-spacing:.02em}
+  .side p{margin-top:22px;font-size:14px;color:#333;max-width:34ch;letter-spacing:.02em}
+  .side .links{margin-top:26px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+  .stick{position:sticky;top:110px}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1.4vw,18px)}
+  .grid .wide{grid-column:span 2}
+  .tile{position:relative;overflow:hidden;background:var(--soft);cursor:zoom-in}
+  .tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+  .tile:hover img{transform:scale(1.025)}
+  .portrait{aspect-ratio:4/5}
+  .land{aspect-ratio:16/9}
+
+  /* Video */
+  .videos{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1.4vw,18px)}
+  .videos .wide{grid-column:span 2}
+  .yt{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden}
+  .yt img{width:100%;height:100%;object-fit:cover;opacity:.92;transition:opacity .3s,transform .8s}
+  .yt:hover img{opacity:1;transform:scale(1.02)}
+  .yt .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .yt .play span{width:62px;height:62px;border:1px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.18)}
+  .yt .play span:after{content:"";border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #fff;margin-left:4px}
+  .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  /* Credits */
+  .credits{padding:clamp(48px,7vw,96px) var(--pad)}
+  .credits h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,34px);text-transform:uppercase}
+  .cols{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+  .cols h3{font-weight:400;margin-bottom:14px}
+  .cols ul{list-style:none;font-size:14px;line-height:2;color:#333}
+
+  /* About */
+  .about{display:grid;grid-template-columns:46% 54%;align-items:center}
+  .about .txt{padding:clamp(48px,7vw,110px) var(--pad)}
+  .about h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,34px);text-transform:uppercase}
+  .about p{margin-top:20px;font-size:15px;color:#333;max-width:48ch}
+  .about p.jp{font-size:14px;line-height:2;color:#555}
+  .about .img{background:var(--soft);height:100%}
+  .about .img img{width:100%;height:100%;object-fit:cover;object-position:center 25%;min-height:520px}
+
+  /* Contact */
+  .contact{text-align:center;padding:clamp(64px,9vw,130px) var(--pad)}
+  .contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,44px);text-transform:uppercase;letter-spacing:.02em}
+  .contact p{margin:18px auto 34px;color:#444;font-size:14px;max-width:46ch}
+  .contact .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+  footer{padding:36px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+  footer nav{gap:22px}
+
+  /* Lightbox */
+  .lb{position:fixed;inset:0;background:rgba(255,255,255,.97);display:none;align-items:center;justify-content:center;z-index:100;padding:60px 70px}
+  .lb.open{display:flex}
+  .lb img{max-width:100%;max-height:100%;object-fit:contain}
+  .lb button{position:absolute;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:13px;letter-spacing:.14em;color:var(--ink);padding:14px}
+  .lb .close{top:14px;right:18px}
+  .lb .prev{left:10px;top:50%;transform:translateY(-50%);font-size:28px}
+  .lb .next{right:10px;top:50%;transform:translateY(-50%);font-size:28px}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    nav.main{position:fixed;inset:63px 0 auto 0;background:#fff;flex-direction:column;align-items:flex-start;padding:24px var(--pad) 32px;gap:18px;border-bottom:1px solid var(--line);display:none}
+    nav.main.open{display:flex}
+    .menu-toggle{display:block}
+    .hero,.about{grid-template-columns:1fr}
+    .hero-img img{max-height:none;aspect-ratio:4/5}
+    .split,.split.rev{grid-template-columns:1fr}
+    .split.rev .side{order:0}
+    .stick{position:static}
+    .cols{grid-template-columns:1fr 1fr}
+    .about .img{order:-1}
+    .about .img img{min-height:0;aspect-ratio:4/5}
+  }
+  @media (max-width:560px){
+    .grid,.videos{grid-template-columns:1fr}
+    .grid .wide,.videos .wide{grid-column:auto}
+    .cols{grid-template-columns:1fr}
+    .lb{padding:56px 12px}
+  }
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="logo" href="#top">SATOMI IIDA</a>
+    <nav class="main" id="nav">
+      <a class="caps" href="#portfolio">Portfolio</a>
+      <a class="caps" href="#credits">Credits</a>
+      <a class="caps" href="#about">About</a>
+      <a class="ig" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="btn caps" href="#contact">Contact for Bookings</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menu" aria-controls="nav"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-img">
+      <img src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida.jpg" alt="Satomi Iida, Tokyo hair and makeup artist">
+    </div>
+    <div class="hero-text">
+      <h1>Satomi Iida</h1>
+      <div class="role">Hair &amp; Makeup Artist</div>
+      <div class="rep caps">Represented by <a class="u" href="https://silverfoxpro.com/" target="_blank" rel="noopener">Silver Fox Production</a> &nbsp;//&nbsp; Tokyo</div>
+      <div class="ja">飯田さとみ ／ ヘアメイク</div>
+      <div class="cats" id="portfolio">
+        <a class="u" href="#editorial">Fashion &amp; Editorial</a>
+        <a class="u" href="#commercial">Commercial &amp; Advertising</a>
+        <a class="u" href="#music">Music &amp; Talent</a>
+        <a class="u" href="#film">Moving Image</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fashion & Editorial -->
+  <section id="editorial">
+    <div class="split">
+      <div class="side"><div class="stick reveal">
+        <h2>Fashion &amp;<br>Editorial</h2>
+        <p>Portrait, fashion and editorial work — hair and makeup built around the person, the light and the camera.</p>
+      </div></div>
+      <div class="grid" data-gallery>
+        <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-1.jpg" alt="Fashion shoot hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-3.jpg" alt="Fashion portrait with hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-5.jpg" alt="Editorial portrait, hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-4.jpg" alt="Fashion editorial, hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-2.jpg" alt="Model portrait, hair and makeup by Satomi Iida"></div>
+        <div class="tile portrait reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida.jpg" alt="Portrait of Satomi Iida"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commercial -->
+  <section id="commercial">
+    <div class="split rev">
+      <div class="side"><div class="stick reveal">
+        <h2>Commercial &amp;<br>Advertising</h2>
+        <p>Campaigns and TV commercials for brands including Sony, Honda, McDonald’s, KDDI and American Express.</p>
+        <div class="links"><a class="caps u" href="#film">View commercial films</a></div>
+      </div></div>
+      <div class="grid" data-gallery>
+        <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida-Honda-Prelude.jpg" alt="Hair and makeup by Satomi Iida for a Honda Prelude commercial"></div>
+        <div class="tile land reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0005-1.jpg" alt="Satomi Iida hair and makeup for a TV commercial"></div>
+        <div class="tile land reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0004.jpg" alt="Satomi Iida hair and makeup for an advertising campaign"></div>
+        <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0002.jpg" alt="Satomi Iida hair and makeup work for advertising"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Music & Talent -->
+  <section id="music">
+    <div class="split">
+      <div class="side"><div class="stick reveal">
+        <h2>Music &amp;<br>Talent</h2>
+        <p>Artists, actors and athletes — from music videos and live television to talent portraits.</p>
+        <div class="links"><a class="caps u" href="#film">View music videos</a></div>
+      </div></div>
+      <div class="grid" data-gallery>
+        <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0003.jpg" alt="Satomi Iida hair and makeup work for music artists"></div>
+        <div class="tile land wide reveal"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-IIDA0001.jpg" alt="Satomi Iida hair and makeup work for talent and celebrities"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Moving image -->
+  <section id="film">
+    <div class="split rev">
+      <div class="side"><div class="stick reveal">
+        <h2>Moving<br>Image</h2>
+        <p>Selected music videos and commercials.</p>
+        <div class="links">
+          <a class="caps u" href="#mv">Music Video</a>
+          <a class="caps u" href="#cm">Commercial</a>
+        </div>
+      </div></div>
+      <div>
+        <div class="caps" id="mv" style="margin-bottom:14px;color:var(--muted)">Music Video</div>
+        <div class="videos">
+          <div class="yt wide reveal" data-id="BSrQBW4zAo8"></div>
+          <div class="yt reveal" data-id="df_7ABanC1o"></div>
+          <div class="yt reveal" data-id="JSM261gzAxU"></div>
+          <div class="yt reveal" data-id="o0U_YcL3lZg"></div>
+          <div class="yt reveal" data-id="Lo8lo-WswYQ"></div>
+        </div>
+        <div class="caps" id="cm" style="margin:40px 0 14px;color:var(--muted)">Commercial</div>
+        <div class="videos">
+          <div class="yt wide reveal" data-id="1vuD1j3YTRk"></div>
+          <div class="yt reveal" data-id="W2rTQXZ_vak"></div>
+          <div class="yt reveal" data-id="AgbpQeyN5MM"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credits -->
+  <section class="credits" id="credits">
+    <h2 class="reveal">Credits</h2>
+    <div class="cols">
+      <div class="reveal">
+        <h3 class="caps">Selected Clients</h3>
+        <ul><li>Sony</li><li>Honda Motors</li><li>McDonald’s</li><li>KDDI</li><li>Johnson &amp; Johnson</li><li>Kao</li><li>ReFa</li><li>Rakuten Mobile</li><li>American Express</li><li>Asahi Kasei</li><li>Western Digital</li><li>AXA Life</li><li>Mitsui Shopping Park</li><li>Tokyo Calendar</li></ul>
+      </div>
+      <div class="reveal">
+        <h3 class="caps">Television &amp; Entertainment</h3>
+        <ul><li>Music Station</li><li>PRODUCE 101 JAPAN</li><li>Run for Money</li><li>Sentochu</li><li>Papajani WEST</li></ul>
+      </div>
+      <div class="reveal">
+        <h3 class="caps">Selected Talent</h3>
+        <ul><li>King &amp; Prince</li><li>WEST.</li><li>timelesz</li><li>Aぇ! group</li><li>BAD HOP</li><li>Hikari Mori</li><li>Koshi Mizukami</li><li>Nobuyuki Suzuki</li><li>Nao Asahi</li><li>EXIT</li><li>Atsuya Furuta</li><li>Keita Inagaki</li></ul>
+      </div>
+      <div class="reveal">
+        <h3 class="caps">Productions</h3>
+        <ul><li>Commercial</li><li>Corporate</li><li>Television</li><li>Music</li><li>Fashion</li><li>Editorial</li><li>Portrait</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="txt reveal">
+      <h2>About Satomi</h2>
+      <p>Based in Tokyo, Satomi Iida is a hair and makeup artist working across advertising, television, fashion, music and editorial productions.</p>
+      <p>Her experience ranges from major commercial campaigns and television productions to artists, actors, athletes and corporate shoots. She approaches each project with an understanding of the person, the camera and the production — and for larger shoots, she can coordinate additional hair and makeup artists.</p>
+      <p class="jp">東京を拠点に、広告・テレビ・ファッション・音楽・エディトリアルの現場で活動するヘアメイクアップアーティスト。大型の広告キャンペーンやテレビ番組から、アーティスト、俳優、アスリート、企業の撮影まで幅広く担当。被写体、カメラ、そして現場全体を理解したうえで、一つひとつの仕事に向き合っています。大規模な撮影では、ヘアメイクチームの手配にも対応します。</p>
+    </div>
+    <div class="img"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2022/02/iida-3.jpg" alt="Hair and makeup by Satomi Iida"></div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2 class="reveal">Looking for Hair &amp; Makeup?</h2>
+    <p class="reveal">For bookings and availability, please contact Silver Fox Production.<br>ご依頼・スケジュールのお問い合わせはこちらから。</p>
+    <div class="row reveal">
+      <a class="btn caps" href="https://silverfoxpro.com/contact/" target="_blank" rel="noopener">Contact for Bookings</a>
+      <a class="btn caps" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <nav>
+    <a class="caps" href="#portfolio">Portfolio</a>
+    <a class="caps" href="#about">About</a>
+    <a class="caps" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+  <div>© <span id="yr">2026</span> Satomi Iida &nbsp;·&nbsp; Represented by <a class="u" href="https://silverfoxpro.com/" target="_blank" rel="noopener">Silver Fox Production ATL, Inc.</a></div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="close caps" aria-label="Close">Close ✕</button>
+  <button class="prev" aria-label="Previous">‹</button>
+  <img alt="">
+  <button class="next" aria-label="Next">›</button>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const nav = document.getElementById('nav');
+  document.querySelector('.menu-toggle').addEventListener('click', () => nav.classList.toggle('open'));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+  // YouTube: thumbnail first, load player on click
+  document.querySelectorAll('.yt').forEach(el => {
+    const id = el.dataset.id;
+    el.innerHTML = '<img loading="lazy" alt="Video" src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg"><div class="play"><span></span></div>';
+    el.addEventListener('click', () => {
+      el.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Video"></iframe>';
+    }, { once: true });
+  });
+
+  // Lightbox
+  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  let set = [], idx = 0;
+  const show = i => { idx = (i + set.length) % set.length; lbImg.src = set[idx].src; lbImg.alt = set[idx].alt; };
+  document.querySelectorAll('[data-gallery]').forEach(g => {
+    const imgs = [...g.querySelectorAll('img')];
+    imgs.forEach((img, i) => img.parentElement.addEventListener('click', () => {
+      set = imgs; show(i); lb.classList.add('open'); document.body.style.overflow = 'hidden';
+    }));
+  });
+  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  lb.querySelector('.close').onclick = close;
+  lb.querySelector('.prev').onclick = e => { e.stopPropagation(); show(idx - 1); };
+  lb.querySelector('.next').onclick = e => { e.stopPropagation(); show(idx + 1); };
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(idx - 1);
+    if (e.key === 'ArrowRight') show(idx + 1);
+  });
+
+  // Fade-in on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
