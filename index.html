@@ -166,7 +166,7 @@
 
   /* Editorial orb */
   .orb-wrap{display:flex;flex-direction:column;align-items:center}
-  .orb{position:relative;width:min(100%,780px);aspect-ratio:1/1;perspective:1800px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+  .orb{position:relative;width:min(100%,600px);aspect-ratio:1/1;perspective:1400px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
   .orb.dragging{cursor:grabbing}
   .ball{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
   .face{position:absolute;overflow:hidden;background:var(--soft);backface-visibility:hidden;-webkit-backface-visibility:hidden;outline:1px solid rgba(255,255,255,.9)}
@@ -525,7 +525,7 @@
   (() => {
     const PICS = [{"src": "https://silverfoxpro.com/wp-content/uploads/2022/02/iida-1.jpg", "alt": "Fashion shoot hair and makeup by Satomi Iida"}, {"src": "https://silverfoxpro.com/wp-content/uploads/2022/02/iida-3.jpg", "alt": "Fashion portrait with hair and makeup by Satomi Iida"}, {"src": "https://silverfoxpro.com/wp-content/uploads/2022/02/iida-4.jpg", "alt": "Fashion editorial, hair and makeup by Satomi Iida"}, {"src": "https://silverfoxpro.com/wp-content/uploads/2022/02/iida-2.jpg", "alt": "Model portrait, hair and makeup by Satomi Iida"}, {"src": "images/C2246181-4DDE-41D6-91BD-AA5B7A5D7B13.jpg", "alt": "ヘアメイク 飯田さとみ Fashion portrait, hair and makeup by Satomi Iida"}, {"src": "images/E109BB80-B18E-42C6-A492-609E60590C6C.jpg", "alt": "ヘアメイク 飯田さとみ Editorial, hair and makeup by Satomi Iida"}, {"src": "images/99FB0BBF-87AB-4A10-A583-DE0A01EBADAF.jpg", "alt": "ヘアメイク 飯田さとみ Beauty, hair and makeup by Satomi Iida"}, {"src": "images/6C85B05C-187B-4063-AE85-9AB5B70C785B.jpg", "alt": "ヘアメイク 飯田さとみ Beauty portrait, hair and makeup by Satomi Iida"}, {"src": "images/9A04AD0D-5945-4F5D-A321-581AC0C57EDE.jpg", "alt": "ヘアメイク 飯田さとみ Fashion portrait, hair and makeup by Satomi Iida"}, {"src": "images/5763B086-2C0A-4A42-B615-C21C27E1918D.jpg", "alt": "ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"}, {"src": "images/CE66EC53-5B96-4D0E-A794-119C5BB1481D.jpg", "alt": "ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"}, {"src": "images/S__221700105_0.jpg", "alt": "ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"}, {"src": "images/S__221700104_0.jpg", "alt": "ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"}, {"src": "images/S__221700102.jpg", "alt": "ヘアメイク 飯田さとみ Golf apparel campaign, hair and makeup by Satomi Iida"}];
     const orb = document.getElementById('orb'), ball = document.getElementById('ball'), count = document.getElementById('orb-count');
-    const RINGS = [[-72, 3], [-36, 8], [0, 10], [36, 8], [72, 3]];
+    const RINGS = [[-90, 1], [-60, 6], [-30, 10], [0, 12], [30, 10], [60, 6], [90, 1]];
     const faces = [];
     let k = 0;
     RINGS.forEach(([lat, n], ri) => {
@@ -541,8 +541,8 @@
     });
     let R = 0;
     const layout = () => {
-      R = orb.clientWidth * 0.44;
-      const step = 36 * Math.PI / 180;
+      R = orb.clientWidth * 0.42;
+      const step = 30 * Math.PI / 180;
       faces.forEach(f => {
         const h = 2 * R * Math.sin(step / 2) * 0.97;
         const w = Math.abs(f.lat) === 90 ? h : 2 * R * Math.cos(f.lat * Math.PI / 180) * Math.sin(Math.PI / f.n) * 0.97;
