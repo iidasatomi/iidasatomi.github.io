@@ -206,6 +206,18 @@
   .vface .play:after{content:"";position:absolute;left:17px;top:13px;border-style:solid;border-width:9px 0 9px 14px;border-color:transparent transparent transparent #fff}
   .vcap{clip-path:polygon(50% 0,100% 100%,0 100%);background:repeating-linear-gradient(90deg,#eceef0 0 6px,#c3c8cd 6px 8px,#f6f7f8 8px 9px)}
 
+  /* Turning boxes (Credits, Training): swipe to turn */
+  .cstage{position:relative;max-width:560px;margin:40px auto 0;perspective:1400px;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+  #training .cstage{margin-top:0}
+  .cbox{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+  .cbox.dragging{transition:none}
+  .cpanel{position:absolute;inset:0;background:#fff;border:1px solid var(--line);padding:30px 34px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .cpanel .show-line{margin-top:0;padding-top:0;border-top:0}
+  .cdots{display:flex;justify-content:center;gap:10px 22px;flex-wrap:wrap;margin-top:24px}
+  .cdots button{background:none;border:0;border-bottom:1px solid transparent;font:inherit;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);cursor:pointer;padding:4px 0}
+  .cdots button.on{color:var(--ink);border-bottom-color:var(--ink)}
+  .chint{text-align:center;margin-top:12px;font-size:11px;letter-spacing:.12em;color:var(--muted)}
+
   footer{padding:36px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
   footer nav{gap:22px}
 
@@ -816,6 +828,52 @@
     const layout = () => { pLayout(); tLayout(); };
     addEventListener('resize', layout);
     layout(); tick();
+  })();
+
+  // Turning boxes: lists on the faces of a box you turn by swiping left / right
+  const turnBox = (before, panels, labels) => {
+    const N = panels.length, step = 360 / N;
+    const stage = document.createElement('div'); stage.className = 'cstage';
+    const box = document.createElement('div'); box.className = 'cbox';
+    before.parentNode.insertBefore(stage, before); stage.appendChild(box);
+    panels.forEach(p => { p.classList.remove('reveal'); p.classList.add('cpanel'); box.appendChild(p); });
+    const dots = document.createElement('div'); dots.className = 'cdots';
+    const hint = document.createElement('div'); hint.className = 'chint caps'; hint.textContent = '左右にスワイプ　Swipe';
+    stage.after(dots); dots.after(hint);
+    let cur = 0, W = 0, depth = 0, drag = false, sx = 0, dx = 0, btns = [];
+    const at = () => ((cur % N) + N) % N;
+    const render = (extra = 0) => {
+      box.style.transform = 'translateZ(' + (-depth) + 'px) rotateY(' + (-cur * step + extra) + 'deg)';
+      btns.forEach((b, i) => b.classList.toggle('on', i === at()));
+    };
+    btns = labels.map((t, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.onclick = () => { let d = (i - at() + N) % N; if (d > N / 2) d -= N; cur += d; render(); }; dots.appendChild(b); return b; });
+    const size = () => {
+      W = stage.clientWidth;
+      depth = N > 2 ? W / 2 / Math.tan(Math.PI / N) : 1;
+      stage.style.height = Math.max(...panels.map(p => p.scrollHeight)) + 'px';
+      panels.forEach((p, i) => p.style.transform = 'rotateY(' + i * step + 'deg) translateZ(' + depth + 'px)');
+      render();
+    };
+    stage.addEventListener('pointerdown', e => { drag = true; sx = e.clientX; dx = 0; box.classList.add('dragging'); });
+    stage.addEventListener('pointermove', e => { if (!drag) return; dx = e.clientX - sx; render(dx / W * step); });
+    const end = () => { if (!drag) return; drag = false; box.classList.remove('dragging'); if (Math.abs(dx) > 50) cur += dx < 0 ? 1 : -1; render(); };
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => stage.addEventListener(t, end));
+    addEventListener('resize', size);
+    size();
+  };
+  (() => {
+    const cols = document.querySelector('#credits .cols');
+    if (cols) { const ps = [...cols.children]; turnBox(cols, ps, ps.map(p => p.querySelector('h3').textContent)); cols.remove(); }
+    const list = document.querySelector('#training .train-list');
+    if (list) {
+      const host = list.parentElement, label = list.previousElementSibling, show = host.querySelector('.show-line');
+      const a = document.createElement('div'); a.append(label, list);
+      const b = document.createElement('div'); b.append(show);
+      const wrap = document.createElement('div'), ph = document.createElement('i');
+      host.replaceWith(wrap); wrap.appendChild(ph);
+      turnBox(ph, [a, b], ['企業研修 Training', 'ショー Show']);
+      ph.remove();
+    }
   })();
 
   // Fade-in on scroll
