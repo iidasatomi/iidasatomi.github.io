@@ -174,9 +174,9 @@
   .orb-ui #orb-count{color:var(--ink)}
 
   /* Commercial suitcases */
-  .stage{position:relative;width:100%;max-width:760px;aspect-ratio:1/0.72;overflow:hidden;cursor:zoom-in;background:#fff url(https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida-Honda-Prelude.jpg) center 30%/cover no-repeat;perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-  .stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.9));pointer-events:none}
-  .scene{position:absolute;left:50%;top:80%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-18deg)}
+  .stage{position:relative;width:100%;max-width:760px;aspect-ratio:1/0.95;overflow:hidden;cursor:zoom-in;background:#fff url(https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida-Honda-Prelude.jpg) center top/100% auto no-repeat;perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  .stage::after{content:"";position:absolute;left:0;right:0;top:60%;height:18%;background:linear-gradient(rgba(255,255,255,0),#fff);pointer-events:none}
+  .scene{position:absolute;z-index:1;left:50%;top:92%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-18deg)}
   .case{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
   .dface,.dcap,.dshadow{position:absolute;backface-visibility:hidden;-webkit-backface-visibility:hidden}
   .dface,.dcap{overflow:hidden;touch-action:none;cursor:grab}
@@ -189,6 +189,21 @@
   .dcap.top{background:repeating-linear-gradient(0deg,#eceef0 0 6px,#c3c8cd 6px 8px,#f6f7f8 8px 9px)}
   .dcap i{position:absolute;left:50%;top:50%;width:36%;height:26%;transform:translate(-50%,-50%);border-radius:999px;background:#2f3032}
   .dshadow{border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.18),rgba(0,0,0,0));backface-visibility:visible}
+
+  /* Video shapes */
+  .shapes{display:flex;flex-direction:column;gap:clamp(40px,6vw,80px)}
+  #mv,#cm{scroll-margin-top:110px}
+  .shape{position:relative;width:min(100%,560px);perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  .shape.pyr{aspect-ratio:1/0.9}
+  .shape.tri{aspect-ratio:1/0.62}
+  .vface,.vcap{position:absolute;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .vface{background:#111;cursor:pointer;touch-action:none}
+  .tri .vface{touch-action:pan-y}
+  .vface img{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+  .vface .play{position:absolute;left:50%;top:58%;width:44px;height:44px;margin:-22px 0 0 -22px;border:1px solid #fff;border-radius:50%;background:rgba(0,0,0,.2)}
+  .tri .vface .play{top:50%}
+  .vface .play:after{content:"";position:absolute;left:17px;top:13px;border-style:solid;border-width:9px 0 9px 14px;border-color:transparent transparent transparent #fff}
+  .vcap{clip-path:polygon(50% 0,100% 100%,0 100%);background:repeating-linear-gradient(90deg,#eceef0 0 6px,#c3c8cd 6px 8px,#f6f7f8 8px 9px)}
 
   footer{padding:36px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
   footer nav{gap:22px}
@@ -303,21 +318,17 @@
     <div class="split rev">
       <div class="side"><div class="stick reveal">
         <h2>Music Video<br>&amp; Commercial</h2>
+        <p>ミュージックビデオとCMのヘアメイク。形をタップすると動画が再生されます。</p>
+        <p>Hair and makeup for music videos and commercials. Tap a face to play.</p>
       </div></div>
-      <div>
-        <div class="caps" id="mv" style="margin-bottom:14px;color:var(--muted);scroll-margin-top:110px">Music Video</div>
-        <div class="videos">
-          <div class="yt wide reveal" data-id="BSrQBW4zAo8"></div>
-          <div class="yt reveal" data-id="df_7ABanC1o"></div>
-          <div class="yt reveal" data-id="JSM261gzAxU"></div>
-          <div class="yt reveal" data-id="o0U_YcL3lZg"></div>
-          <div class="yt reveal" data-id="Lo8lo-WswYQ"></div>
+      <div class="shapes">
+        <div class="orb-wrap reveal" id="mv">
+          <div class="shape pyr" id="pyr" aria-label="Music videos on a pyramid. Drag to rotate, tap a face to play."><div class="ball" id="pyrBall"></div></div>
+          <div class="orb-ui caps"><span>05 Videos</span><span>Music Video</span><span class="orb-hint">ドラッグして回す　Drag to roll</span></div>
         </div>
-        <div class="caps" id="cm" style="margin:40px 0 14px;color:var(--muted);scroll-margin-top:110px">Commercial</div>
-        <div class="videos">
-          <div class="yt wide reveal" data-id="1vuD1j3YTRk"></div>
-          <div class="yt reveal" data-id="W2rTQXZ_vak"></div>
-          <div class="yt reveal" data-id="AgbpQeyN5MM"></div>
+        <div class="orb-wrap reveal" id="cm">
+          <div class="shape tri" id="tri" aria-label="Commercial films on a rotating three-sided billboard. Drag to turn, tap a face to play."><div class="ball" id="triBall"></div></div>
+          <div class="orb-ui caps"><span>03 Films</span><span>Commercial</span><span class="orb-hint">ドラッグして回す　Drag to turn</span></div>
         </div>
       </div>
     </div>
@@ -555,6 +566,7 @@
   const lb = document.getElementById('lb'), frame = lb.querySelector('.lb-frame'), lbImg = frame.querySelector('img');
   let set = [], idx = 0;
   const fit = () => {
+    if (set[idx] && set[idx].video) return;
     const el = set[idx], nw = lbImg.naturalWidth, nh = lbImg.naturalHeight;
     if (!nw) return;
     const [x, y, w, h] = el.dataset.crop ? el.dataset.crop.split(',').map(Number) : [0, 0, nw, nh];
@@ -566,14 +578,29 @@
   };
   lbImg.addEventListener('load', fit);
   addEventListener('resize', () => lb.classList.contains('open') && fit());
-  const show = i => { idx = (i + set.length) % set.length; lbImg.alt = set[idx].alt; if (lbImg.src === set[idx].src) fit(); else lbImg.src = set[idx].src; };
+  const show = i => {
+    idx = (i + set.length) % set.length; const it = set[idx];
+    const old = frame.querySelector('iframe'); if (old) old.remove();
+    if (it.video) {
+      lbImg.style.display = 'none';
+      const w = Math.min(innerWidth - (innerWidth < 560 ? 24 : 140), (innerHeight - 170) * 16 / 9);
+      frame.style.width = w + 'px'; frame.style.height = w * 9 / 16 + 'px';
+      const v = document.createElement('iframe');
+      v.src = 'https://www.youtube-nocookie.com/embed/' + it.video + '?autoplay=1&rel=0&playsinline=1';
+      v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = it.alt;
+      v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+      frame.appendChild(v); return;
+    }
+    lbImg.style.display = ''; lbImg.alt = it.alt;
+    if (lbImg.src === it.src) fit(); else lbImg.src = it.src;
+  };
   document.querySelectorAll('[data-gallery]').forEach(g => {
     const imgs = [...g.querySelectorAll('img')];
     imgs.forEach((img, i) => img.parentElement.addEventListener('click', () => {
       set = imgs; show(i); lb.classList.add('open'); document.body.style.overflow = 'hidden';
     }));
   });
-  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; const v = frame.querySelector('iframe'); if (v) v.remove(); lbImg.style.display = ''; };
   lb.querySelector('.close').onclick = close;
   lb.querySelector('.prev').onclick = e => { e.stopPropagation(); show(idx - 1); };
   lb.querySelector('.next').onclick = e => { e.stopPropagation(); show(idx + 1); };
@@ -724,6 +751,67 @@
     };
     orb.addEventListener('pointerup', end);
     orb.addEventListener('pointercancel', end);
+    addEventListener('resize', layout);
+    layout(); tick();
+  })();
+
+  // Video shapes: music videos on a pyramid, commercials on a three-sided billboard
+  (() => {
+    const thumb = id => 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+    const MV = ['BSrQBW4zAo8', 'df_7ABanC1o', 'JSM261gzAxU', 'o0U_YcL3lZg', 'Lo8lo-WswYQ'].map((v, i) => ({ video: v, src: thumb(v), alt: 'Music video ' + (i + 1) + ', hair and makeup by Satomi Iida', dataset: {} }));
+    const CM = ['1vuD1j3YTRk', 'W2rTQXZ_vak', 'AgbpQeyN5MM'].map((v, i) => ({ video: v, src: thumb(v), alt: 'Commercial film ' + (i + 1) + ', hair and makeup by Satomi Iida', dataset: {} }));
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const open = (items, i) => { set = items; show(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const face = (parent, it, cls) => { const el = document.createElement('div'); el.className = 'vface' + (cls ? ' ' + cls : ''); el.innerHTML = '<img draggable="false" alt="' + it.alt + '" src="' + it.src + '"><span class="play"></span>'; parent.appendChild(el); return el; };
+    const place = (el, w, hh, origin, tf) => { el.style.width = w + 'px'; el.style.height = hh + 'px'; el.style.left = -w * origin[0] + 'px'; el.style.top = -hh * origin[1] + 'px'; el.style.transformOrigin = (origin[0] * 100) + '% ' + (origin[1] * 100) + '%'; el.style.transform = tf; };
+    const hitOn = (e, list) => { const hit = document.elementsFromPoint(e.clientX, e.clientY).find(x => x.classList && x.classList.contains('vface')); return list.findIndex(f => f.el === hit); };
+
+    // Pyramid: four triangular sides + square base = five videos, free rotation
+    const pyr = document.getElementById('pyr'), pb = document.getElementById('pyrBall');
+    const pf = MV.map((it, i) => ({ el: face(pb, it, i < 4 ? 'side' : 'base'), i }));
+    pf.slice(0, 4).forEach(f => f.el.style.clipPath = 'polygon(50% 0,100% 100%,0 100%)');
+    const pLayout = () => {
+      const B = pyr.clientWidth * 0.46, Hh = B * 0.82, L = Math.hypot(Hh, B / 2), a = Math.atan2(B / 2, Hh) * 180 / Math.PI;
+      pf.forEach((f, i) => {
+        if (i < 4) place(f.el, B, L, [0.5, 1], 'rotateY(' + i * 90 + 'deg) translate3d(0,' + Hh / 3 + 'px,' + B / 2 + 'px) rotateX(' + a + 'deg)');
+        else place(f.el, B, B, [0.5, 0.5], 'translateY(' + Hh / 3 + 'px) rotateX(-90deg)');
+      });
+    };
+    let prot = new DOMMatrix().rotateSelf(-14, 30, 0), pvx = 0, pvy = 0, pdrag = false, pmoved = 0, plx = 0, ply = 0, pidle = 0;
+    const pturn = (dx, dy) => { const d = Math.hypot(dx, dy); if (d) prot = new DOMMatrix().rotateAxisAngleSelf(-dy / d, dx / d, 0, d * 0.4).multiply(prot); };
+    pyr.addEventListener('pointerdown', e => { if (!e.target.closest('.vface')) return; pdrag = true; pmoved = 0; pvx = pvy = 0; plx = e.clientX; ply = e.clientY; pyr.setPointerCapture(e.pointerId); });
+    pyr.addEventListener('pointermove', e => { if (!pdrag) return; const dx = e.clientX - plx, dy = e.clientY - ply; plx = e.clientX; ply = e.clientY; pmoved += Math.abs(dx) + Math.abs(dy); pturn(dx, dy); pvx = dx; pvy = dy; });
+    const pend = e => { if (!pdrag) return; pdrag = false; pidle = performance.now(); if (pmoved < 6) { const k = hitOn(e, pf); if (k >= 0) { pvx = pvy = 0; open(MV, k); } } };
+    pyr.addEventListener('pointerup', pend); pyr.addEventListener('pointercancel', pend);
+
+    // Three-sided billboard: turns in 120-degree steps like a roadside tri-vision sign
+    const tri = document.getElementById('tri'), tb = document.getElementById('triBall');
+    const tf = CM.map((it, i) => ({ el: face(tb, it), i }));
+    const caps = [0, 1].map(() => { const el = document.createElement('div'); el.className = 'vcap'; tb.appendChild(el); return el; });
+    const tLayout = () => {
+      const w = tri.clientWidth * 0.6, t = w * 9 / 16, ap = w / (2 * Math.tan(Math.PI / 3)), th = w * Math.sqrt(3) / 2;
+      tf.forEach((f, i) => place(f.el, w, t, [0.5, 0.5], 'rotateY(' + i * 120 + 'deg) translateZ(' + ap + 'px)'));
+      place(caps[0], w, th, [0.5, 2 / 3], 'translateY(' + (-t / 2) + 'px) rotateX(90deg)');
+      place(caps[1], w, th, [0.5, 2 / 3], 'translateY(' + (t / 2) + 'px) rotateX(-90deg) rotateZ(180deg)');
+    };
+    let yaw = 0, target = 0, tv = 0, tdrag = false, tmoved = 0, tlx = 0, tidle = 0, last = performance.now();
+    tri.addEventListener('pointerdown', e => { if (!e.target.closest('.vface')) return; tdrag = true; tmoved = 0; tlx = e.clientX; tri.setPointerCapture(e.pointerId); });
+    tri.addEventListener('pointermove', e => { if (!tdrag) return; const dx = e.clientX - tlx; tlx = e.clientX; tmoved += Math.abs(dx); yaw += dx * 0.45; tv = dx * 0.45; });
+    const tend = e => { if (!tdrag) return; tdrag = false; tidle = last = performance.now(); if (tmoved < 6) { const k = hitOn(e, tf); if (k >= 0) open(CM, k); } target = Math.round((yaw + tv * 6) / 120) * 120; };
+    tri.addEventListener('pointerup', tend); tri.addEventListener('pointercancel', tend);
+
+    const tick = () => {
+      const now = performance.now();
+      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && now - pidle > 2500) pturn(0.3, 0.05); }
+      pb.style.transform = prot.toString();
+      if (!tdrag) {
+        if (!still && now - Math.max(tidle, last) > 3500) { target -= 120; last = now; }
+        tv += (target - yaw) * 0.08; tv *= 0.7; yaw += tv;
+      }
+      tb.style.transform = 'rotateX(-8deg) rotateY(' + yaw + 'deg)';
+      requestAnimationFrame(tick);
+    };
+    const layout = () => { pLayout(); tLayout(); };
     addEventListener('resize', layout);
     layout(); tick();
   })();
