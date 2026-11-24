@@ -493,30 +493,27 @@
     if (e.key === 'ArrowRight') show(idx + 1);
   });
 
-  // Contact form (FormSubmit)
-  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/photobyhiro@icloud.com';
+  // Contact form (FormSubmit, normal POST so it works in every browser)
+  const FORM_EMAIL = 'photobyhiro@icloud.com';
   const cform = document.getElementById('cform'), fmsg = document.getElementById('form-msg'), fsend = document.getElementById('f-send');
-  cform.addEventListener('submit', async e => {
-    e.preventDefault();
+  if (/[?&]sent=1/.test(location.search)) {
+    fmsg.className = 'form-msg ok';
+    fmsg.textContent = '送信しました。ありがとうございます。折り返しご連絡いたします。 Thank you, your message has been sent.';
+    setTimeout(() => document.getElementById('contact').scrollIntoView(), 300);
+  }
+  cform.addEventListener('submit', e => {
     fmsg.className = 'form-msg'; fmsg.textContent = '';
     const bad = [...cform.querySelectorAll('[required]')].find(el => !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value)));
-    if (bad) { fmsg.className = 'form-msg err'; fmsg.textContent = '必須項目を入力してください。 Please fill in the required fields.'; bad.focus(); return; }
-    if (cform._honey.value) return;
-    const data = Object.fromEntries(new FormData(cform));
-    delete data._honey;
-    data._subject = '【satomi-iida.com】お問い合わせ ' + (data['お名前 Name'] || '');
-    data._replyto = data.email;
-    data._template = 'table';
+    if (bad) { e.preventDefault(); fmsg.className = 'form-msg err'; fmsg.textContent = '必須項目を入力してください。 Please fill in the required fields.'; bad.focus(); return; }
+    const add = (n, v) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = v; cform.appendChild(i); };
+    add('_subject', '【satomi-iida.com】お問い合わせ ' + cform.querySelector('#f-name').value);
+    add('_replyto', cform.querySelector('#f-email').value);
+    add('_template', 'table');
+    add('_captcha', 'false');
+    add('_next', 'https://satomi-iida.com/?sent=1#contact');
+    cform.action = 'https://formsubmit.co/' + FORM_EMAIL;
+    cform.method = 'POST';
     fsend.disabled = true; fsend.textContent = '送信中… Sending';
-    try {
-      const r = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) });
-      const j = await r.json().catch(() => ({}));
-      if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status);
-      cform.reset();
-      fmsg.className = 'form-msg ok'; fmsg.textContent = '送信しました。ありがとうございます。折り返しご連絡いたします。 Thank you, your message has been sent.';
-    } catch (err) {
-      fmsg.className = 'form-msg err'; fmsg.textContent = '送信できませんでした。時間をおいて再度お試しいただくか、Instagramからご連絡ください。 Sorry, something went wrong.';
-    } finally { fsend.disabled = false; fsend.textContent = '送信する Send'; }
   });
 
   // Fade-in on scroll
