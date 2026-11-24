@@ -195,6 +195,7 @@
   #mv,#cm{scroll-margin-top:110px}
   .shape{position:relative;width:min(100%,560px);perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
   .shape.pyr{aspect-ratio:1/0.9}
+  .pyr .ball{top:62%}
   .shape.tri{aspect-ratio:1/0.62}
   .vface,.vcap{position:absolute;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
   .vface{background:#111;cursor:pointer;touch-action:none}
@@ -616,13 +617,13 @@
   lb.addEventListener('pointermove', e => {
     if (!swiping) return;
     sdx = e.clientX - sx; sdy = e.clientY - sy;
-    if (Math.abs(sdx) + Math.abs(sdy) > 6) swiped = true;
+    if (!swiped && Math.abs(sdx) + Math.abs(sdy) > 6) { swiped = true; try { lb.setPointerCapture(e.pointerId); } catch (_) {} const v = frame.querySelector('iframe'); if (v) v.style.pointerEvents = 'none'; }
     if (sdy > Math.abs(sdx)) { frame.style.transform = 'translateY(' + sdy + 'px) scale(' + (1 - Math.min(sdy, 400) / 1600) + ')'; frame.style.opacity = 1 - Math.min(sdy, 400) / 600; }
     else { frame.style.transform = 'translateX(' + sdx + 'px)'; frame.style.opacity = ''; }
   });
   const swipeEnd = () => {
     if (!swiping) return;
-    swiping = false; frame.style.transition = ease;
+    swiping = false; frame.style.transition = ease; const vf = frame.querySelector('iframe'); if (vf) vf.style.pointerEvents = '';
     if (sdy > 90 && sdy > Math.abs(sdx)) {
       busy = true; frame.style.transform = 'translateY(60vh)'; frame.style.opacity = 0;
       setTimeout(() => { close(); frame.style.transition = 'none'; frame.style.transform = ''; frame.style.opacity = ''; busy = false; }, 260);
