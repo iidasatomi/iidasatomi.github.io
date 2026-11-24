@@ -72,7 +72,7 @@
   .menu-toggle span:nth-child(1){top:4px}.menu-toggle span:nth-child(2){top:14px}
 
   /* Hero */
-  .hero{display:grid;grid-template-columns:50% 50%;border-bottom:1px solid var(--line)}
+  .hero{display:grid;grid-template-columns:58% 42%;border-bottom:1px solid var(--line)}
   .hero-img{display:flex;align-items:center;justify-content:center;padding:clamp(40px,6vw,80px) var(--pad)}
   .hero-img img{width:clamp(200px,22vw,300px);aspect-ratio:1/1;border-radius:50%;object-fit:cover;object-position:50% 30%}
   .hero-text{padding:clamp(36px,7vw,96px) var(--pad);display:flex;flex-direction:column;justify-content:center}
@@ -196,7 +196,7 @@
     .menu-toggle{display:block}
     .hero,.about{grid-template-columns:1fr}
     .hero-img{padding-bottom:0}
-    .hero-img img{width:190px}
+    .hero-img .orb{width:min(100%,82vw)}
     .split,.split.rev{grid-template-columns:1fr}
     .split.rev .side{order:0}
     .stick{position:static}
@@ -239,8 +239,13 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-img">
-      <img src="images/62A168BF-D196-47E1-9E0D-2A70005C9ADB.jpg" alt="飯田さとみ Satomi Iida, freelance hair and makeup artist">
+    <div class="hero-img" id="editorial">
+      <div class="orb-wrap">
+        <div class="orb" id="orb" aria-label="Fashion &amp; Editorial gallery. Drag to rotate, tap a photo to enlarge.">
+          <div class="ball" id="ball"></div>
+        </div>
+        <div class="orb-ui caps"><span id="orb-count">01 / 14</span><span>Fashion &amp; Editorial</span><span class="orb-hint">ドラッグして回す　Drag to roll</span></div>
+      </div>
     </div>
     <div class="hero-text">
       <h1>飯田さとみ<span class="kana">いいださとみ</span></h1>
@@ -253,23 +258,6 @@
         <a class="u" href="#mv">Music Video</a>
         <a class="u" href="#cm">Commercial</a>
         <a class="u" href="#training">Show &amp; Training</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Fashion & Editorial -->
-  <section id="editorial">
-    <div class="split">
-      <div class="side"><div class="stick reveal">
-        <h2>Fashion &amp;<br>Editorial</h2>
-        <p>ポートレート、ファッション、エディトリアル。被写体と光、カメラに合わせたヘアメイク。</p>
-        <p>Portrait, fashion and editorial work. Hair and makeup built around the person, the light and the camera.</p>
-      </div></div>
-      <div class="orb-wrap reveal">
-        <div class="orb" id="orb" aria-label="Fashion &amp; Editorial gallery. Drag to rotate, tap a photo to enlarge.">
-          <div class="ball" id="ball"></div>
-        </div>
-        <div class="orb-ui caps"><span id="orb-count">01 / 14</span><span class="orb-hint">ドラッグして回す　Drag to roll</span></div>
       </div>
     </div>
   </section>
@@ -374,7 +362,7 @@
       <p>Her experience ranges from major commercial campaigns and television productions to artists, actors, athletes and corporate shoots. She approaches each project with an understanding of the person, the camera and the production. For larger shoots, she can coordinate additional hair and makeup artists. She also works on fashion shows and leads hair and makeup training for companies.</p>
       <p>Available for productions in Tokyo, across Japan and internationally.</p>
     </div>
-    <div class="img"><img loading="lazy" src="https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida.jpg" alt="飯田さとみ Satomi Iida, hair and makeup artist"></div>
+    <div class="img"><img loading="lazy" src="images/62A168BF-D196-47E1-9E0D-2A70005C9ADB.jpg" alt="飯田さとみ Satomi Iida, freelance hair and makeup artist"></div>
   </section>
 
   <!-- Contact -->
