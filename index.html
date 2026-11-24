@@ -168,14 +168,15 @@
   .orb{position:relative;width:min(100%,780px);aspect-ratio:1/1;perspective:2000px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
   .orb.dragging{cursor:grabbing}
   .ball{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
-  .face{position:absolute;overflow:hidden;background:var(--soft);backface-visibility:hidden;-webkit-backface-visibility:hidden;outline:1px solid rgba(255,255,255,.9)}
+  .face{position:absolute;overflow:hidden;background:var(--soft);backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:50%}
   .face img{width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
   .orb-ui{margin-top:18px;display:flex;gap:28px;color:var(--muted)}
   .orb-ui #orb-count{color:var(--ink)}
 
   /* Commercial suitcases */
-  .stage{position:relative;width:100%;max-width:760px;aspect-ratio:1/0.78;perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-  .scene{position:absolute;left:50%;top:70%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-18deg)}
+  .stage{position:relative;width:100%;max-width:760px;aspect-ratio:1/0.72;overflow:hidden;cursor:zoom-in;background:#fff url(https://silverfoxpro.com/wp-content/uploads/2026/08/Satomi-Iida-Honda-Prelude.jpg) center 30%/cover no-repeat;perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  .stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.9));pointer-events:none}
+  .scene{position:absolute;left:50%;top:80%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-18deg)}
   .case{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
   .dface,.dcap,.dshadow{position:absolute;backface-visibility:hidden;-webkit-backface-visibility:hidden}
   .dface,.dcap{overflow:hidden;touch-action:none;cursor:grab}
@@ -199,7 +200,9 @@
   .lb-frame img{position:absolute;left:0;top:0;max-width:none;max-height:none}
   .lb button{position:absolute;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:13px;letter-spacing:.14em;color:var(--ink);padding:14px}
   .lb .close{top:14px;right:18px}
-  .lb .prev{left:10px;top:50%;transform:translateY(-50%);font-size:28px}
+  .lb{touch-action:none;user-select:none;-webkit-user-select:none}
+  .lb .prev,.lb .next{display:none}
+  .lb-hint{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.14em;color:var(--muted)}
   .lb .next{right:10px;top:50%;transform:translateY(-50%);font-size:28px}
 
   .reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
@@ -290,7 +293,7 @@
         <div class="stage" id="stage" aria-label="Commercial &amp; Advertising: three suitcases covered in commercial stills. Drag sideways to spin, drag down to tip over, tap a photo to enlarge.">
           <div class="scene" id="scene"></div>
         </div>
-        <div class="orb-ui caps"><span>18 Works</span><span>TV Commercials</span><span class="orb-hint">横に回す・下に引いて倒す　Spin / tip over</span></div>
+        <div class="orb-ui caps"><span>17 Works</span><span>TV Commercials</span><span class="orb-hint">横に回す・下に引いて倒す　Spin / tip over</span></div>
       </div>
     </div>
   </section>
@@ -454,11 +457,12 @@
   (() => {
     const BASE = 'https://silverfoxpro.com/wp-content/uploads/2026/08/';
     const ITEMS = [
-      { src: BASE + 'Satomi-Iida-Honda-Prelude.jpg', alt: 'Hair and makeup by Satomi Iida for a Honda Prelude commercial', dataset: {} },
       { src: BASE + 'Satomi-IIDA0003.jpg', alt: 'Satomi Iida hair and makeup work for music artists', dataset: {} }
     ].concat(CROPS.map(([file, name, x, y, w, h]) => ({ src: BASE + file + '.jpg', alt: 'TV commercial ' + name + ', hair and makeup by Satomi Iida', dataset: { crop: [x, y, w, h].join(',') } })));
     const stage = document.getElementById('stage'), scene = document.getElementById('scene');
     const N = 3, PER = 3;
+    const HONDA = { src: BASE + 'Satomi-Iida-Honda-Prelude.jpg', alt: 'Hair and makeup by Satomi Iida for a Honda Prelude commercial', dataset: {} };
+    let bgDown = null;
     const cases = [];
     const mk = (cls, parent) => { const el = document.createElement('div'); el.className = cls; parent.appendChild(el); return el; };
     for (let c = 0; c < N; c++) {
@@ -516,7 +520,7 @@
     };
     stage.addEventListener('pointerdown', e => {
       const el = e.target.closest && e.target.closest('.case');
-      if (!el) return;
+      if (!el) { bgDown = { x: e.clientX, y: e.clientY }; return; }
       active = cases.find(c => c.el === el);
       downFace = e.target.closest('.dface');
       dragging = true; moved = 0; active.yv = 0; lastX = e.clientX; lastY = e.clientY;
@@ -538,6 +542,10 @@
       active.tv = 0; active = null;
     };
     stage.addEventListener('pointerup', end);
+    stage.addEventListener('pointerup', e => {
+      if (bgDown && Math.hypot(e.clientX - bgDown.x, e.clientY - bgDown.y) < 6) { set = [HONDA]; show(0); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+      bgDown = null;
+    });
     stage.addEventListener('pointercancel', end);
     addEventListener('resize', layout);
     layout(); tick();
@@ -569,7 +577,42 @@
   lb.querySelector('.close').onclick = close;
   lb.querySelector('.prev').onclick = e => { e.stopPropagation(); show(idx - 1); };
   lb.querySelector('.next').onclick = e => { e.stopPropagation(); show(idx + 1); };
-  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  // Lightbox swipe: left/right to change, down to go back
+  lbImg.draggable = false;
+  const lbHint = document.createElement('div'); lbHint.className = 'lb-hint caps'; lbHint.textContent = '左右にスワイプで切り替え　下にスワイプで戻る'; lb.appendChild(lbHint);
+  let sx = 0, sy = 0, sdx = 0, sdy = 0, swiping = false, swiped = false, busy = false;
+  const ease = 'transform .28s ease, opacity .28s ease';
+  lb.addEventListener('pointerdown', e => {
+    if (busy || e.target.closest('button')) return;
+    swiping = true; swiped = false; sx = e.clientX; sy = e.clientY; sdx = sdy = 0; frame.style.transition = 'none';
+  });
+  lb.addEventListener('pointermove', e => {
+    if (!swiping) return;
+    sdx = e.clientX - sx; sdy = e.clientY - sy;
+    if (Math.abs(sdx) + Math.abs(sdy) > 6) swiped = true;
+    if (sdy > Math.abs(sdx)) { frame.style.transform = 'translateY(' + sdy + 'px) scale(' + (1 - Math.min(sdy, 400) / 1600) + ')'; frame.style.opacity = 1 - Math.min(sdy, 400) / 600; }
+    else { frame.style.transform = 'translateX(' + sdx + 'px)'; frame.style.opacity = ''; }
+  });
+  const swipeEnd = () => {
+    if (!swiping) return;
+    swiping = false; frame.style.transition = ease;
+    if (sdy > 90 && sdy > Math.abs(sdx)) {
+      busy = true; frame.style.transform = 'translateY(60vh)'; frame.style.opacity = 0;
+      setTimeout(() => { close(); frame.style.transition = 'none'; frame.style.transform = ''; frame.style.opacity = ''; busy = false; }, 260);
+    } else if (Math.abs(sdx) > 60 && set.length > 1) {
+      busy = true; const dir = sdx < 0 ? 1 : -1;
+      frame.style.transform = 'translateX(' + (-dir * 100) + 'vw)';
+      setTimeout(() => {
+        frame.style.transition = 'none'; show(idx + dir);
+        frame.style.transform = 'translateX(' + (dir * 100) + 'vw)'; frame.offsetWidth;
+        frame.style.transition = ease; frame.style.transform = '';
+        setTimeout(() => busy = false, 290);
+      }, 260);
+    } else { frame.style.transform = ''; frame.style.opacity = ''; }
+  };
+  lb.addEventListener('pointerup', swipeEnd);
+  lb.addEventListener('pointercancel', swipeEnd);
+  lb.addEventListener('click', e => { if (swiped) { swiped = false; return; } if (e.target === lb) close(); });
   document.addEventListener('keydown', e => {
     if (!lb.classList.contains('open')) return;
     if (e.key === 'Escape') close();
@@ -625,8 +668,8 @@
       faces.forEach(f => {
         const h = 2 * R * Math.sin(step / 2) * 0.97;
         const w = Math.abs(f.lat) === 90 ? h : 2 * R * Math.cos(f.lat * Math.PI / 180) * Math.sin(Math.PI / f.n) * 0.97;
-        f.el.style.width = w + 'px'; f.el.style.height = h + 'px';
-        f.el.style.marginLeft = -w / 2 + 'px'; f.el.style.marginTop = -h / 2 + 'px';
+        const s = Math.min(w, h); f.el.style.width = s + 'px'; f.el.style.height = s + 'px';
+        f.el.style.marginLeft = -s / 2 + 'px'; f.el.style.marginTop = -s / 2 + 'px';
         f.local = new DOMMatrix().rotateSelf(0, f.lon, 0).rotateSelf(-f.lat, 0, 0).translateSelf(0, 0, R * 0.96);
         f.el.style.transform = f.local.toString();
       });
