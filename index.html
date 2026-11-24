@@ -193,10 +193,10 @@
   /* Video shapes */
   .shapes{display:flex;flex-direction:column;gap:clamp(40px,6vw,80px)}
   #mv,#cm{scroll-margin-top:110px}
-  .shape{position:relative;width:min(100%,560px);perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  .shape{position:relative;width:min(100%,780px);perspective:1600px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
   .shape.pyr{aspect-ratio:1/0.9}
   .pyr .ball{top:62%}
-  .shape.tri{aspect-ratio:1/0.62}
+  .shape.tri{aspect-ratio:1/0.66}
   .vface,.vcap{position:absolute;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
   .vface{background:#111;cursor:pointer;touch-action:none}
   .tri .vface{touch-action:pan-y}
@@ -613,6 +613,7 @@
   lb.addEventListener('pointerdown', e => {
     if (busy || e.target.closest('button')) return;
     swiping = true; swiped = false; sx = e.clientX; sy = e.clientY; sdx = sdy = 0; frame.style.transition = 'none';
+    if (set[idx] && set[idx].video) { try { lb.setPointerCapture(e.pointerId); } catch (_) {} const v = frame.querySelector('iframe'); if (v) v.style.pointerEvents = 'none'; }
   });
   lb.addEventListener('pointermove', e => {
     if (!swiping) return;
@@ -772,7 +773,7 @@
     const pf = MV.map((it, i) => ({ el: face(pb, it, i < 4 ? 'side' : 'base'), i }));
     pf.slice(0, 4).forEach(f => f.el.style.clipPath = 'polygon(50% 0,100% 100%,0 100%)');
     const pLayout = () => {
-      const B = pyr.clientWidth * 0.46, Hh = B * 0.82, L = Math.hypot(Hh, B / 2), a = Math.atan2(B / 2, Hh) * 180 / Math.PI;
+      const B = pyr.clientWidth * 0.5, Hh = B * 0.82, L = Math.hypot(Hh, B / 2), a = Math.atan2(B / 2, Hh) * 180 / Math.PI;
       pf.forEach((f, i) => {
         if (i < 4) place(f.el, B, L, [0.5, 1], 'rotateY(' + i * 90 + 'deg) translate3d(0,' + Hh / 3 + 'px,' + B / 2 + 'px) rotateX(' + a + 'deg)');
         else place(f.el, B, B, [0.5, 0.5], 'translateY(' + Hh / 3 + 'px) rotateX(-90deg)');
@@ -790,7 +791,7 @@
     const tf = CM.map((it, i) => ({ el: face(tb, it), i }));
     const caps = [0, 1].map(() => { const el = document.createElement('div'); el.className = 'vcap'; tb.appendChild(el); return el; });
     const tLayout = () => {
-      const w = tri.clientWidth * 0.6, t = w * 9 / 16, ap = w / (2 * Math.tan(Math.PI / 3)), th = w * Math.sqrt(3) / 2;
+      const w = tri.clientWidth * 0.76, t = w * 9 / 16, ap = w / (2 * Math.tan(Math.PI / 3)), th = w * Math.sqrt(3) / 2;
       tf.forEach((f, i) => place(f.el, w, t, [0.5, 0.5], 'rotateY(' + i * 120 + 'deg) translateZ(' + ap + 'px)'));
       place(caps[0], w, th, [0.5, 2 / 3], 'translateY(' + (-t / 2) + 'px) rotateX(90deg)');
       place(caps[1], w, th, [0.5, 2 / 3], 'translateY(' + (t / 2) + 'px) rotateX(-90deg) rotateZ(180deg)');
