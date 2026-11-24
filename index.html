@@ -268,7 +268,16 @@
 #training .backdrop figcaption{font-size:10.5px;letter-spacing:.08em;color:var(--muted);text-align:center;line-height:1.4;padding:0 4px}
 #training .backdrop-etc{text-align:right;color:var(--muted);font-size:12px;letter-spacing:.1em;margin-top:10px}
 @media (max-width:700px){#training .backdrop{padding:36px 12px 30px;row-gap:34px}#training .backdrop figure{flex-basis:50%}#training .backdrop img{transform:scale(.88)}}
+  html[lang=ja] .l-en,html[lang=en] .l-ja{display:none!important}
+  nav.main{margin-left:auto}
+  .lang{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;white-space:nowrap}
+  .lang button{background:none;border:0;padding:4px 1px;cursor:pointer;color:var(--muted);font:inherit;letter-spacing:inherit;border-bottom:1px solid transparent;transition:color .2s}
+  .lang button:hover{color:var(--ink)}
+  .lang button[aria-pressed=true]{color:var(--ink);border-bottom-color:var(--ink)}
+  .lang i{font-style:normal;color:var(--muted);opacity:.5}
+  @media (max-width:900px){.lang{margin-left:auto}}
 </style>
+<script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
 </head>
 <body>
 
@@ -283,8 +292,9 @@
       <a class="ig" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a class="btn caps" href="#contact">お問い合わせ Contact</a>
+      <a class="btn caps" href="#contact">Contact</a>
     </nav>
+    <div class="lang caps" role="group" aria-label="Language"><button type="button" data-l="ja" aria-pressed="true">JP</button><i>/</i><button type="button" data-l="en" aria-pressed="false">EN</button></div>
     <button class="menu-toggle" aria-label="Menu" aria-controls="nav"><span></span><span></span></button>
   </div>
 </header>
@@ -298,14 +308,14 @@
         <div class="orb" id="orb" aria-label="Fashion &amp; Editorial gallery. Drag to rotate, tap a photo to enlarge.">
           <div class="ball" id="ball"></div>
         </div>
-        <div class="orb-ui caps"><span id="orb-count">01 / 14</span><span>Fashion &amp; Editorial</span><span class="orb-hint">ドラッグして回す　Drag to roll</span></div>
+        <div class="orb-ui caps"><span id="orb-count">01 / 14</span><span>Fashion &amp; Editorial</span><span class="orb-hint"><span class="l-ja">ドラッグして回す</span><span class="l-en">Drag to roll</span></span></div>
       </div>
     </div>
     <div class="hero-text">
       <h1>飯田さとみ<span class="kana">いいださとみ</span></h1>
-      <div class="role">フリーランス ヘアメイクアップアーティスト</div>
-      <div class="en">Satomi Iida<br>Freelance Hair &amp; Makeup Artist</div>
-      <div class="ja">東京を拠点に国内外で活動　海外案件にも対応<br>Based in Tokyo, available worldwide</div>
+      <div class="role l-ja">フリーランス ヘアメイクアップアーティスト</div>
+      <div class="en">Satomi Iida<span class="l-en"><br>Freelance Hair &amp; Makeup Artist</span></div>
+      <div class="ja"><span class="l-ja">東京を拠点に国内外で活動　海外案件にも対応</span><span class="l-en">Based in Tokyo, available worldwide</span></div>
       <div class="cats" id="portfolio">
         <a class="u" href="#editorial">Fashion &amp; Editorial</a>
         <a class="u" href="#commercial">Commercial &amp; Advertising</a>
@@ -321,15 +331,15 @@
     <div class="split rev">
       <div class="side"><div class="stick reveal">
         <h2>Commercial &amp;<br>Advertising</h2>
-        <p>Sony、Honda、KDDI、アメリカン・エキスプレスなどの広告・CM、アーティストや俳優のヘアメイク。</p>
-        <p>Campaigns and TV commercials for brands including Sony, Honda, KDDI and American Express, plus artists, actors and talent.</p>
+        <p class="l-ja">Sony、Honda、KDDI、アメリカン・エキスプレスなどの広告・CM、アーティストや俳優のヘアメイク。</p>
+        <p class="l-en">Campaigns and TV commercials for brands including Sony, Honda, KDDI and American Express, plus artists, actors and talent.</p>
         <div class="links"><a class="caps u" href="#cm">View commercial films</a></div>
       </div></div>
       <div class="orb-wrap reveal">
         <div class="stage" id="stage" aria-label="Commercial &amp; Advertising: three suitcases covered in commercial stills. Drag sideways to spin, drag down to tip over, tap a photo to enlarge.">
           <div class="scene" id="scene"></div>
         </div>
-        <div class="orb-ui caps"><span>17 Works</span><span>TV Commercials</span><span class="orb-hint">横に回す・下に引いて倒す　Spin / tip over</span></div>
+        <div class="orb-ui caps"><span>17 Works</span><span>TV Commercials</span><span class="orb-hint"><span class="l-ja">横に回す・下に引いて倒す</span><span class="l-en">Spin / tip over</span></span></div>
       </div>
     </div>
   </section>
@@ -339,17 +349,17 @@
     <div class="split rev">
       <div class="side"><div class="stick reveal">
         <h2>Music Video<br>&amp; Commercial</h2>
-        <p>ミュージックビデオとCMのヘアメイク。形をタップすると動画が再生されます。</p>
-        <p>Hair and makeup for music videos and commercials. Tap a face to play.</p>
+        <p class="l-ja">ミュージックビデオとCMのヘアメイク。形をタップすると動画が再生されます。</p>
+        <p class="l-en">Hair and makeup for music videos and commercials. Tap a face to play.</p>
       </div></div>
       <div class="shapes">
         <div class="orb-wrap reveal" id="mv">
           <div class="shape pyr" id="pyr" aria-label="Music videos on a pyramid. Drag to rotate, tap a face to play."><div class="ball" id="pyrBall"></div></div>
-          <div class="orb-ui caps"><span>05 Videos</span><span>Music Video</span><span class="orb-hint">ドラッグして回す　Drag to roll</span></div>
+          <div class="orb-ui caps"><span>05 Videos</span><span>Music Video</span><span class="orb-hint"><span class="l-ja">ドラッグして回す</span><span class="l-en">Drag to roll</span></span></div>
         </div>
         <div class="orb-wrap reveal" id="cm">
           <div class="shape tri" id="tri" aria-label="Commercial films on a rotating three-sided billboard. Drag to turn, tap a face to play."><div class="ball" id="triBall"></div></div>
-          <div class="orb-ui caps"><span>03 Films</span><span>Commercial</span><span class="orb-hint">ドラッグして回す　Drag to turn</span></div>
+          <div class="orb-ui caps"><span>03 Films</span><span>Commercial</span><span class="orb-hint"><span class="l-ja">ドラッグして回す</span><span class="l-en">Drag to turn</span></span></div>
         </div>
       </div>
     </div>
@@ -359,14 +369,14 @@
   <section id="training">
     <div class="split">
       <div class="side"><div class="stick reveal">
-        <h2>企業研修<br><span style="font-size:.62em;letter-spacing:.06em">Corporate Training</span></h2>
-        <p>企業・団体向けに、ヘアメイクの研修や講習を行っています。内容や人数、時間は目的に合わせてご相談ください。</p>
-        <p>Hair and makeup training and workshops for companies and organizations, tailored to your goals, group size and schedule.</p>
-        <div class="links"><a class="caps u" href="#contact">研修のご相談 Inquire</a></div>
+        <h2>Corporate<br>Training</h2>
+        <p class="l-ja">企業・団体向けに、ヘアメイクの研修や講習を行っています。内容や人数、時間は目的に合わせてご相談ください。</p>
+        <p class="l-en">Hair and makeup training and workshops for companies and organizations, tailored to your goals, group size and schedule.</p>
+        <div class="links"><a class="caps u" href="#contact"><span class="l-ja">研修のご相談</span><span class="l-en">Inquire</span></a></div>
       </div></div>
       <div class="reveal">
-        <div class="caps" style="color:var(--muted);margin-bottom:14px">企業ヘアメイク研修　Selected Clients</div>
-        <div class="backdrop"><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEoAAABIBAMAAACjNn5JAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlNtJLbaAJFI/yFelZMAAAOWSURBVHjazZbdb9tkFMZ/sZ12oiUkaclGaVbXZUhsggXoBGJjjaYCUrWLiHEHEt1NrrmZ+CO4YNd8qAVNk8YuVm0ItNGGri0IiZo6/UBjW0NIEUNVl7RLtUJjO1w4ThPXdrnce/OeHD9+zvHznvOeBAZxrPlVWt5dafYJTtDsKmyPxJudkgMkrKcBPjm74sNl3EgDkB6RfVA9LTUj/WWjO9CUvR6O2WZlxZPrh7G66Z1X9mk7ICZeEY2IGXOL18zVK9bNa56q6tN8k7tsUSU8UVMJ4OXcmDP1JlSgz9pfcKbehJqwo9yp5D1RQp9tic54DagqPquu18EyECi6o+pco4CxzR6oM4CI5o8yrOcpf1QQgKXP94gIQCL4f1AMab6oirUt3ffnss4nUdX8UKJh7an7vly1ig+6kolKzRio6f7sYumAN5ddCMGhB9qOyk5UwHYvDa0pqtKz7t5DoZ3euAypTXfUwXLjfXE16a59rjGTxaTHCUnP73i1oocSsH3LlsCIRT1Pu7psW7+UfWpiUK1R/elXOWZRBTAcqTvrq79oqKpqFveowv7SydzgTMK7H32XwCOLMhxDh0xR24XKPoyuNbvOvbGLy1CS0ltNQ6fKx3XFso+jRxVd7Hvt+tV/tpokfHJf3T7euSr9mj8mzFQ6B0Iwr4FqxJnXUFEx4mBoggZqJZHPCIkqQLb3/UldmYpN9Z4VDkm9RiG2htL9RzHc+gxjlTuBDyfCQDmJ+fMrAJQiVLL9sNwR5qNzmHOAwDqgJ2+vCRpf5fURip/qIzPmyGQcffWJ8/9+BiCeuLcP2F8oPxVvP3DjSOD274f3C8JfPYclXbzbdaotACCMnbC+vsKoXfXAOmPQAlj3gpBslY2oGJQlhhvUiJJsaVQ1R6jQ2062oNtzRYTk6yE5Y/1oBxCq+eA7esf5U6mMfUUb8Jt0yHrprqRY/bj5MPNttPtSVKpeKCzcVKbfLl9QhGvR0Ve/yyiYF7u3Hv2KNqaYlZmNTNA9Pi7r4+OaMLG7H/Vjc9NxZSOpf9GRYmJlmOWNI4tus2M4oR4vfS2X8lcS+velSbf7y+xq25g7/dNW7ozZFfp7re3HlwKxVZfJF5EZlTm6zSjob6Zl1/9ylc0N0OSAdcbXtc4X3VBmri9RPr04U+wAJGkQMES3Was911r6YAFAHyiFaX0QdmYvLTwWimxffO/KUU5eku9tENm8xc16cv8BW/pDuaT1b2IAAAAASUVORK5CYII=" alt="コンフォートホテル Comfort Hotel" style="height:44px"><figcaption>コンフォートホテル</figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAABIBAMAAACzVjCVAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlOR/wBtSCS22hIksxgAAAGMSURBVHja7ZRNSxthFIWf950IUUnIpEhRQSeTj0WLYdIBS4ei1SyKC126Eppf1E3/QHDRZdPSrRQRVBQ/UoqUQBqmSqo1gkNcGMGZcTGktF0ky2KZu7pwHy6Hwz1XmPQsV9KnQuAeARG19/xW6L0BL3Tyv7qHlNMn/k5oVBj/MP7/BIg3tKA1gVRK1f4CImbxSdANFyGy72Z/EaIIiKct4m2AgfFCBTG7LtqxLtCO4ckqZADQ7EoSN4H0/9AnrQQHoINjKi8MwBdIDUgDiok8bmqQWZuXxrvHqzaKmZxSnm8a2caGDd4Eimrt5q5mzzyt5V50fLlb0G+aenvLXDiV0Y7VuJTsGZ89jx/vg4+zsvZRl+tG6fC1eIUft5FQX3Id/FJXmv+GzIdyoLICUgPHSPxujVXITwa4nzeQaXC+lBFVABQHtg4+EWygmUA5mjmfqS3XHky0cufX1tjo0MjCt2fJ6ZOl79vRTnQ/qixmR7c7sUcPd2q12MXXQXVw4Oxn6u3cjVp/Gc/bU+4dT2F54+2xwkMAAAAASUVORK5CYII=" alt="ソフトバンク SoftBank" style="height:44px"><figcaption>ソフトバンク</figcaption></figure><figure><img src="data:image/png;base64,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" alt="日産ギャラリー Nissan Gallery" style="height:40px"><figcaption>日産ギャラリー</figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAABIBAMAAADlgN3jAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlP/AG0kkUi22r5rqUoAAASISURBVHja7ZdNbxtFGICfnd1AtyTxrhOktiTOemtEJRB1mgtUqF3acEIqH3+g/wz+AAhUcWtLTQ5cSOQkqnohXQ8mEkW03d2mJYbasxxm13ac3aTqiUPn4tHMPvO+837Na8PlpYZVj8GcloCoSbBmgPMt4GqsOjHDiahJAF9WAExRBQbLAKYD1AGeBfB28mhvKgA+SaK9qQDhAFA1PC2vEwE3nBg+SgAVARtfYp3/BoQLVuUmiHmQAChViQCEABhcAZJOrryKqK8D6ocgm2x5E/cT+mcNhJofrkqmJUDqUJEAHQeviGuC4YTBkBNLAPR3RV9PrGJ5j8FvGXG+6qUtPamk+lrMFHKGggX6fr46K5r5fvPA+SP/4UPqtCGBO9misbSdiQkzM+Y/wLYPKCuNoLHUxlJQjRAuiGtfm9lH3Vo6GSlLEkiFEUXRL+0mqQNSG0bdGNquNqkfohJFURTr9fsGftf3azEqiqIouqAyUshJx6kD932C57puNTOMusNmZliVW/iQXfT9vZmbo8O4cMfTYJL7Jin2n78bAjwdatPQuwuqARiOqGnNRe0gF6cOwChi9PlmTAIYZ+uP1S5AHg8ZJz7zWwCjiLnVBHi/xa3PQW0FLVwPaDjZvumccd05/1mnB6Au/qmzJGJwYl+s3u3Bow86Imi986B75R715Z/N5LTruq55tdPr7S+2LuokOr2tAPYUPfvcmb87QM89dWY/fL6v/vGen74fm+f+6PV6bxnl9cVXcjQRCoQXDjeNl6xLglfc/5CzHOBNQHwxt7y8EoD1OTDlAHmpL5TngfA8oPOo3Y72ILWA2uoL6Jl28nPDzYBLbUAlL8CJ6eGiEbMnvWFaHc15sjsqQqJvxEDaOJ5LqIwpLdUVgMkHqYBboOsNd4WjutmDdAxnSPp5uajHgdTS+8ZxnHAwsvLUeE8msOYB3PWK6ufYCG6jdmHFBNUWC+v0HYC0KY/mEiCCjScQYrRAa9j//Wh5YikFc9AlBLDOglrZBNgO1oq5xg5A+psLg9wwlwzgOwAG1RJ5izsA4uE6iGs3MqXXgSkPQP10lD1lIAFd1EEsALlb4qCY6wJpU0dwFjH6OchapLRazEkHnLUF3c/oT30HQFldAJV4hdzgrDu3mD04qVZN93LM6Hfxx/GocsefbvPhWFaMbajD0fiqzhcO087TR7fPyWVtR3F5F8e2bds+8WFi27Z9yjVs++T+JCcqDwBWwruv6bid/WvxpP3GKcN+3cK2bbuz8u+Jdx98eq8kj8zr32buU4SI2RhiHQNqh5AtJy6+36Clo3e62AS/rpbZRbcwwiixx1YZ1xcAxmwJl3dUh/3QAfDXSjgjLuPmAR4e7jg5pg6GQQs+/n60UJ8DuHXwkMNcGoMVjofUBmAeK09Zw7TV4378YvFZyYOu6BNRzrW8Q13xWFzIUk452Z+iwvxxyt93kcpSLiiXR8dySsVVSu0JVSEp8fvc40muMQ/0B3ibyOtfjWuie/EdsQpbi60JTt3WpdyIIQ1BOU8lKCeGmQ2AShjD8rD0/gdCCJtOX8C0KgAAAABJRU5ErkJggg==" alt="バロックジャパン Baroque Japan" style="height:44px"><figcaption>バロックジャパン</figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAABIBAMAAAC3o+CoAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlNttgDa/5EkSNfSBpsAAAL7SURBVHja7ZbbTxNBFMa/7UyLLS3tUlGplZZClCitqNRoxIKWxMQgomjU+GRMfDA++JcYEx990RgvCSbWy4MJBBdNjJd6gSqaQKGIpZZLtxcsq72MD61Yy7Z/gHFfdmd/+b49c86ZmeVsKHMpw7Qchr1WUQ4fiUbLcfcwDIQvibPxVWxraa6MWdmTUElOHXoYk6zk9/0ijF6glP6wGkYvUEp/+CmMXgCQ5+5nhhyGbP7cb/Nqeb3rHRryWC4+1yPdh8X8M+NW1C+bqPtoXh6s8Hct1u0zF6RphXn9Xk/BuEjv8qXthbgoPvdwoxgofMH+8u8d9InFZSpMqtBejAv8qf9Tx+Ni/Gf+ys2q1zI99Nvf9X2DR64UufnR7iWdR76NAIAelPNe5sqeOaFUm3E2gKZL97gCQLrMGim7vv7z//wf5wSSJEkZVbbVZDKt/cai2e+SdOqzMnFAIBUAow0M4IxjRASgAO1UjPMADvru6x1GL0BZ3G4RQyA7AKTGXe8V4vBRD6bFFogEAEX3hxvzB5Duy4Vje1p58ZIV1XxAX60dByiut7TEABwHMCcMVFvGUAX61oAomwNATEfXLQ42RmgyFArdM7BmHvUKUTFq1fVbP6rAiMnT1OfQRhSvJyYmzgQgJbL1P2ey+yVt42x1EowC1w5NAmkbAAHMxvlx10oXRraJfCaXn47Eny2VRGIBANimy4jvdgIgpi6bqSoVORJWq9WqH9xXXjOkOTG6fsQ83PQGYBT9QDy/SdbEYY/xPC5b9fbmCB8BwJ0bADrTAu0AkL9hALRN6EwLQJYr+38gc74U19fd+jVIeqZ7nORYQOnobe0NHgs6XL2OoMPlBECC7as3Ns1rRnwqr6ri5fO2O0u1oYbbmzNTMy+cATCyRZuyXA37z+ra9JYF8+krFTXrxyZPZvqUG7p8STCS3h17SDJrZ6vidR7Nrtm2n87Ul/23nPX+7RXKMBg5P/VgSbpQKaSMqjVhb/tc/+imPTe5LX1dQ6+aZ8B+AcO3E1ue3QE6AAAAAElFTkSuQmCC" alt="岡三証券 Okasan Securities" style="height:44px"><figcaption>岡三証券</figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAAAwBAMAAACI8glLAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlOR/wDabSRItukU2VAAAAUxSURBVHja5ZhRTxRXFMd/M3Nlo1ncGaVNjV0YZjFNY5Upu41pgrACvhlt05r0pdWkTZ9J+tDP0KQmJn21CV8AQ2Kf2l1d1KQPdWFAIw9dxg0ipRGcQai6OrPTh9ldoIBUhE2Tnqc7d+49/3vvOed/zr3SWWqSZ8dFEula2955ODmNAcg6yNQBDjwVguvURWRgDPD0usH5OnC9bnC4QLl+cPWT/zNc0oSkqZhKMpk0lZ5eFBNMkjsDpxgG8pT+ItFhGM1DPaPj5osE8rS4t2U4xSBWPPBMciRVerRmLQ8mS2LaLc/u+dF72DcW99/dO/pU+mP3/d1bhRMv/9v3+xvqLyXGD5Uezjx6KA+fBfTHW7fdy+FK358rCCIgRQha9jWWAYr7tsFV1jfi6WKqym5+24jx2s68ydzxG1m32v7t4+Aj0q/HP2KTdHi4th5Fv1r+a5+Nt4O7k5TuajMYA0r3SOo7Blf0uy5QrIz07U8+b2g5W7y1Y3Bfcfd86Xypm+BDvOPfSkNenBM6bVuvVfpoznW40qRolgs7z5mi1XWRNJ9AqwdFS8Z/LAGZ23qYybCeTQJ5ZVm1b4XBdvAYP52yUE7MWSC6sylUR8PJp9QMQAoV17udloIFFS8HSUnFyQNKmiwopgZOHlKxLEoa2XEcFZAcZwHJqYkaohqLP1860gZBPgEcHzcHWxvtMW3KHBwDYDCuafGEPK6NTGqNt4FHk5pmTAE9I6PAC3tMazR0iI/D4RFVQGsWuNXhrkNO5Tl6fyCrV0IPj3IGvIyg/2bYkwMUCh5kKobJQHusyCVTCadkwA/HLpKXkbMAjOjrmDFB7+WDJkvLlPellkLSYtbFas9+TWsP3tcsoWmNAKIj2cQiSj9eGqDHSKRDI4klvyh4uxJu13Uq1XvttqC4ogDDMckcrwJepbC/a2hFiiqAjU16aW9obeYt5fQwUi6fHNABP4+PC3CkeHJQlnPVgyoDRDOZTCZTocWAkgVly1NX7Diyqfv5lsdzvqZ/9c1qiHnkoDZKBbBWVRY0AKSrtPkKckzMcXPVAmVTyiHHl3PbOrM8AD2d21BtpM0w1kSm2cCcb1nPK5+dFKHUzgjItexJsEbXe5vvwpt3HHdVT1NfVy5QcjLnIyYgUj1qLxAZEh+BvHx6/sZK+zf+VbbtVXv3NO12uZH+UZY8FRhujWULgJfC2jSbV+Tihswq2j9gbpXBM9B7Wc6RLDGgg5chciUOIurqxZfD3YkKgKKbntqwVsv8s2ess8FG4agN3wyC35RJHn4MJTe6tClFPw9J+hXqBXF6qmDRCcAw0GMbqmJCpJyWzDW7611p94CIaSFywpUZBgZS1r8ELfpNcO1I+DEddQHf7ZQtYdY0KD4Qlv9OxeyWmbCIu4GlpG+mc7K50pvCVBJJ1rLHyoA15UH4YtwcAShFczqQXYwjLxOGtHaRn3J16pBLFN/1RowzdAGlSjDZtm3rdE4ZzWtLFyl3AXgSkhci9Oxdbq+uaLXT65iRY7UJsSLAnxNvvTmhnvgVpiNMjDVKs9AwvfAMzg0D9oF7pbJt32iA2IQ+CzD6VJ8FZeazIszOnLo7u/AM5cHS03fuPwlOXt4jlo23F8BYSSf4iTv9XGgBvNYr/d+dyQG+s6DDaB5A784Bu6LQci2cd24AoDTvApJzscVZ0AkcK34338zo/LzUV2VyoRdE89qXo2SVYRVzGx6xBIuV1tH171E1DD+/LaVREDKscOtUiS2ZgGiuS+EnQt9Q0kAhMHb61e9vKpnh1235DxEAAAAASUVORK5CYII=" alt="三井アウトレットパーク Mitsui Outlet Park" style="height:28px"><figcaption>三井アウトレットパーク</figcaption></figure><figure><img src="data:image/png;base64,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" alt="三井住友海上あいおい生命保険 MS&amp;AD" style="height:44px"><figcaption>三井住友海上あいおい生命保険</figcaption></figure></div>
+        <div class="caps" style="color:var(--muted);margin-bottom:14px"><span class="l-ja">企業ヘアメイク研修</span><span class="l-en">Selected Clients</span></div>
+        <div class="backdrop"><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEoAAABIBAMAAACjNn5JAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlNtJLbaAJFI/yFelZMAAAOWSURBVHjazZbdb9tkFMZ/sZ12oiUkaclGaVbXZUhsggXoBGJjjaYCUrWLiHEHEt1NrrmZ+CO4YNd8qAVNk8YuVm0ItNGGri0IiZo6/UBjW0NIEUNVl7RLtUJjO1w4ThPXdrnce/OeHD9+zvHznvOeBAZxrPlVWt5dafYJTtDsKmyPxJudkgMkrKcBPjm74sNl3EgDkB6RfVA9LTUj/WWjO9CUvR6O2WZlxZPrh7G66Z1X9mk7ICZeEY2IGXOL18zVK9bNa56q6tN8k7tsUSU8UVMJ4OXcmDP1JlSgz9pfcKbehJqwo9yp5D1RQp9tic54DagqPquu18EyECi6o+pco4CxzR6oM4CI5o8yrOcpf1QQgKXP94gIQCL4f1AMab6oirUt3ffnss4nUdX8UKJh7an7vly1ig+6kolKzRio6f7sYumAN5ddCMGhB9qOyk5UwHYvDa0pqtKz7t5DoZ3euAypTXfUwXLjfXE16a59rjGTxaTHCUnP73i1oocSsH3LlsCIRT1Pu7psW7+UfWpiUK1R/elXOWZRBTAcqTvrq79oqKpqFveowv7SydzgTMK7H32XwCOLMhxDh0xR24XKPoyuNbvOvbGLy1CS0ltNQ6fKx3XFso+jRxVd7Hvt+tV/tpokfHJf3T7euSr9mj8mzFQ6B0Iwr4FqxJnXUFEx4mBoggZqJZHPCIkqQLb3/UldmYpN9Z4VDkm9RiG2htL9RzHc+gxjlTuBDyfCQDmJ+fMrAJQiVLL9sNwR5qNzmHOAwDqgJ2+vCRpf5fURip/qIzPmyGQcffWJ8/9+BiCeuLcP2F8oPxVvP3DjSOD274f3C8JfPYclXbzbdaotACCMnbC+vsKoXfXAOmPQAlj3gpBslY2oGJQlhhvUiJJsaVQ1R6jQ2062oNtzRYTk6yE5Y/1oBxCq+eA7esf5U6mMfUUb8Jt0yHrprqRY/bj5MPNttPtSVKpeKCzcVKbfLl9QhGvR0Ve/yyiYF7u3Hv2KNqaYlZmNTNA9Pi7r4+OaMLG7H/Vjc9NxZSOpf9GRYmJlmOWNI4tus2M4oR4vfS2X8lcS+velSbf7y+xq25g7/dNW7ozZFfp7re3HlwKxVZfJF5EZlTm6zSjob6Zl1/9ylc0N0OSAdcbXtc4X3VBmri9RPr04U+wAJGkQMES3Was911r6YAFAHyiFaX0QdmYvLTwWimxffO/KUU5eku9tENm8xc16cv8BW/pDuaT1b2IAAAAASUVORK5CYII=" alt="コンフォートホテル Comfort Hotel" style="height:44px"><figcaption><span class="l-ja">コンフォートホテル</span><span class="l-en">Comfort Hotel</span></figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAABIBAMAAACzVjCVAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlOR/wBtSCS22hIksxgAAAGMSURBVHja7ZRNSxthFIWf950IUUnIpEhRQSeTj0WLYdIBS4ei1SyKC126Eppf1E3/QHDRZdPSrRQRVBQ/UoqUQBqmSqo1gkNcGMGZcTGktF0ky2KZu7pwHy6Hwz1XmPQsV9KnQuAeARG19/xW6L0BL3Tyv7qHlNMn/k5oVBj/MP7/BIg3tKA1gVRK1f4CImbxSdANFyGy72Z/EaIIiKct4m2AgfFCBTG7LtqxLtCO4ckqZADQ7EoSN4H0/9AnrQQHoINjKi8MwBdIDUgDiok8bmqQWZuXxrvHqzaKmZxSnm8a2caGDd4Eimrt5q5mzzyt5V50fLlb0G+aenvLXDiV0Y7VuJTsGZ89jx/vg4+zsvZRl+tG6fC1eIUft5FQX3Id/FJXmv+GzIdyoLICUgPHSPxujVXITwa4nzeQaXC+lBFVABQHtg4+EWygmUA5mjmfqS3XHky0cufX1tjo0MjCt2fJ6ZOl79vRTnQ/qixmR7c7sUcPd2q12MXXQXVw4Oxn6u3cjVp/Gc/bU+4dT2F54+2xwkMAAAAASUVORK5CYII=" alt="ソフトバンク SoftBank" style="height:44px"><figcaption><span class="l-ja">ソフトバンク</span><span class="l-en">SoftBank</span></figcaption></figure><figure><img src="data:image/png;base64,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" alt="日産ギャラリー Nissan Gallery" style="height:40px"><figcaption><span class="l-ja">日産ギャラリー</span><span class="l-en">Nissan Gallery</span></figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAABIBAMAAADlgN3jAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlP/AG0kkUi22r5rqUoAAASISURBVHja7ZdNbxtFGICfnd1AtyTxrhOktiTOemtEJRB1mgtUqF3acEIqH3+g/wz+AAhUcWtLTQ5cSOQkqnohXQ8mEkW03d2mJYbasxxm13ac3aTqiUPn4tHMPvO+837Na8PlpYZVj8GcloCoSbBmgPMt4GqsOjHDiahJAF9WAExRBQbLAKYD1AGeBfB28mhvKgA+SaK9qQDhAFA1PC2vEwE3nBg+SgAVARtfYp3/BoQLVuUmiHmQAChViQCEABhcAZJOrryKqK8D6ocgm2x5E/cT+mcNhJofrkqmJUDqUJEAHQeviGuC4YTBkBNLAPR3RV9PrGJ5j8FvGXG+6qUtPamk+lrMFHKGggX6fr46K5r5fvPA+SP/4UPqtCGBO9misbSdiQkzM+Y/wLYPKCuNoLHUxlJQjRAuiGtfm9lH3Vo6GSlLEkiFEUXRL+0mqQNSG0bdGNquNqkfohJFURTr9fsGftf3azEqiqIouqAyUshJx6kD932C57puNTOMusNmZliVW/iQXfT9vZmbo8O4cMfTYJL7Jin2n78bAjwdatPQuwuqARiOqGnNRe0gF6cOwChi9PlmTAIYZ+uP1S5AHg8ZJz7zWwCjiLnVBHi/xa3PQW0FLVwPaDjZvumccd05/1mnB6Au/qmzJGJwYl+s3u3Bow86Imi986B75R715Z/N5LTruq55tdPr7S+2LuokOr2tAPYUPfvcmb87QM89dWY/fL6v/vGen74fm+f+6PV6bxnl9cVXcjQRCoQXDjeNl6xLglfc/5CzHOBNQHwxt7y8EoD1OTDlAHmpL5TngfA8oPOo3Y72ILWA2uoL6Jl28nPDzYBLbUAlL8CJ6eGiEbMnvWFaHc15sjsqQqJvxEDaOJ5LqIwpLdUVgMkHqYBboOsNd4WjutmDdAxnSPp5uajHgdTS+8ZxnHAwsvLUeE8msOYB3PWK6ufYCG6jdmHFBNUWC+v0HYC0KY/mEiCCjScQYrRAa9j//Wh5YikFc9AlBLDOglrZBNgO1oq5xg5A+psLg9wwlwzgOwAG1RJ5izsA4uE6iGs3MqXXgSkPQP10lD1lIAFd1EEsALlb4qCY6wJpU0dwFjH6OchapLRazEkHnLUF3c/oT30HQFldAJV4hdzgrDu3mD04qVZN93LM6Hfxx/GocsefbvPhWFaMbajD0fiqzhcO087TR7fPyWVtR3F5F8e2bds+8WFi27Z9yjVs++T+JCcqDwBWwruv6bid/WvxpP3GKcN+3cK2bbuz8u+Jdx98eq8kj8zr32buU4SI2RhiHQNqh5AtJy6+36Clo3e62AS/rpbZRbcwwiixx1YZ1xcAxmwJl3dUh/3QAfDXSjgjLuPmAR4e7jg5pg6GQQs+/n60UJ8DuHXwkMNcGoMVjofUBmAeK09Zw7TV4378YvFZyYOu6BNRzrW8Q13xWFzIUk452Z+iwvxxyt93kcpSLiiXR8dySsVVSu0JVSEp8fvc40muMQ/0B3ibyOtfjWuie/EdsQpbi60JTt3WpdyIIQ1BOU8lKCeGmQ2AShjD8rD0/gdCCJtOX8C0KgAAAABJRU5ErkJggg==" alt="バロックジャパン Baroque Japan" style="height:44px"><figcaption><span class="l-ja">バロックジャパン</span><span class="l-en">Baroque Japan</span></figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD0AAABIBAMAAAC3o+CoAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlNttgDa/5EkSNfSBpsAAAL7SURBVHja7ZbbTxNBFMa/7UyLLS3tUlGplZZClCitqNRoxIKWxMQgomjU+GRMfDA++JcYEx990RgvCSbWy4MJBBdNjJd6gSqaQKGIpZZLtxcsq72MD61Yy7Z/gHFfdmd/+b49c86ZmeVsKHMpw7Qchr1WUQ4fiUbLcfcwDIQvibPxVWxraa6MWdmTUElOHXoYk6zk9/0ijF6glP6wGkYvUEp/+CmMXgCQ5+5nhhyGbP7cb/Nqeb3rHRryWC4+1yPdh8X8M+NW1C+bqPtoXh6s8Hct1u0zF6RphXn9Xk/BuEjv8qXthbgoPvdwoxgofMH+8u8d9InFZSpMqtBejAv8qf9Tx+Ni/Gf+ys2q1zI99Nvf9X2DR64UufnR7iWdR76NAIAelPNe5sqeOaFUm3E2gKZL97gCQLrMGim7vv7z//wf5wSSJEkZVbbVZDKt/cai2e+SdOqzMnFAIBUAow0M4IxjRASgAO1UjPMADvru6x1GL0BZ3G4RQyA7AKTGXe8V4vBRD6bFFogEAEX3hxvzB5Duy4Vje1p58ZIV1XxAX60dByiut7TEABwHMCcMVFvGUAX61oAomwNATEfXLQ42RmgyFArdM7BmHvUKUTFq1fVbP6rAiMnT1OfQRhSvJyYmzgQgJbL1P2ey+yVt42x1EowC1w5NAmkbAAHMxvlx10oXRraJfCaXn47Eny2VRGIBANimy4jvdgIgpi6bqSoVORJWq9WqH9xXXjOkOTG6fsQ83PQGYBT9QDy/SdbEYY/xPC5b9fbmCB8BwJ0bADrTAu0AkL9hALRN6EwLQJYr+38gc74U19fd+jVIeqZ7nORYQOnobe0NHgs6XL2OoMPlBECC7as3Ns1rRnwqr6ri5fO2O0u1oYbbmzNTMy+cATCyRZuyXA37z+ra9JYF8+krFTXrxyZPZvqUG7p8STCS3h17SDJrZ6vidR7Nrtm2n87Ul/23nPX+7RXKMBg5P/VgSbpQKaSMqjVhb/tc/+imPTe5LX1dQ6+aZ8B+AcO3E1ue3QE6AAAAAElFTkSuQmCC" alt="岡三証券 Okasan Securities" style="height:44px"><figcaption><span class="l-ja">岡三証券</span><span class="l-en">Okasan Securities</span></figcaption></figure><figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAAAwBAMAAACI8glLAAAAGFBMVEUoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChVrrxEAAAACHRSTlOR/wDabSRItukU2VAAAAUxSURBVHja5ZhRTxRXFMd/M3Nlo1ncGaVNjV0YZjFNY5Upu41pgrACvhlt05r0pdWkTZ9J+tDP0KQmJn21CV8AQ2Kf2l1d1KQPdWFAIw9dxg0ipRGcQai6OrPTh9ldoIBUhE2Tnqc7d+49/3vvOed/zr3SWWqSZ8dFEula2955ODmNAcg6yNQBDjwVguvURWRgDPD0usH5OnC9bnC4QLl+cPWT/zNc0oSkqZhKMpk0lZ5eFBNMkjsDpxgG8pT+ItFhGM1DPaPj5osE8rS4t2U4xSBWPPBMciRVerRmLQ8mS2LaLc/u+dF72DcW99/dO/pU+mP3/d1bhRMv/9v3+xvqLyXGD5Uezjx6KA+fBfTHW7fdy+FK358rCCIgRQha9jWWAYr7tsFV1jfi6WKqym5+24jx2s68ydzxG1m32v7t4+Aj0q/HP2KTdHi4th5Fv1r+a5+Nt4O7k5TuajMYA0r3SOo7Blf0uy5QrIz07U8+b2g5W7y1Y3Bfcfd86Xypm+BDvOPfSkNenBM6bVuvVfpoznW40qRolgs7z5mi1XWRNJ9AqwdFS8Z/LAGZ23qYybCeTQJ5ZVm1b4XBdvAYP52yUE7MWSC6sylUR8PJp9QMQAoV17udloIFFS8HSUnFyQNKmiwopgZOHlKxLEoa2XEcFZAcZwHJqYkaohqLP1860gZBPgEcHzcHWxvtMW3KHBwDYDCuafGEPK6NTGqNt4FHk5pmTAE9I6PAC3tMazR0iI/D4RFVQGsWuNXhrkNO5Tl6fyCrV0IPj3IGvIyg/2bYkwMUCh5kKobJQHusyCVTCadkwA/HLpKXkbMAjOjrmDFB7+WDJkvLlPellkLSYtbFas9+TWsP3tcsoWmNAKIj2cQiSj9eGqDHSKRDI4klvyh4uxJu13Uq1XvttqC4ogDDMckcrwJepbC/a2hFiiqAjU16aW9obeYt5fQwUi6fHNABP4+PC3CkeHJQlnPVgyoDRDOZTCZTocWAkgVly1NX7Diyqfv5lsdzvqZ/9c1qiHnkoDZKBbBWVRY0AKSrtPkKckzMcXPVAmVTyiHHl3PbOrM8AD2d21BtpM0w1kSm2cCcb1nPK5+dFKHUzgjItexJsEbXe5vvwpt3HHdVT1NfVy5QcjLnIyYgUj1qLxAZEh+BvHx6/sZK+zf+VbbtVXv3NO12uZH+UZY8FRhujWULgJfC2jSbV+Tihswq2j9gbpXBM9B7Wc6RLDGgg5chciUOIurqxZfD3YkKgKKbntqwVsv8s2ess8FG4agN3wyC35RJHn4MJTe6tClFPw9J+hXqBXF6qmDRCcAw0GMbqmJCpJyWzDW7611p94CIaSFywpUZBgZS1r8ELfpNcO1I+DEddQHf7ZQtYdY0KD4Qlv9OxeyWmbCIu4GlpG+mc7K50pvCVBJJ1rLHyoA15UH4YtwcAShFczqQXYwjLxOGtHaRn3J16pBLFN/1RowzdAGlSjDZtm3rdE4ZzWtLFyl3AXgSkhci9Oxdbq+uaLXT65iRY7UJsSLAnxNvvTmhnvgVpiNMjDVKs9AwvfAMzg0D9oF7pbJt32iA2IQ+CzD6VJ8FZeazIszOnLo7u/AM5cHS03fuPwlOXt4jlo23F8BYSSf4iTv9XGgBvNYr/d+dyQG+s6DDaB5A784Bu6LQci2cd24AoDTvApJzscVZ0AkcK34338zo/LzUV2VyoRdE89qXo2SVYRVzGx6xBIuV1tH171E1DD+/LaVREDKscOtUiS2ZgGiuS+EnQt9Q0kAhMHb61e9vKpnh1235DxEAAAAASUVORK5CYII=" alt="三井アウトレットパーク Mitsui Outlet Park" style="height:28px"><figcaption><span class="l-ja">三井アウトレットパーク</span><span class="l-en">Mitsui Outlet Park</span></figcaption></figure><figure><img src="data:image/png;base64,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" alt="三井住友海上あいおい生命保険 MS&amp;AD" style="height:44px"><figcaption><span class="l-ja">三井住友海上あいおい生命保険</span><span class="l-en">Mitsui Sumitomo Aioi Life Insurance</span></figcaption></figure></div>
         <p class="backdrop-etc">etc.</p>
       </div>
     </div>
@@ -390,7 +400,7 @@
       </div>
       <div class="reveal">
         <h3 class="caps">Show</h3>
-        <ul><li>SHOW 桂由美 Grand Collection Tokyo</li></ul>
+        <ul><li><span class="l-ja">桂由美 Grand Collection Tokyo</span><span class="l-en">Yumi Katsura Grand Collection Tokyo</span></li></ul>
         <h3 class="caps" style="margin-top:28px">Productions</h3>
         <ul><li>Commercial</li><li>Corporate</li><li>Television</li><li>Music</li><li>Fashion</li><li>Show</li><li>Editorial</li><li>Portrait</li><li>Corporate Training</li></ul>
       </div>
@@ -400,46 +410,46 @@
   <!-- About -->
   <section class="about" id="about">
     <div class="txt reveal">
-      <h2>About<br><span style="font-size:.6em;letter-spacing:.1em">プロフィール</span></h2>
-      <p class="jp">飯田さとみ（いいださとみ）は、東京を拠点に、広告・CM・テレビ・ファッション・音楽・エディトリアルの現場で活動するフリーランスのヘアメイクアップアーティスト／メイクアップアーティスト。大型の広告キャンペーンやテレビ番組から、アーティスト、俳優、アスリート、企業の撮影まで幅広く担当。被写体、カメラ、そして現場全体を理解したうえで、一つひとつの仕事に向き合っています。大規模な撮影では、ヘアメイクチームの手配にも対応。ファッションショーのヘアメイクや、企業向けのヘアメイク研修・講習も行っています。海外案件・海外撮影のご依頼も承ります。</p>
-      <p>Satomi Iida is a freelance hair and makeup artist based in Tokyo, working across advertising, television, fashion, music and editorial productions.</p>
-      <p>Her experience ranges from major commercial campaigns and television productions to artists, actors, athletes and corporate shoots. She approaches each project with an understanding of the person, the camera and the production. For larger shoots, she can coordinate additional hair and makeup artists. She also works on fashion shows and leads hair and makeup training for companies.</p>
-      <p>Available for productions in Tokyo, across Japan and internationally.</p>
+      <h2>About</h2>
+      <p class="jp l-ja">飯田さとみ（いいださとみ）は、東京を拠点に、広告・CM・テレビ・ファッション・音楽・エディトリアルの現場で活動するフリーランスのヘアメイクアップアーティスト／メイクアップアーティスト。大型の広告キャンペーンやテレビ番組から、アーティスト、俳優、アスリート、企業の撮影まで幅広く担当。被写体、カメラ、そして現場全体を理解したうえで、一つひとつの仕事に向き合っています。大規模な撮影では、ヘアメイクチームの手配にも対応。ファッションショーのヘアメイクや、企業向けのヘアメイク研修・講習も行っています。海外案件・海外撮影のご依頼も承ります。</p>
+      <p class="l-en">Satomi Iida is a freelance hair and makeup artist based in Tokyo, working across advertising, television, fashion, music and editorial productions.</p>
+      <p class="l-en">Her experience ranges from major commercial campaigns and television productions to artists, actors, athletes and corporate shoots. She approaches each project with an understanding of the person, the camera and the production. For larger shoots, she can coordinate additional hair and makeup artists. She also works on fashion shows and leads hair and makeup training for companies.</p>
+      <p class="l-en">Available for productions in Tokyo, across Japan and internationally.</p>
     </div>
     <div class="img"><img loading="lazy" src="images/62A168BF-D196-47E1-9E0D-2A70005C9ADB.jpg" alt="飯田さとみ Satomi Iida, freelance hair and makeup artist"></div>
   </section>
 
   <!-- Contact -->
   <section class="contact" id="contact">
-    <h2 class="reveal">ヘアメイクのご依頼<br><span style="font-size:.55em;letter-spacing:.08em">Looking for Hair &amp; Makeup?</span></h2>
-    <p class="reveal">撮影・ショー・企業研修のご依頼、スケジュールのお問い合わせはこちらから。<br>For bookings, shows, training and availability, please get in touch.</p>
+    <h2 class="reveal">Looking for<br>Hair &amp; Makeup?</h2>
+    <p class="reveal"><span class="l-ja">撮影・ショー・企業研修のご依頼、スケジュールのお問い合わせはこちらから。</span><span class="l-en">For bookings, shows, training and availability, please get in touch.</span></p>
     <form class="cform reveal" id="cform" novalidate>
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <div><label for="f-name">お名前 Name<span class="req">*</span></label><input id="f-name" name="お名前 Name" required autocomplete="name"></div>
-      <div><label for="f-company">会社名・媒体名 Company</label><input id="f-company" name="会社名 Company" autocomplete="organization"></div>
-      <div><label for="f-email">メールアドレス Email<span class="req">*</span></label><input id="f-email" type="email" name="email" required autocomplete="email"></div>
-      <div><label for="f-tel">電話番号 Phone</label><input id="f-tel" type="tel" name="電話番号 Phone" autocomplete="tel"></div>
-      <div><label for="f-type">ご依頼の種類 Type</label>
+      <div><label for="f-name"><span class="l-ja">お名前</span><span class="l-en">Name</span><span class="req">*</span></label><input id="f-name" name="お名前 Name" required autocomplete="name"></div>
+      <div><label for="f-company"><span class="l-ja">会社名・媒体名</span><span class="l-en">Company</span></label><input id="f-company" name="会社名 Company" autocomplete="organization"></div>
+      <div><label for="f-email"><span class="l-ja">メールアドレス</span><span class="l-en">Email</span><span class="req">*</span></label><input id="f-email" type="email" name="email" required autocomplete="email"></div>
+      <div><label for="f-tel"><span class="l-ja">電話番号</span><span class="l-en">Phone</span></label><input id="f-tel" type="tel" name="電話番号 Phone" autocomplete="tel"></div>
+      <div><label for="f-type"><span class="l-ja">ご依頼の種類</span><span class="l-en">Type</span></label>
         <select id="f-type" name="ご依頼の種類 Type">
-          <option>CM・広告 Commercial / Advertising</option>
-          <option>ミュージックビデオ Music Video</option>
-          <option>雑誌・エディトリアル Editorial</option>
-          <option>テレビ Television</option>
-          <option>ショー Show</option>
-          <option>企業研修・講習 Corporate Training</option>
-          <option>その他 Other</option>
+          <option data-ja="CM・広告" data-en="Commercial / Advertising">CM・広告</option>
+          <option data-ja="ミュージックビデオ" data-en="Music Video">ミュージックビデオ</option>
+          <option data-ja="雑誌・エディトリアル" data-en="Editorial">雑誌・エディトリアル</option>
+          <option data-ja="テレビ" data-en="Television">テレビ</option>
+          <option data-ja="ショー" data-en="Show">ショー</option>
+          <option data-ja="企業研修・講習" data-en="Corporate Training">企業研修・講習</option>
+          <option data-ja="その他" data-en="Other">その他</option>
         </select></div>
-      <div><label for="f-place">場所 Location</label>
+      <div><label for="f-place"><span class="l-ja">場所</span><span class="l-en">Location</span></label>
         <select id="f-place" name="場所 Location">
-          <option>東京 Tokyo</option>
-          <option>国内 Japan (outside Tokyo)</option>
-          <option>海外 Overseas</option>
-          <option>未定 TBD</option>
+          <option data-ja="東京" data-en="Tokyo">東京</option>
+          <option data-ja="国内" data-en="Japan (outside Tokyo)">国内</option>
+          <option data-ja="海外" data-en="Overseas">海外</option>
+          <option data-ja="未定" data-en="TBD">未定</option>
         </select></div>
-      <div class="full"><label for="f-date">撮影日・実施日 Date</label><input id="f-date" name="撮影日 Date" placeholder="例）2026年12月中旬 / Mid-December 2026"></div>
-      <div class="full"><label for="f-msg">ご依頼内容 Message<span class="req">*</span></label><textarea id="f-msg" name="ご依頼内容 Message" required></textarea></div>
+      <div class="full"><label for="f-date"><span class="l-ja">撮影日・実施日</span><span class="l-en">Date</span></label><input id="f-date" name="撮影日 Date" placeholder="例）2026年12月中旬" data-ph-ja="例）2026年12月中旬" data-ph-en="e.g. Mid-December 2026"></div>
+      <div class="full"><label for="f-msg"><span class="l-ja">ご依頼内容</span><span class="l-en">Message</span><span class="req">*</span></label><textarea id="f-msg" name="ご依頼内容 Message" required></textarea></div>
       <div class="form-msg" id="form-msg" role="status" aria-live="polite"></div>
-      <div class="send"><button type="submit" class="btn caps" id="f-send">送信する Send</button></div>
+      <div class="send"><button type="submit" class="btn caps" id="f-send"><span class="l-ja">送信する</span><span class="l-en">Send</span></button></div>
     </form>
     <p class="alt reveal">Instagram　<a class="u" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener">@______iis</a></p>
   </section>
@@ -622,7 +632,7 @@
   lb.querySelector('.next').onclick = e => { e.stopPropagation(); show(idx + 1); };
   // Lightbox swipe: left/right to change, down to go back
   lbImg.draggable = false;
-  const lbHint = document.createElement('div'); lbHint.className = 'lb-hint caps'; lbHint.textContent = '左右にスワイプで切り替え　下にスワイプで戻る'; lb.appendChild(lbHint);
+  const lbHint = document.createElement('div'); lbHint.className = 'lb-hint caps'; lbHint.innerHTML = '<span class="l-ja">左右にスワイプで切り替え　下にスワイプで戻る</span><span class="l-en">Swipe sideways to browse, down to close</span>'; lb.appendChild(lbHint);
   let sx = 0, sy = 0, sdx = 0, sdy = 0, swiping = false, swiped = false, busy = false;
   const ease = 'transform .28s ease, opacity .28s ease';
   lb.addEventListener('pointerdown', e => {
@@ -669,13 +679,13 @@
   const cform = document.getElementById('cform'), fmsg = document.getElementById('form-msg'), fsend = document.getElementById('f-send');
   if (/[?&]sent=1/.test(location.search)) {
     fmsg.className = 'form-msg ok';
-    fmsg.textContent = '送信しました。ありがとうございます。折り返しご連絡いたします。 Thank you, your message has been sent.';
+    fmsg.textContent = T('送信しました。ありがとうございます。折り返しご連絡いたします。','Thank you, your message has been sent.');
     setTimeout(() => document.getElementById('contact').scrollIntoView(), 300);
   }
   cform.addEventListener('submit', e => {
     fmsg.className = 'form-msg'; fmsg.textContent = '';
     const bad = [...cform.querySelectorAll('[required]')].find(el => !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value)));
-    if (bad) { e.preventDefault(); fmsg.className = 'form-msg err'; fmsg.textContent = '必須項目を入力してください。 Please fill in the required fields.'; bad.focus(); return; }
+    if (bad) { e.preventDefault(); fmsg.className = 'form-msg err'; fmsg.textContent = T('必須項目を入力してください。','Please fill in the required fields.'); bad.focus(); return; }
     const add = (n, v) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = v; cform.appendChild(i); };
     add('_subject', '【satomi-iida.com】お問い合わせ ' + cform.querySelector('#f-name').value);
     add('_replyto', cform.querySelector('#f-email').value);
@@ -684,7 +694,7 @@
     add('_next', 'https://satomi-iida.com/?sent=1#contact');
     cform.action = 'https://formsubmit.co/' + FORM_EMAIL;
     cform.method = 'POST';
-    fsend.disabled = true; fsend.textContent = '送信中… Sending';
+    fsend.disabled = true; fsend.textContent = T('送信中…','Sending…');
   });
 
   // Editorial orb: a faceted ball of photos you can roll
@@ -841,7 +851,7 @@
     before.parentNode.insertBefore(stage, before); stage.appendChild(box);
     panels.forEach(p => { p.classList.remove('reveal'); p.classList.add('cpanel'); box.appendChild(p); });
     const dots = document.createElement('div'); dots.className = 'cdots';
-    const hint = document.createElement('div'); hint.className = 'chint caps'; hint.textContent = '左右にスワイプ　Swipe';
+    const hint = document.createElement('div'); hint.className = 'chint caps'; hint.innerHTML = '<span class="l-ja">左右にスワイプ</span><span class="l-en">Swipe</span>';
     stage.after(dots); dots.after(hint);
     let cur = 0, W = 0, depth = 0, drag = false, sx = 0, dx = 0, btns = [];
     const at = () => ((cur % N) + N) % N;
@@ -872,6 +882,16 @@
   // Fade-in on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script>
+(function(){
+  const apply=l=>{document.documentElement.lang=l;try{localStorage.setItem('lang',l)}catch(e){}
+    document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+    document.querySelectorAll('[data-ja][data-en]').forEach(el=>{el.textContent=l==='en'?el.dataset.en:el.dataset.ja;});
+    document.querySelectorAll('[data-ph-ja]').forEach(el=>{el.placeholder=l==='en'?el.dataset.phEn:el.dataset.phJa;});};
+  document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>apply(b.dataset.l)));
+  apply(document.documentElement.lang==='en'?'en':'ja');
+})();
 </script>
 </body>
 </html>
