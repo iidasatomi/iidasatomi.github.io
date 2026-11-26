@@ -333,7 +333,7 @@
   .th-hint{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-size:10.5px;letter-spacing:.14em;color:#77777e;z-index:2}
   @media (max-width:700px){.th-nav{display:none}}
 </style>
-<script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
+<script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.wheelNav=function(el,isOpen,go){var acc=0,lock=0;el.addEventListener('wheel',function(e){if(!isOpen())return;if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();var now=performance.now();if(now<lock){acc=0;return;}acc+=e.deltaX;if(Math.abs(acc)>40){go(acc>0?1:-1);acc=0;lock=now+650;}},{passive:false});};window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
 </head>
 <body>
 
@@ -727,6 +727,8 @@
   };
   lb.addEventListener('pointerup', swipeEnd);
   lb.addEventListener('pointercancel', swipeEnd);
+  // Trackpad / Magic Mouse sideways swipe
+  wheelNav(lb, () => lb.classList.contains('open'), dir => { if (busy || set.length < 2) return; swiping = true; sdx = -dir * 100; sdy = 0; swipeEnd(); });
   lb.addEventListener('click', e => { if (swiped) { swiped = false; return; } if (e.target === lb) close(); });
   document.addEventListener('keydown', e => {
     if (!lb.classList.contains('open')) return;
@@ -1099,6 +1101,7 @@
     else if (cur) { cur.style.transition = 'transform .25s ease'; cur.style.transform = ''; }
   };
   ov.addEventListener('pointerup', end); ov.addEventListener('pointercancel', end);
+  wheelNav(ov, () => ov.classList.contains('open'), go);
   document.addEventListener('keydown', e => {
     if (!ov.classList.contains('open')) return;
     if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1);
@@ -1147,6 +1150,7 @@
     if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
   };
   th.addEventListener('pointerup', end); th.addEventListener('pointercancel', end);
+  wheelNav(th, () => th.classList.contains('open'), go);
   document.addEventListener('keydown', e => { if (!th.classList.contains('open')) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
   addEventListener('resize', () => th.classList.contains('open') && size());
 })();
