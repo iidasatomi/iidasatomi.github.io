@@ -391,6 +391,10 @@
   .site-credit{display:block;margin-top:6px;font-size:10px;letter-spacing:.12em;color:var(--muted);opacity:.75;transition:opacity .2s}
   .site-credit:hover{opacity:1;color:var(--ink)}
   footer .site-credit{text-align:right}
+  .vlabel{position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;pointer-events:none;color:#1f2024;text-shadow:0 0 6px rgba(255,255,255,.95),0 0 2px rgba(255,255,255,.9)}
+  .vlabel b{font-family:var(--serif);font-weight:500;font-size:var(--fs);letter-spacing:.08em;line-height:1.1;white-space:nowrap}
+  .vlabel i{font-style:normal;font-family:var(--sans);font-size:calc(var(--fs) * .5);letter-spacing:.14em;margin-top:.5em;line-height:1.2;white-space:nowrap;text-transform:uppercase}
+  .th-cap .th-title{color:#c9c9cf;text-transform:none;letter-spacing:.12em}
 </style>
 <script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.wheelNav=function(el,isOpen,go){var acc=0,lock=0;el.addEventListener('wheel',function(e){if(!isOpen())return;if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();var now=performance.now();if(now<lock){acc=0;return;}acc+=e.deltaX;if(Math.abs(acc)>40){go(acc>0?1:-1);acc=0;lock=now+650;}},{passive:false});};window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
 </head>
@@ -929,6 +933,7 @@
   (() => {
     const thumb = id => 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
     const MV = ['BSrQBW4zAo8', 'df_7ABanC1o', 'JSM261gzAxU', 'o0U_YcL3lZg', 'Lo8lo-WswYQ'].map((v, i) => ({ video: v, src: thumb(v), alt: 'Music video ' + (i + 1) + ', hair and makeup by Satomi Iida', dataset: {} }));
+    [['AislE', 'ユアヒロイン'], ['AislE', 'Category'], ['AislE', 'ただいる'], ['n.SSign', 'NEW STAR'], ['Kylie', 'SATURDAY feat. CaTEye']].forEach(([artist, song], i) => { MV[i].artist = artist; MV[i].song = song; MV[i].alt = artist + ' "' + song + '" music video, hair and makeup by Satomi Iida'; });
     const CM = ['1vuD1j3YTRk', 'W2rTQXZ_vak', 'AgbpQeyN5MM'].map((v, i) => ({ video: v, src: thumb(v), alt: 'Commercial film ' + (i + 1) + ', hair and makeup by Satomi Iida', dataset: {} }));
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const open = (items, i) => { set = items; show(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; };
@@ -939,6 +944,7 @@
     // Pyramid: four triangular sides + square base = five videos, free rotation
     const pyr = document.getElementById('pyr'), pb = document.getElementById('pyrBall');
     const pf = MV.map((it, i) => ({ el: face(pb, it, i < 4 ? 'side' : 'base'), i }));
+    pf.forEach(f => { const l = document.createElement('div'); l.className = 'vlabel'; l.innerHTML = '<b></b><i></i>'; l.querySelector('b').textContent = MV[f.i].artist; l.querySelector('i').textContent = MV[f.i].song; f.el.appendChild(l); });
     pf.slice(0, 4).forEach(f => f.el.style.clipPath = 'polygon(50% 0,100% 100%,0 100%)');
     const pLayout = () => {
       const B = pyr.clientWidth * 0.5, Hh = B * 0.82, L = Math.hypot(Hh, B / 2), a = Math.atan2(B / 2, Hh) * 180 / Math.PI;
@@ -948,9 +954,12 @@
           place(f.el, B, L, [0.5, 1], 'rotateY(' + i * 90 + 'deg) translate3d(0,' + Hh / 3 + 'px,' + B / 2 + 'px) rotateX(' + a + 'deg)');
           const w = 0.95 * B / (1 + 9 * B / (16 * L)), hh = w * 9 / 16;
           vb.style.cssText = 'left:' + (B - w) / 2 + 'px;top:' + (0.955 * L - hh) + 'px;width:' + w + 'px;height:' + hh + 'px';
+          const lb = f.el.querySelector('.vlabel'), vt = 0.955 * L - hh;
+          lb.style.cssText = 'left:' + B * 0.25 + 'px;width:' + B * 0.5 + 'px;top:' + (vt - B * 0.2) + 'px;height:' + B * 0.17 + 'px;--fs:' + B * 0.052 + 'px';
         } else {
           place(f.el, B, B, [0.5, 0.5], 'translateY(' + Hh / 3 + 'px) rotateX(-90deg)');
           const w = B * 0.9, hh = w * 9 / 16; vb.style.cssText = 'left:' + (B - w) / 2 + 'px;top:' + (B - hh) / 2 + 'px;width:' + w + 'px;height:' + hh + 'px';
+          f.el.querySelector('.vlabel').style.cssText = 'left:' + B * 0.1 + 'px;width:' + B * 0.8 + 'px;top:' + B * 0.03 + 'px;height:' + ((B - hh) / 2 - B * 0.04) + 'px;--fs:' + B * 0.05 + 'px';
         }
       });
     };
@@ -1196,7 +1205,7 @@
 <script>
 (() => {
   const th = document.createElement('div'); th.className = 'thlb'; th.setAttribute('role', 'dialog'); th.setAttribute('aria-modal', 'true'); th.setAttribute('aria-label', 'Music video theater');
-  th.innerHTML = '<svg class="th-room" aria-hidden="true"></svg><div class="th-wrap"><button class="th-close caps" aria-label="Close">Close ✕</button><div class="th-screen"></div><div class="th-cap caps"><span>Music Video</span><span class="th-count"></span></div></div><button class="th-nav th-prev" aria-label="Previous">‹</button><button class="th-nav th-next" aria-label="Next">›</button><div class="th-seats"></div><div class="th-hint caps"><span class="l-ja">左右にスワイプで次のMV　下にスワイプで戻る</span><span class="l-en">Swipe sideways for the next video, down to close</span></div>';
+  th.innerHTML = '<svg class="th-room" aria-hidden="true"></svg><div class="th-wrap"><button class="th-close caps" aria-label="Close">Close ✕</button><div class="th-screen"></div><div class="th-cap caps"><span class="th-title">Music Video</span><span class="th-count"></span></div></div><button class="th-nav th-prev" aria-label="Previous">‹</button><button class="th-nav th-next" aria-label="Next">›</button><div class="th-seats"></div><div class="th-hint caps"><span class="l-ja">左右にスワイプで次のMV　下にスワイプで戻る</span><span class="l-en">Swipe sideways for the next video, down to close</span></div>';
   document.body.appendChild(th);
   const wrap = th.querySelector('.th-wrap'), scr = th.querySelector('.th-screen'), count = th.querySelector('.th-count'), seats = th.querySelector('.th-seats');
   const coarse = matchMedia('(pointer: coarse)').matches;
@@ -1253,6 +1262,7 @@
     });
     scr.appendChild(v);
     count.textContent = String(k + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
+    th.querySelector('.th-title').textContent = it.artist ? it.artist + '  "' + it.song + '"' : 'Music Video';
   };
   window.openTheater = (l, i) => { list = l; k = (i + l.length) % l.length; size(); th.classList.add('open'); document.body.style.overflow = 'hidden'; play(); };
   const close = () => { clearTimeout(retry); th.classList.remove('open'); document.body.style.overflow = ''; scr.innerHTML = ''; };
