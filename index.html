@@ -308,6 +308,30 @@
   .tv-meta{margin-top:4px;font-size:10.5px;letter-spacing:.18em;color:var(--muted);display:flex;gap:14px;justify-content:center}
   .tv-hint{position:absolute;z-index:3;left:0;right:0;top:calc(var(--w)*.82);text-align:center;font-size:10.5px;letter-spacing:.14em;color:var(--muted);opacity:.8}
   .tv-close{position:absolute;z-index:4;top:-46px;right:6%;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:12px;letter-spacing:.16em;color:var(--ink);padding:12px 4px}
+
+  .vbox{position:absolute;inset:0;overflow:hidden;background:#000}
+  .vbox .play{top:50%}
+  .pyr .vface{background:#0d0d0d}
+  .vlive{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+  .vbox.live .play{display:none}
+  /* Theater viewer for music videos */
+  .thlb{position:fixed;inset:0;z-index:110;display:none;overflow:hidden;background:radial-gradient(ellipse 75% 50% at 50% 30%,rgba(190,200,230,.10),rgba(0,0,0,0) 70%),linear-gradient(180deg,#0c0c0f,#060607 60%,#030304);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;color:#cfcfd4}
+  .thlb.open{display:block}.thlb.grabbing{cursor:grabbing}
+  .th-ceil{position:absolute;left:0;right:0;top:0;height:9vh;background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 9vw)}
+  .th-wrap{position:absolute;left:50%;top:max(9vh,64px);width:var(--sw);transform:translateX(-50%)}
+  .th-screen{position:relative;width:100%;aspect-ratio:16/9;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 0 140px rgba(200,210,255,.16),0 30px 90px rgba(0,0,0,.6);transition:opacity .28s ease}
+  .th-screen.fade{opacity:0}
+  .th-screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .th-cap{margin-top:16px;display:flex;justify-content:center;gap:16px;font-size:10.5px;letter-spacing:.2em;color:#8d8d94}
+  .th-close{position:absolute;top:-44px;right:-4px;background:none;border:0;color:#d8d8dc;font-family:var(--sans);font-size:12px;letter-spacing:.16em;padding:12px 4px;cursor:pointer}
+  .th-nav{position:absolute;top:calc(max(9vh,64px) + var(--sw) * 9 / 32);transform:translateY(-50%);background:none;border:0;color:rgba(255,255,255,.55);font-size:40px;line-height:1;padding:16px;cursor:pointer;z-index:3}
+  .th-nav:hover{color:#fff}.th-prev{left:max(8px,calc(50% - var(--sw) / 2 - 70px))}.th-next{right:max(8px,calc(50% - var(--sw) / 2 - 70px))}
+  .th-seats{position:absolute;left:0;right:0;bottom:0;height:34vh;pointer-events:none}
+  .th-row{position:absolute;left:50%;display:flex;transform:translateX(-50%);gap:.6vw}
+  .th-row i{display:block;width:var(--seat);height:calc(var(--seat) * .95);border-radius:42% 42% 10% 10% / 34% 34% 10% 10%;background:linear-gradient(180deg,#3a3940 0%,#222127 30%,#101013 75%,#09090b);box-shadow:inset 0 2px 0 rgba(255,255,255,.07),0 -2px 12px rgba(0,0,0,.5)}
+  .th-row i.aisle{visibility:hidden;width:calc(var(--seat) * .7)}
+  .th-hint{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-size:10.5px;letter-spacing:.14em;color:#77777e;z-index:2}
+  @media (max-width:700px){.th-nav{display:none}}
 </style>
 <script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
 </head>
@@ -839,7 +863,7 @@
     const CM = ['1vuD1j3YTRk', 'W2rTQXZ_vak', 'AgbpQeyN5MM'].map((v, i) => ({ video: v, src: thumb(v), alt: 'Commercial film ' + (i + 1) + ', hair and makeup by Satomi Iida', dataset: {} }));
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const open = (items, i) => { set = items; show(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; };
-    const face = (parent, it, cls) => { const el = document.createElement('div'); el.className = 'vface' + (cls ? ' ' + cls : ''); el.innerHTML = '<img draggable="false" alt="' + it.alt + '" src="' + it.src + '"><span class="play"></span>'; parent.appendChild(el); return el; };
+    const face = (parent, it, cls) => { const el = document.createElement('div'); el.className = 'vface' + (cls ? ' ' + cls : ''); el.innerHTML = '<div class="vbox"><img draggable="false" alt="' + it.alt + '" src="' + it.src + '"><span class="play"></span></div>'; parent.appendChild(el); return el; };
     const place = (el, w, hh, origin, tf) => { el.style.width = w + 'px'; el.style.height = hh + 'px'; el.style.left = -w * origin[0] + 'px'; el.style.top = -hh * origin[1] + 'px'; el.style.transformOrigin = (origin[0] * 100) + '% ' + (origin[1] * 100) + '%'; el.style.transform = tf; };
     const hitOn = (e, list) => { const hit = document.elementsFromPoint(e.clientX, e.clientY).find(x => x.classList && x.classList.contains('vface')); return list.findIndex(f => f.el === hit); };
 
@@ -850,15 +874,41 @@
     const pLayout = () => {
       const B = pyr.clientWidth * 0.5, Hh = B * 0.82, L = Math.hypot(Hh, B / 2), a = Math.atan2(B / 2, Hh) * 180 / Math.PI;
       pf.forEach((f, i) => {
-        if (i < 4) place(f.el, B, L, [0.5, 1], 'rotateY(' + i * 90 + 'deg) translate3d(0,' + Hh / 3 + 'px,' + B / 2 + 'px) rotateX(' + a + 'deg)');
-        else place(f.el, B, B, [0.5, 0.5], 'translateY(' + Hh / 3 + 'px) rotateX(-90deg)');
+        const vb = f.el.querySelector('.vbox');
+        if (i < 4) {
+          place(f.el, B, L, [0.5, 1], 'rotateY(' + i * 90 + 'deg) translate3d(0,' + Hh / 3 + 'px,' + B / 2 + 'px) rotateX(' + a + 'deg)');
+          const w = 0.95 * B / (1 + 9 * B / (16 * L)), hh = w * 9 / 16;
+          vb.style.cssText = 'left:' + (B - w) / 2 + 'px;top:' + (0.955 * L - hh) + 'px;width:' + w + 'px;height:' + hh + 'px';
+        } else {
+          place(f.el, B, B, [0.5, 0.5], 'translateY(' + Hh / 3 + 'px) rotateX(-90deg)');
+          const w = B * 0.9, hh = w * 9 / 16; vb.style.cssText = 'left:' + (B - w) / 2 + 'px;top:' + (B - hh) / 2 + 'px;width:' + w + 'px;height:' + hh + 'px';
+        }
       });
     };
     let prot = new DOMMatrix().rotateSelf(-14, 30, 0), pvx = 0, pvy = 0, pdrag = false, pmoved = 0, plx = 0, ply = 0, pidle = 0;
+    // Muted autoplay on whichever face is turned toward the viewer (max two players at once)
+    let pframe = 0, pvis = false, front = -1, frontAt = 0; const live = new Map();
+    new IntersectionObserver(es => es.forEach(e => { pvis = e.isIntersecting; if (!pvis) { live.forEach(v => v.remove()); live.clear(); pf.forEach(f => f.el.querySelector('.vbox').classList.remove('live')); } }), { threshold: 0.25 }).observe(pyr);
+    const pickLive = now => {
+      if (!pvis || still || document.querySelector('.thlb.open')) return;
+      const ar = Math.atan2(0.5, 0.82); let best = -1, bz = 0.35;
+      pf.forEach((f, i) => {
+        const n = i < 4 ? [Math.cos(ar) * Math.sin(i * Math.PI / 2), -Math.sin(ar), Math.cos(ar) * Math.cos(i * Math.PI / 2)] : [0, 1, 0];
+        const p = prot.transformPoint(new DOMPoint(n[0], n[1], n[2], 0)); if (p.z > bz) { bz = p.z; best = i; }
+      });
+      if (best !== front) { front = best; frontAt = now; return; }
+      if (best < 0 || now - frontAt < 700) return;
+      if (live.has(best)) { live.get(best)._t = now; return; }
+      const vb = pf[best].el.querySelector('.vbox'), id = MV[best].video, v = document.createElement('iframe');
+      v.className = 'vlive'; v.tabIndex = -1; v.setAttribute('aria-hidden', 'true'); v.allow = 'autoplay; encrypted-media';
+      v.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + id + '&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1';
+      v._t = now; vb.appendChild(v); vb.classList.add('live'); live.set(best, v);
+      if (live.size > 2) { const [oi, ov] = [...live.entries()].sort((p, q) => p[1]._t - q[1]._t)[0]; ov.remove(); live.delete(oi); pf[oi].el.querySelector('.vbox').classList.remove('live'); }
+    };
     const pturn = (dx, dy) => { const d = Math.hypot(dx, dy); if (d) prot = new DOMMatrix().rotateAxisAngleSelf(-dy / d, dx / d, 0, d * 0.4).multiply(prot); };
     pyr.addEventListener('pointerdown', e => { if (!e.target.closest('.vface')) return; pdrag = true; pmoved = 0; pvx = pvy = 0; plx = e.clientX; ply = e.clientY; pyr.setPointerCapture(e.pointerId); });
     pyr.addEventListener('pointermove', e => { if (!pdrag) return; const dx = e.clientX - plx, dy = e.clientY - ply; plx = e.clientX; ply = e.clientY; pmoved += Math.abs(dx) + Math.abs(dy); pturn(dx, dy); pvx = dx; pvy = dy; });
-    const pend = e => { if (!pdrag) return; pdrag = false; pidle = performance.now(); if (pmoved < 6) { const k = hitOn(e, pf); if (k >= 0) { pvx = pvy = 0; open(MV, k); } } };
+    const pend = e => { if (!pdrag) return; pdrag = false; pidle = performance.now(); if (pmoved < 6) { const k = hitOn(e, pf); if (k >= 0) { pvx = pvy = 0; openTheater(MV, k); } } };
     pyr.addEventListener('pointerup', pend); pyr.addEventListener('pointercancel', pend);
 
     // Three-sided billboard: turns in 120-degree steps like a roadside tri-vision sign
@@ -881,6 +931,7 @@
       const now = performance.now();
       if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && now - pidle > 2500) pturn(0.4, 0.066); }
       pb.style.transform = prot.toString();
+      if (++pframe % 12 === 0) pickLive(now);
       if (!tdrag) {
         if (!still && now - Math.max(tidle, last) > 2650) { target -= 120; last = now; }
         tv += (target - yaw) * 0.08; tv *= 0.7; yaw += tv;
@@ -1054,6 +1105,50 @@
   });
   addEventListener('resize', () => ov.classList.contains('open') && size());
   document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', caption));
+})();
+</script>
+<script>
+(() => {
+  const th = document.createElement('div'); th.className = 'thlb'; th.setAttribute('role', 'dialog'); th.setAttribute('aria-modal', 'true'); th.setAttribute('aria-label', 'Music video theater');
+  th.innerHTML = '<div class="th-ceil"></div><div class="th-wrap"><button class="th-close caps" aria-label="Close">Close ✕</button><div class="th-screen"></div><div class="th-cap caps"><span>Music Video</span><span class="th-count"></span></div></div><button class="th-nav th-prev" aria-label="Previous">‹</button><button class="th-nav th-next" aria-label="Next">›</button><div class="th-seats"></div><div class="th-hint caps"><span class="l-ja">左右にスワイプで次のMV　下にスワイプで戻る</span><span class="l-en">Swipe sideways for the next video, down to close</span></div>';
+  document.body.appendChild(th);
+  const wrap = th.querySelector('.th-wrap'), scr = th.querySelector('.th-screen'), count = th.querySelector('.th-count'), seats = th.querySelector('.th-seats');
+  [[16, 0.045, '58%'], [14, 0.058, '30%'], [12, 0.075, '-2%']].forEach(([n, sz, bottom]) => {
+    const row = document.createElement('div'); row.className = 'th-row'; row.style.bottom = bottom; row.style.setProperty('--seat', 'min(' + sz * 100 + 'vw,' + sz * 1400 + 'px)');
+    for (let j = 0; j < n + 1; j++) { const s = document.createElement('i'); if (j === n / 2) s.className = 'aisle'; row.appendChild(s); }
+    seats.appendChild(row);
+  });
+  const coarse = matchMedia('(pointer: coarse)').matches;
+  let list = [], k = 0, busy = false;
+  const size = () => th.style.setProperty('--sw', Math.min(innerWidth * 0.9, 1100, innerHeight * 0.5 * 16 / 9) + 'px');
+  const play = () => {
+    scr.innerHTML = ''; const it = list[k], v = document.createElement('iframe');
+    v.src = 'https://www.youtube-nocookie.com/embed/' + it.video + '?autoplay=1&rel=0&playsinline=1&modestbranding=1' + (coarse ? '&mute=1' : '');
+    v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = it.alt; scr.appendChild(v);
+    count.textContent = String(k + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
+  };
+  window.openTheater = (l, i) => { list = l; k = (i + l.length) % l.length; size(); th.classList.add('open'); document.body.style.overflow = 'hidden'; play(); };
+  const close = () => { th.classList.remove('open'); document.body.style.overflow = ''; scr.innerHTML = ''; };
+  const go = d => { if (busy || list.length < 2) return; busy = true; scr.classList.add('fade'); setTimeout(() => { k = (k + d + list.length) % list.length; play(); scr.classList.remove('fade'); busy = false; }, 280); };
+  th.querySelector('.th-close').addEventListener('click', close);
+  th.querySelector('.th-prev').addEventListener('click', () => go(-1));
+  th.querySelector('.th-next').addEventListener('click', () => go(1));
+  let sx = 0, sy = 0, dx = 0, dy = 0, drag = false;
+  th.addEventListener('pointerdown', e => { if (busy || e.target.closest('button')) return; drag = true; sx = e.clientX; sy = e.clientY; dx = dy = 0; th.classList.add('grabbing'); try { th.setPointerCapture(e.pointerId); } catch (_) {} wrap.style.transition = 'none'; });
+  th.addEventListener('pointermove', e => {
+    if (!drag) return; dx = e.clientX - sx; dy = e.clientY - sy;
+    if (dy > Math.abs(dx)) { wrap.style.transform = 'translate(-50%,' + dy * 0.6 + 'px)'; wrap.style.opacity = 1 - Math.min(dy, 400) / 700; }
+    else { wrap.style.transform = 'translate(calc(-50% + ' + dx * 0.5 + 'px),0)'; wrap.style.opacity = ''; }
+  });
+  const end = () => {
+    if (!drag) return; drag = false; th.classList.remove('grabbing'); wrap.style.transition = 'transform .25s ease, opacity .25s ease';
+    if (dy > 90 && dy > Math.abs(dx)) { wrap.style.transform = 'translate(-50%,40vh)'; wrap.style.opacity = 0; setTimeout(() => { close(); wrap.style.transition = 'none'; wrap.style.transform = ''; wrap.style.opacity = ''; }, 250); return; }
+    wrap.style.transform = ''; wrap.style.opacity = '';
+    if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+  };
+  th.addEventListener('pointerup', end); th.addEventListener('pointercancel', end);
+  document.addEventListener('keydown', e => { if (!th.classList.contains('open')) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
+  addEventListener('resize', () => th.classList.contains('open') && size());
 })();
 </script>
 </body>
