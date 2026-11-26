@@ -317,20 +317,20 @@
   /* Theater viewer for music videos */
   .thlb{position:fixed;inset:0;z-index:110;display:none;overflow:hidden;background:radial-gradient(ellipse 75% 50% at 50% 30%,rgba(190,200,230,.10),rgba(0,0,0,0) 70%),linear-gradient(180deg,#0c0c0f,#060607 60%,#030304);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;color:#cfcfd4}
   .thlb.open{display:block}.thlb.grabbing{cursor:grabbing}
-  .th-ceil{position:absolute;left:0;right:0;top:0;height:9vh;background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 9vw)}
-  .th-wrap{position:absolute;left:50%;top:max(9vh,64px);width:var(--sw);transform:translateX(-50%)}
+  .th-room{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .th-wrap{position:absolute;z-index:2;left:50%;top:var(--top,64px);width:var(--sw);transform:translateX(-50%)}
   .th-screen{position:relative;width:100%;aspect-ratio:16/9;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 0 140px rgba(200,210,255,.16),0 30px 90px rgba(0,0,0,.6);transition:opacity .28s ease}
   .th-screen.fade{opacity:0}
   .th-screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .th-cap{margin-top:16px;display:flex;justify-content:center;gap:16px;font-size:10.5px;letter-spacing:.2em;color:#8d8d94}
   .th-close{position:absolute;top:-44px;right:-4px;background:none;border:0;color:#d8d8dc;font-family:var(--sans);font-size:12px;letter-spacing:.16em;padding:12px 4px;cursor:pointer}
-  .th-nav{position:absolute;top:calc(max(9vh,64px) + var(--sw) * 9 / 32);transform:translateY(-50%);background:none;border:0;color:rgba(255,255,255,.55);font-size:40px;line-height:1;padding:16px;cursor:pointer;z-index:3}
+  .th-nav{position:absolute;top:calc(var(--top,64px) + var(--sw) * 9 / 32);transform:translateY(-50%);background:none;border:0;color:rgba(255,255,255,.55);font-size:40px;line-height:1;padding:16px;cursor:pointer;z-index:3}
   .th-nav:hover{color:#fff}.th-prev{left:max(8px,calc(50% - var(--sw) / 2 - 70px))}.th-next{right:max(8px,calc(50% - var(--sw) / 2 - 70px))}
-  .th-seats{position:absolute;left:0;right:0;bottom:0;height:34vh;pointer-events:none}
-  .th-row{position:absolute;left:50%;display:flex;transform:translateX(-50%);gap:.6vw}
+  .th-seats{position:absolute;inset:0;pointer-events:none;z-index:1}
+  .th-row{position:absolute;left:50%;display:flex;transform:translateX(-50%)}
   .th-row i{display:block;width:var(--seat);height:calc(var(--seat) * .95);border-radius:42% 42% 10% 10% / 34% 34% 10% 10%;background:linear-gradient(180deg,#3a3940 0%,#222127 30%,#101013 75%,#09090b);box-shadow:inset 0 2px 0 rgba(255,255,255,.07),0 -2px 12px rgba(0,0,0,.5)}
   .th-row i.aisle{visibility:hidden;width:calc(var(--seat) * .7)}
-  .th-hint{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-size:10.5px;letter-spacing:.14em;color:#77777e;z-index:2}
+  .th-hint{position:absolute;left:0;right:0;bottom:14px;text-shadow:0 1px 6px #000;text-align:center;font-size:10.5px;letter-spacing:.14em;color:#77777e;z-index:2}
   @media (max-width:700px){.th-nav{display:none}}
 </style>
 <script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.wheelNav=function(el,isOpen,go){var acc=0,lock=0;el.addEventListener('wheel',function(e){if(!isOpen())return;if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();var now=performance.now();if(now<lock){acc=0;return;}acc+=e.deltaX;if(Math.abs(acc)>40){go(acc>0?1:-1);acc=0;lock=now+650;}},{passive:false});};window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
@@ -1113,17 +1113,43 @@
 <script>
 (() => {
   const th = document.createElement('div'); th.className = 'thlb'; th.setAttribute('role', 'dialog'); th.setAttribute('aria-modal', 'true'); th.setAttribute('aria-label', 'Music video theater');
-  th.innerHTML = '<div class="th-ceil"></div><div class="th-wrap"><button class="th-close caps" aria-label="Close">Close ✕</button><div class="th-screen"></div><div class="th-cap caps"><span>Music Video</span><span class="th-count"></span></div></div><button class="th-nav th-prev" aria-label="Previous">‹</button><button class="th-nav th-next" aria-label="Next">›</button><div class="th-seats"></div><div class="th-hint caps"><span class="l-ja">左右にスワイプで次のMV　下にスワイプで戻る</span><span class="l-en">Swipe sideways for the next video, down to close</span></div>';
+  th.innerHTML = '<svg class="th-room" aria-hidden="true"></svg><div class="th-wrap"><button class="th-close caps" aria-label="Close">Close ✕</button><div class="th-screen"></div><div class="th-cap caps"><span>Music Video</span><span class="th-count"></span></div></div><button class="th-nav th-prev" aria-label="Previous">‹</button><button class="th-nav th-next" aria-label="Next">›</button><div class="th-seats"></div><div class="th-hint caps"><span class="l-ja">左右にスワイプで次のMV　下にスワイプで戻る</span><span class="l-en">Swipe sideways for the next video, down to close</span></div>';
   document.body.appendChild(th);
   const wrap = th.querySelector('.th-wrap'), scr = th.querySelector('.th-screen'), count = th.querySelector('.th-count'), seats = th.querySelector('.th-seats');
-  [[16, 0.045, '58%'], [14, 0.058, '30%'], [12, 0.075, '-2%']].forEach(([n, sz, bottom]) => {
-    const row = document.createElement('div'); row.className = 'th-row'; row.style.bottom = bottom; row.style.setProperty('--seat', 'min(' + sz * 100 + 'vw,' + sz * 1400 + 'px)');
-    for (let j = 0; j < n + 1; j++) { const s = document.createElement('i'); if (j === n / 2) s.className = 'aisle'; row.appendChild(s); }
-    seats.appendChild(row);
-  });
   const coarse = matchMedia('(pointer: coarse)').matches;
   let list = [], k = 0, busy = false;
-  const size = () => th.style.setProperty('--sw', Math.min(innerWidth * 0.9, 1100, innerHeight * 0.5 * 16 / 9) + 'px');
+  // Draw the room in perspective around the screen, then fill the floor with rows of seats
+  const room = th.querySelector('.th-room');
+  const size = () => {
+    const Wv = innerWidth, Hv = innerHeight, portrait = Hv > Wv * 1.1;
+    const sw = Math.min(Wv * (portrait ? 0.84 : 0.88), 1100, Hv * 0.5 * 16 / 9), sh = sw * 9 / 16;
+    const top = portrait ? Math.max(84, Hv * 0.35 - sh / 2) : Math.max(64, Hv * 0.12);
+    th.style.setProperty('--sw', sw + 'px'); th.style.setProperty('--top', top + 'px');
+    const L = (Wv - sw) / 2, Rr = L + sw, B = top + sh;
+    const x0 = L - sw * 0.07, x1 = Rr + sw * 0.07, y0 = top - sh * 0.16, y1 = B + sh * (portrait ? 0.5 : 0.32);
+    const P = pts => pts.map(p => p.join(',')).join(' ');
+    let s = '<defs><linearGradient id="thL" x1="0" x2="1"><stop offset="0" stop-color="#050506"/><stop offset="1" stop-color="#16161b"/></linearGradient><linearGradient id="thR" x1="1" x2="0"><stop offset="0" stop-color="#050506"/><stop offset="1" stop-color="#16161b"/></linearGradient><linearGradient id="thC" y1="0" y2="1" x1="0" x2="0"><stop offset="0" stop-color="#040405"/><stop offset="1" stop-color="#131318"/></linearGradient><linearGradient id="thF" y1="0" y2="1" x1="0" x2="0"><stop offset="0" stop-color="#121216"/><stop offset="1" stop-color="#040405"/></linearGradient><radialGradient id="thG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#c8d0ff" stop-opacity=".16"/><stop offset="1" stop-color="#c8d0ff" stop-opacity="0"/></radialGradient></defs>';
+    s += '<polygon fill="url(#thC)" points="' + P([[0, 0], [Wv, 0], [x1, y0], [x0, y0]]) + '"/>';
+    s += '<polygon fill="url(#thL)" points="' + P([[0, 0], [x0, y0], [x0, y1], [0, Hv]]) + '"/>';
+    s += '<polygon fill="url(#thR)" points="' + P([[Wv, 0], [x1, y0], [x1, y1], [Wv, Hv]]) + '"/>';
+    s += '<polygon fill="url(#thF)" points="' + P([[x0, y1], [x1, y1], [Wv, Hv], [0, Hv]]) + '"/>';
+    s += '<rect x="' + x0 + '" y="' + y0 + '" width="' + (x1 - x0) + '" height="' + (y1 - y0) + '" fill="#111115"/>';
+    s += '<ellipse cx="' + Wv / 2 + '" cy="' + (top + sh / 2) + '" rx="' + sw * 0.85 + '" ry="' + sh * 1.1 + '" fill="url(#thG)"/>';
+    const lerp = (a, b, t) => a + (b - a) * t;
+    for (let i = 1; i <= 4; i++) { const t = i / 5; s += '<line x1="' + lerp(0, Wv, t) + '" y1="0" x2="' + lerp(x0, x1, t) + '" y2="' + y0 + '" stroke="rgba(255,255,255,.035)"/>'; }
+    for (let i = 1; i <= 3; i++) { const t = Math.pow(i / 4, 1.4);
+      [[0, x0], [Wv, x1]].forEach(([e, w]) => { const x = lerp(e, w, t), yy = lerp(Hv * 0.42, (y0 + y1) / 2, t); s += '<circle cx="' + x + '" cy="' + yy + '" r="' + lerp(5, 1.5, t) + '" fill="rgba(255,196,130,' + lerp(0.35, 0.18, t) + ')"/><circle cx="' + x + '" cy="' + yy + '" r="' + lerp(26, 8, t) + '" fill="rgba(255,190,120,.05)"/>'; }); }
+    room.setAttribute('viewBox', '0 0 ' + Wv + ' ' + Hv); room.innerHTML = s;
+    seats.innerHTML = ''; const n = portrait ? 6 : 4, start = B + sh * (portrait ? 0.62 : 0.42);
+    for (let r = 0; r < n; r++) {
+      const t = (r + 1) / n, y = lerp(start, Hv + 10, Math.pow(t, 1.15));
+      const fw = lerp(x1 - x0, Wv * 1.15, (y - y1) / (Hv - y1)), per = portrait ? 10 : 16, w = fw / (per + 2.2), hh = w * 0.9;
+      const row = document.createElement('div'); row.className = 'th-row';
+      row.style.cssText = 'top:' + (y - hh) + 'px;gap:' + w * 0.12 + 'px;--seat:' + w + 'px';
+      for (let j = 0; j <= per; j++) { const c = document.createElement('i'); if (j === per / 2) c.className = 'aisle'; row.appendChild(c); }
+      seats.appendChild(row);
+    }
+  };
   // Autoplay: try with sound first; if the browser blocks it, start muted so it always plays
   let ytState = -1, retry = 0;
   addEventListener('message', e => {
