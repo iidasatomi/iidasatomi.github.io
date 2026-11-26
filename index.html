@@ -353,7 +353,8 @@
   .stvlb .stv-screen{transition:opacity .28s ease}.stvlb .stv-screen.fade{opacity:0}
   .stvlb .stv-screen iframe{pointer-events:auto}
   .stvlb-close{position:absolute;top:-44px;right:0;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:12px;letter-spacing:.16em;color:var(--ink);padding:12px 4px}
-  .stvlb-cap{margin-top:26px;text-align:center;font-size:10.5px;letter-spacing:.2em;color:var(--muted)}
+  .stvlb-name{margin-top:28px;padding:0 16px;text-align:center;white-space:pre-line;font-family:var(--serif);font-size:clamp(17px,2.2vw,22px);line-height:1.5;letter-spacing:.05em;color:var(--ink);max-width:min(92vw,var(--fw))}
+  .stvlb-cap{margin-top:12px;padding:0 16px;line-height:1.7;text-align:center;font-size:10.5px;letter-spacing:.2em;color:var(--muted)}
   .stvlb-cap .h{display:block;margin-top:8px;letter-spacing:.14em;opacity:.85}
   .stvlb-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:0;font-size:40px;line-height:1;color:rgba(0,0,0,.35);padding:16px;cursor:pointer}
   .stvlb-nav:hover{color:var(--ink)}.stvlb-nav.prev{left:max(8px,calc(50% - var(--fw) / 2 - 72px))}.stvlb-nav.next{right:max(8px,calc(50% - var(--fw) / 2 - 72px))}
@@ -1231,6 +1232,11 @@
 (() => {
   const tri = document.getElementById('tri'); if (!tri) return;
   const IDS = ['1vuD1j3YTRk', 'W2rTQXZ_vak', 'AgbpQeyN5MM'], N = IDS.length;
+  const TITLES = [
+    ['パナソニック ホームズ\n「私たちの約束」', 'Panasonic Homes\n"Our Promise"'],
+    ['日立ソリューションズ CM\n「協創の未来① SXはどこ？篇」', 'Hitachi Solutions CM\n"Co-creating the Future 1: Where Is SX?"'],
+    ['日立ソリューションズ CM\n「協創の未来② 未来いいじゃん！篇」', 'Hitachi Solutions CM\n"Co-creating the Future 2: The Future Looks Good!"']
+  ];
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const thumb = id => 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
   const mkTV = () => { const d = document.createElement('div'); d.className = 'stv'; d.innerHTML = '<div class="stv-body"><div class="stv-screen"></div></div><div class="stv-neck"></div><div class="stv-base"></div>'; return d; };
@@ -1270,9 +1276,11 @@
   const lb = document.createElement('div'); lb.className = 'stvlb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Commercial film viewer');
   const big = mkTV(); big.insertAdjacentHTML('afterbegin', '<button class="stvlb-close caps" aria-label="Close">Close ✕</button>');
   lb.appendChild(big);
-  lb.insertAdjacentHTML('beforeend', '<div class="stvlb-cap caps"><span>Commercial　<b class="n" style="font-weight:400"></b></span><span class="h"><span class="l-ja">左右にスワイプで切り替え　下にスワイプで戻る</span><span class="l-en">Swipe sideways to browse, down to close</span></span></div><button class="stvlb-nav prev" aria-label="Previous">‹</button><button class="stvlb-nav next" aria-label="Next">›</button>');
+  lb.insertAdjacentHTML('beforeend', '<div class="stvlb-name"></div><div class="stvlb-cap caps"><span>Commercial　<b class="n" style="font-weight:400"></b></span><span class="h"><span class="l-ja">左右にスワイプで切り替え　下にスワイプで戻る</span><span class="l-en">Swipe sideways to browse, down to close</span></span></div><button class="stvlb-nav prev" aria-label="Previous">‹</button><button class="stvlb-nav next" aria-label="Next">›</button>');
   document.body.appendChild(lb);
-  const bsc = big.querySelector('.stv-screen'), num = lb.querySelector('.stvlb-cap .n');
+  const bsc = big.querySelector('.stv-screen'), num = lb.querySelector('.stvlb-cap .n'), nameEl = lb.querySelector('.stvlb-name');
+  const title = () => { nameEl.textContent = TITLES[k][document.documentElement.lang === 'en' ? 1 : 0]; };
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', title));
   let k = 0, busy = false, ys = -1, retry = 0;
   addEventListener('message', e => { if (!/youtube/.test(e.origin)) return; try { const d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; if (d && d.info && typeof d.info.playerState === 'number') ys = d.info.playerState; } catch (_) {} });
   const cmd = (v, func, args) => { try { v.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args: args || [] }), '*'); } catch (_) {} };
@@ -1282,7 +1290,7 @@
     v.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1&modestbranding=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin);
     v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = 'Commercial film ' + (k + 1);
     v.addEventListener('load', () => { try { v.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 2 }), '*'); } catch (_) {} cmd(v, 'playVideo'); cmd(v, 'unMute'); retry = setTimeout(() => { if (ys !== 1 && v.isConnected) { cmd(v, 'mute'); cmd(v, 'playVideo'); } }, 1600); });
-    bsc.appendChild(v); num.textContent = String(k + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
+    bsc.appendChild(v); num.textContent = String(k + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0'); title();
   };
   const size = () => lb.style.setProperty('--fw', Math.min(innerWidth * 0.88, 1000, (innerHeight - 220) * 16 / 9) + 'px');
   function open(i) { k = i; size(); live(false); lb.classList.add('open'); document.body.style.overflow = 'hidden'; requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('show'))); play(); }
