@@ -395,6 +395,8 @@
   .vlabel b{font-family:var(--serif);font-weight:500;font-size:var(--fs);letter-spacing:.08em;line-height:1.1;white-space:nowrap}
   .vlabel i{font-style:normal;font-family:var(--sans);font-size:calc(var(--fs) * .5);letter-spacing:.14em;margin-top:.5em;line-height:1.2;white-space:nowrap;text-transform:uppercase}
   .th-cap .th-title{color:#c9c9cf;text-transform:none;letter-spacing:.12em}
+  .side p.how{font-size:12.5px;color:var(--muted);letter-spacing:.03em;padding-left:12px;border-left:1px solid var(--line)}
+  .vlabel b{font-size:calc(var(--fs) * 1.2)}
 </style>
 <script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.wheelNav=function(el,isOpen,go){var acc=0,lock=0;el.addEventListener('wheel',function(e){if(!isOpen())return;if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();var now=performance.now();if(now<lock){acc=0;return;}acc+=e.deltaX;if(Math.abs(acc)>40){go(acc>0?1:-1);acc=0;lock=now+650;}},{passive:false});};window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
 </head>
@@ -427,7 +429,7 @@
         <div class="orb" id="orb" aria-label="Fashion &amp; Editorial gallery. Drag to rotate, tap a photo to enlarge.">
           <div class="ball" id="ball"></div>
         </div>
-        <div class="orb-ui caps"><span id="orb-count">01 / 14</span><span>Fashion &amp; Editorial</span><span class="orb-hint"><span class="l-ja">ドラッグして回す</span><span class="l-en">Drag to roll</span></span></div>
+        <div class="orb-ui caps"><span id="orb-count">01 / 14</span><span>Fashion &amp; Editorial</span><span class="orb-hint"><span class="l-ja">ドラッグで回す　タップで拡大</span><span class="l-en">Drag to roll, tap to enlarge</span></span></div>
       </div>
     </div>
     <div class="hero-text">
@@ -452,13 +454,15 @@
         <h2>Commercial &amp;<br>Advertising</h2>
         <p class="l-ja">Sony、Honda、KDDI、アメリカン・エキスプレスなどの広告・CM、アーティストや俳優のヘアメイク。</p>
         <p class="l-en">Campaigns and TV commercials for brands including Sony, Honda, KDDI and American Express, plus artists, actors and talent.</p>
+        <p class="l-ja how">スーツケースの写真をタップすると、テレビ画面で作品を順番にご覧いただけます。後ろのホンダの広告をタップすると、駅の広告ボードで大きく表示されます。</p>
+        <p class="l-en how">Tap a photo on the suitcases to watch the work play on a TV screen. Tap the Honda ad behind them to see it on a station billboard.</p>
         <div class="links"><a class="caps u" href="#cm">View commercial films</a></div>
       </div></div>
       <div class="orb-wrap reveal">
         <div class="stage" id="stage" aria-label="Commercial &amp; Advertising: three suitcases covered in commercial stills. Drag sideways to spin, drag down to tip over, tap a photo to enlarge.">
           <div class="scene" id="scene"></div>
         </div>
-        <div class="orb-ui caps"><span>17 Works</span><span>TV Commercials</span><span class="orb-hint"><span class="l-ja">横に回す・下に引いて倒す</span><span class="l-en">Spin / tip over</span></span></div>
+        <div class="orb-ui caps"><span>17 Works</span><span>TV Commercials</span><span class="orb-hint"><span class="l-ja">タップで拡大　横に回す・下に引いて倒す</span><span class="l-en">Tap to view, spin or tip over</span></span></div>
       </div>
     </div>
   </section>
@@ -468,17 +472,19 @@
     <div class="split rev">
       <div class="side"><div class="stick reveal">
         <h2>Music Video<br>&amp; Commercial</h2>
-        <p class="l-ja">ミュージックビデオとCMのヘアメイク。形をタップすると動画が再生されます。</p>
-        <p class="l-en">Hair and makeup for music videos and commercials. Tap a face to play.</p>
+        <p class="l-ja">ミュージックビデオとCMのヘアメイク。</p>
+        <p class="l-ja how">ピラミッドの面をタップするとシアターでMVが、テレビをタップするとCMが大きく再生されます。</p>
+        <p class="l-en">Hair and makeup for music videos and commercials.</p>
+        <p class="l-en how">Tap a side of the pyramid to watch the music video in a theater, or tap a TV to play the commercial.</p>
       </div></div>
       <div class="shapes">
         <div class="orb-wrap reveal" id="mv">
           <div class="shape pyr" id="pyr" aria-label="Music videos on a pyramid. Drag to rotate, tap a face to play."><div class="ball" id="pyrBall"></div></div>
-          <div class="orb-ui caps"><span>05 Videos</span><span>Music Video</span><span class="orb-hint"><span class="l-ja">ドラッグして回す</span><span class="l-en">Drag to roll</span></span></div>
+          <div class="orb-ui caps"><span>05 Videos</span><span>Music Video</span><span class="orb-hint"><span class="l-ja">ドラッグで回す　タップで再生</span><span class="l-en">Drag to roll, tap to play</span></span></div>
         </div>
         <div class="orb-wrap reveal" id="cm">
           <div class="shape tri" id="tri" aria-label="Commercial films on a rotating three-sided billboard. Drag to turn, tap a face to play."><div class="ball" id="triBall"></div></div>
-          <div class="orb-ui caps"><span>03 Films</span><span>Commercial</span><span class="orb-hint"><span class="l-ja">ドラッグして回す</span><span class="l-en">Drag to turn</span></span></div>
+          <div class="orb-ui caps"><span>03 Films</span><span>Commercial</span><span class="orb-hint"><span class="l-ja">ドラッグで回す　タップで再生</span><span class="l-en">Drag to turn, tap to play</span></span></div>
         </div>
       </div>
     </div>
@@ -580,7 +586,7 @@
     <a class="caps" href="#about">About</a>
     <a class="caps" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener">Instagram</a>
   </nav>
-  <div>© <span id="yr">2026</span> 飯田さとみ Satomi Iida<a class="site-credit" href="https://silverfoxpro.com/" target="_blank" rel="noopener">Website by Silver Fox Production ATL</a></div>
+  <div>© <span id="yr">2026</span> 飯田さとみ Satomi Iida<a class="site-credit" href="https://silverfoxpro.com/web-design/" target="_blank" rel="noopener">Website by Silver Fox Production ATL</a></div>
 </footer>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
@@ -1035,7 +1041,7 @@
     before.parentNode.insertBefore(stage, before); stage.appendChild(box);
     panels.forEach(p => { p.classList.remove('reveal'); p.classList.add('cpanel'); box.appendChild(p); });
     const dots = document.createElement('div'); dots.className = 'cdots';
-    const hint = document.createElement('div'); hint.className = 'chint caps'; hint.innerHTML = '<span class="l-ja">左右にスワイプ</span><span class="l-en">Swipe</span>';
+    const hint = document.createElement('div'); hint.className = 'chint caps'; hint.innerHTML = '<span class="l-ja">自動で回ります　左右にスワイプ・項目名をタップで切り替え</span><span class="l-en">Turns on its own. Swipe or tap a title to switch</span>';
     stage.after(dots); dots.after(hint);
     let cur = 0, W = 0, depth = 0, drag = false, sx = 0, dx = 0, btns = [];
     const at = () => ((cur % N) + N) % N;
