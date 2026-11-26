@@ -1124,14 +1124,28 @@
   const coarse = matchMedia('(pointer: coarse)').matches;
   let list = [], k = 0, busy = false;
   const size = () => th.style.setProperty('--sw', Math.min(innerWidth * 0.9, 1100, innerHeight * 0.5 * 16 / 9) + 'px');
+  // Autoplay: try with sound first; if the browser blocks it, start muted so it always plays
+  let ytState = -1, retry = 0;
+  addEventListener('message', e => {
+    if (!/youtube/.test(e.origin)) return;
+    try { const d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; if (d && d.info && typeof d.info.playerState === 'number') ytState = d.info.playerState; } catch (_) {}
+  });
+  const cmd = (v, func, args) => { try { v.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args: args || [] }), '*'); } catch (_) {} };
   const play = () => {
+    clearTimeout(retry); ytState = -1;
     scr.innerHTML = ''; const it = list[k], v = document.createElement('iframe');
-    v.src = 'https://www.youtube-nocookie.com/embed/' + it.video + '?autoplay=1&rel=0&playsinline=1&modestbranding=1' + (coarse ? '&mute=1' : '');
-    v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = it.alt; scr.appendChild(v);
+    v.src = 'https://www.youtube-nocookie.com/embed/' + it.video + '?autoplay=1&rel=0&playsinline=1&modestbranding=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin) + (coarse ? '&mute=1' : '');
+    v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = it.alt;
+    v.addEventListener('load', () => {
+      try { v.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1 }), '*'); } catch (_) {}
+      cmd(v, 'playVideo');
+      retry = setTimeout(() => { if (ytState !== 1 && v.isConnected) { cmd(v, 'mute'); cmd(v, 'playVideo'); } }, 1600);
+    });
+    scr.appendChild(v);
     count.textContent = String(k + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
   };
   window.openTheater = (l, i) => { list = l; k = (i + l.length) % l.length; size(); th.classList.add('open'); document.body.style.overflow = 'hidden'; play(); };
-  const close = () => { th.classList.remove('open'); document.body.style.overflow = ''; scr.innerHTML = ''; };
+  const close = () => { clearTimeout(retry); th.classList.remove('open'); document.body.style.overflow = ''; scr.innerHTML = ''; };
   const go = d => { if (busy || list.length < 2) return; busy = true; scr.classList.add('fade'); setTimeout(() => { k = (k + d + list.length) % list.length; play(); scr.classList.remove('fade'); busy = false; }, 280); };
   th.querySelector('.th-close').addEventListener('click', close);
   th.querySelector('.th-prev').addEventListener('click', () => go(-1));
