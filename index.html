@@ -738,17 +738,30 @@
     const orb = document.getElementById('orb'), ball = document.getElementById('ball'), count = document.getElementById('orb-count');
     const RINGS = [[-90, 1], [-45, 6], [0, 8], [45, 6], [90, 1]];
     const faces = [];
-    let k = 0;
-    RINGS.forEach(([lat, n], ri) => {
-      for (let j = 0; j < n; j++) {
-        const lon = 360 / n * j + (ri % 2 ? 180 / n : 0);
-        const pi = k++ % PICS.length;
-        const f = document.createElement('div');
-        f.className = 'face';
-        f.innerHTML = '<img draggable="false" src="' + PICS[pi].src + '" alt="' + PICS[pi].alt + '">';
-        ball.appendChild(f);
-        faces.push({ el: f, lat, lon, n, pi });
-      }
+    // Spread the photos: a repeated photo goes on the opposite side of the orb
+    const pos = [];
+    RINGS.forEach(([lat, n], ri) => { for (let j = 0; j < n; j++) pos.push([lat, 360 / n * j + (ri % 2 ? 180 / n : 0), n]); });
+    const V = pos.map(([la, lo]) => { const a = la * Math.PI / 180, b = lo * Math.PI / 180; return [Math.cos(a) * Math.cos(b), Math.cos(a) * Math.sin(b), Math.sin(a)]; });
+    const pairs = [], taken = new Set();
+    V.forEach((v, i) => {
+      if (taken.has(i)) return; taken.add(i);
+      let best = -1, bd = 2;
+      V.forEach((w, j) => { if (taken.has(j)) return; const d = v[0] * w[0] + v[1] * w[1] + v[2] * w[2]; if (d < bd) { bd = d; best = j; } });
+      if (best >= 0) { taken.add(best); pairs.push([i, best]); } else pairs.push([i]);
+    });
+    const assign = [], dup = Math.max(0, pos.length - PICS.length);
+    let nid = 0;
+    pairs.forEach((pr, n) => {
+      const share = pr.length === 2 && Math.floor((n + 1) * dup / pairs.length) > Math.floor(n * dup / pairs.length);
+      if (share) { const id = nid++; pr.forEach(i => assign[i] = id); } else pr.forEach(i => assign[i] = nid++);
+    });
+    pos.forEach(([lat, lon, n], i) => {
+      const pi = assign[i] % PICS.length;
+      const f = document.createElement('div');
+      f.className = 'face';
+      f.innerHTML = '<img draggable="false" src="' + PICS[pi].src + '" alt="' + PICS[pi].alt + '">';
+      ball.appendChild(f);
+      faces.push({ el: f, lat, lon, n, pi });
     });
     let R = 0;
     const layout = () => {
@@ -787,7 +800,7 @@
     const tick = () => {
       if (!dragging) {
         if (Math.abs(vx) + Math.abs(vy) > 0.02) { turn(vx, vy); vx *= 0.95; vy *= 0.95; }
-        else if (!still && performance.now() - idleAt > 2500) turn(0.275, 0);
+        else if (!still && performance.now() - idleAt > 2500) turn(0.33, 0);
       }
       render();
       requestAnimationFrame(tick);
@@ -864,10 +877,10 @@
 
     const tick = () => {
       const now = performance.now();
-      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && now - pidle > 2500) pturn(0.33, 0.055); }
+      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && now - pidle > 2500) pturn(0.4, 0.066); }
       pb.style.transform = prot.toString();
       if (!tdrag) {
-        if (!still && now - Math.max(tidle, last) > 3180) { target -= 120; last = now; }
+        if (!still && now - Math.max(tidle, last) > 2650) { target -= 120; last = now; }
         tv += (target - yaw) * 0.08; tv *= 0.7; yaw += tv;
       }
       tb.style.transform = 'rotateX(-8deg) rotateY(' + yaw + 'deg)';
