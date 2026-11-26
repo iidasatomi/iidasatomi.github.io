@@ -1161,11 +1161,12 @@
   const play = () => {
     clearTimeout(retry); ytState = -1;
     scr.innerHTML = ''; const it = list[k], v = document.createElement('iframe');
-    v.src = 'https://www.youtube-nocookie.com/embed/' + it.video + '?autoplay=1&rel=0&playsinline=1&modestbranding=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin) + (coarse ? '&mute=1' : '');
+    v.src = 'https://www.youtube-nocookie.com/embed/' + it.video + '?autoplay=1&rel=0&playsinline=1&modestbranding=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin) + '';
     v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = it.alt;
     v.addEventListener('load', () => {
       try { v.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1 }), '*'); } catch (_) {}
       cmd(v, 'playVideo');
+      cmd(v, 'unMute'); cmd(v, 'setVolume', [100]);
       retry = setTimeout(() => { if (ytState !== 1 && v.isConnected) { cmd(v, 'mute'); cmd(v, 'playVideo'); } }, 1600);
     });
     scr.appendChild(v);
