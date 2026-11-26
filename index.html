@@ -229,7 +229,8 @@
   .lb-frame{position:relative;overflow:hidden}
   .lb-frame img{position:absolute;left:0;top:0;max-width:none;max-height:none}
   .lb button{position:absolute;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:13px;letter-spacing:.14em;color:var(--ink);padding:14px}
-  .lb .close{top:14px;right:18px}
+  .lb .close{top:14px;right:18px;z-index:2}
+  .lb{cursor:grab}.lb.grabbing{cursor:grabbing}.lb button{cursor:pointer}
   .lb{touch-action:none;user-select:none;-webkit-user-select:none}
   .lb .prev,.lb .next{display:none}
   .lb-hint{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.14em;color:var(--muted)}
@@ -591,21 +592,26 @@
   // Lightbox
   const lb = document.getElementById('lb'), frame = lb.querySelector('.lb-frame'), lbImg = frame.querySelector('img');
   let set = [], idx = 0;
+  const placeClose = () => { const c = lb.querySelector('.close'), fw = parseFloat(frame.style.width) || 0, fh = parseFloat(frame.style.height) || 0; c.style.top = Math.max(4, (innerHeight - fh) / 2 - 48) + 'px'; c.style.right = Math.max(4, (innerWidth - fw) / 2 - 12) + 'px'; };
+  const aspectOf = s => { if (s.length < 2) return 0; const a = s.map(el => el.dataset && el.dataset.crop ? (([, , w, h]) => w / h)(el.dataset.crop.split(',').map(Number)) : 0).filter(Boolean).sort((p, q) => p - q); return a.length ? a[a.length >> 1] : 0.8; };
   const fit = () => {
     if (set[idx] && set[idx].video) return;
     const el = set[idx], nw = lbImg.naturalWidth, nh = lbImg.naturalHeight;
     if (!nw) return;
-    const [x, y, w, h] = el.dataset.crop ? el.dataset.crop.split(',').map(Number) : [0, 0, nw, nh];
-    const padX = innerWidth < 560 ? 24 : 140, padY = 120;
-    const s = Math.min((innerWidth - padX) / w, (innerHeight - padY) / h, el.dataset.crop ? 2 : 1);
+    let [x, y, w, h] = el.dataset.crop ? el.dataset.crop.split(',').map(Number) : [0, 0, nw, nh];
+    const A = set.A || w / h;
+    if (w / h > A) { const w2 = h * A; x += (w - w2) / 2; w = w2; } else { const h2 = w / A; y += (h - h2) * 0.35; h = h2; }
+    const padX = innerWidth < 560 ? 24 : 140, padY = innerWidth < 560 ? 150 : 170;
+    const s = Math.min((innerWidth - padX) / w, Math.min(innerHeight - padY, 860) / h);
     frame.style.width = w * s + 'px'; frame.style.height = h * s + 'px';
     lbImg.style.width = nw * s + 'px'; lbImg.style.height = nh * s + 'px';
     lbImg.style.left = -x * s + 'px'; lbImg.style.top = -y * s + 'px';
+    placeClose();
   };
   lbImg.addEventListener('load', fit);
   addEventListener('resize', () => lb.classList.contains('open') && fit());
   const show = i => {
-    idx = (i + set.length) % set.length; const it = set[idx];
+    if (set.A === undefined) set.A = aspectOf(set); idx = (i + set.length) % set.length; const it = set[idx];
     const old = frame.querySelector('iframe'); if (old) old.remove();
     if (it.video) {
       lbImg.style.display = 'none';
@@ -615,7 +621,7 @@
       v.src = 'https://www.youtube-nocookie.com/embed/' + it.video + '?autoplay=1&rel=0&playsinline=1';
       v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = it.alt;
       v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
-      frame.appendChild(v); return;
+      frame.appendChild(v); placeClose(); return;
     }
     lbImg.style.display = ''; lbImg.alt = it.alt;
     if (lbImg.src === it.src) fit(); else lbImg.src = it.src;
@@ -634,10 +640,10 @@
   lbImg.draggable = false;
   const lbHint = document.createElement('div'); lbHint.className = 'lb-hint caps'; lbHint.innerHTML = '<span class="l-ja">左右にスワイプで切り替え　下にスワイプで戻る</span><span class="l-en">Swipe sideways to browse, down to close</span>'; lb.appendChild(lbHint);
   let sx = 0, sy = 0, sdx = 0, sdy = 0, swiping = false, swiped = false, busy = false;
-  const ease = 'transform .28s ease, opacity .28s ease';
+  const ease = 'transform .28s ease, opacity .28s ease, box-shadow .28s ease';
   lb.addEventListener('pointerdown', e => {
     if (busy || e.target.closest('button')) return;
-    swiping = true; swiped = false; sx = e.clientX; sy = e.clientY; sdx = sdy = 0; frame.style.transition = 'none';
+    swiping = true; swiped = false; lb.classList.add('grabbing'); sx = e.clientX; sy = e.clientY; sdx = sdy = 0; frame.style.transition = 'none';
     if (set[idx] && set[idx].video) { try { lb.setPointerCapture(e.pointerId); } catch (_) {} const v = frame.querySelector('iframe'); if (v) v.style.pointerEvents = 'none'; }
   });
   lb.addEventListener('pointermove', e => {
@@ -645,11 +651,11 @@
     sdx = e.clientX - sx; sdy = e.clientY - sy;
     if (!swiped && Math.abs(sdx) + Math.abs(sdy) > 6) { swiped = true; try { lb.setPointerCapture(e.pointerId); } catch (_) {} const v = frame.querySelector('iframe'); if (v) v.style.pointerEvents = 'none'; }
     if (sdy > Math.abs(sdx)) { frame.style.transform = 'translateY(' + sdy + 'px) scale(' + (1 - Math.min(sdy, 400) / 1600) + ')'; frame.style.opacity = 1 - Math.min(sdy, 400) / 600; }
-    else { frame.style.transform = 'translateX(' + sdx + 'px)'; frame.style.opacity = ''; }
+    else { frame.style.transform = 'translateX(' + sdx + 'px) rotate(' + sdx * 0.015 + 'deg) scale(1.04)'; frame.style.boxShadow = '0 30px 60px rgba(0,0,0,.18)'; frame.style.opacity = ''; }
   });
   const swipeEnd = () => {
     if (!swiping) return;
-    swiping = false; frame.style.transition = ease; const vf = frame.querySelector('iframe'); if (vf) vf.style.pointerEvents = '';
+    swiping = false; lb.classList.remove('grabbing'); frame.style.transition = ease; frame.style.boxShadow = ''; const vf = frame.querySelector('iframe'); if (vf) vf.style.pointerEvents = '';
     if (sdy > 90 && sdy > Math.abs(sdx)) {
       busy = true; frame.style.transform = 'translateY(60vh)'; frame.style.opacity = 0;
       setTimeout(() => { close(); frame.style.transition = 'none'; frame.style.transform = ''; frame.style.opacity = ''; busy = false; }, 260);
@@ -752,7 +758,7 @@
     const tick = () => {
       if (!dragging) {
         if (Math.abs(vx) + Math.abs(vy) > 0.02) { turn(vx, vy); vx *= 0.95; vy *= 0.95; }
-        else if (!still && performance.now() - idleAt > 2500) turn(0.25, 0);
+        else if (!still && performance.now() - idleAt > 2500) turn(0.275, 0);
       }
       render();
       requestAnimationFrame(tick);
@@ -829,10 +835,10 @@
 
     const tick = () => {
       const now = performance.now();
-      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && now - pidle > 2500) pturn(0.3, 0.05); }
+      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && now - pidle > 2500) pturn(0.33, 0.055); }
       pb.style.transform = prot.toString();
       if (!tdrag) {
-        if (!still && now - Math.max(tidle, last) > 3500) { target -= 120; last = now; }
+        if (!still && now - Math.max(tidle, last) > 3180) { target -= 120; last = now; }
         tv += (target - yaw) * 0.08; tv *= 0.7; yaw += tv;
       }
       tb.style.transform = 'rotateX(-8deg) rotateY(' + yaw + 'deg)';
