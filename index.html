@@ -1018,7 +1018,11 @@
 
     const tick = () => {
       const now = performance.now();
-      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && pseen && now - pidle > 2500) { steer(now); pturn(adx, ady); } }
+      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && pseen && now - pidle > 2500) { steer(now);
+        // keep the apex pointing up; if it does flip, move twice as fast and right itself sooner
+        const u = prot.transformPoint(new DOMPoint(0, -1, 0, 0)), flip = u.y > 0.2, sp = flip ? 2 : 1, kk = flip ? 1.6 : 0.8;
+        pturn(adx * sp, ady * sp);
+        prot = new DOMMatrix().rotateAxisAngleSelf(0, 0, 1, -u.x * kk).rotateAxisAngleSelf(1, 0, 0, (u.z - 0.3) * kk).multiply(prot); } }
       pb.style.transform = prot.toString();
       if (++pframe % 12 === 0) pickLive(now);
       if (!tdrag) {
