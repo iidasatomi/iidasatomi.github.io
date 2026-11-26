@@ -286,7 +286,8 @@
   .tv-floor::before{content:"";position:absolute;left:calc(100vw + var(--w)*.06);width:calc(var(--w)*.88);top:-6px;height:calc(var(--w)*.04);background:radial-gradient(ellipse at center,rgba(0,0,0,.22),transparent 70%)}
   .tv{position:absolute;z-index:2;top:0;left:7%;width:86%;padding:calc(var(--w)*.008);background:linear-gradient(180deg,#1a1a1a,#0b0b0b);border-radius:3px;box-shadow:0 calc(var(--w)*.025) calc(var(--w)*.06) rgba(0,0,0,.2),inset 0 0 0 1px #2a2a2a}
   .tv-screen{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#050505}
-  .tv-slide{position:absolute;inset:0;overflow:hidden}
+  .tv-slide{position:absolute;inset:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .tv-pic{position:relative;overflow:hidden;flex:none}
   .tv-screen img{position:absolute;max-width:none;pointer-events:none;-webkit-user-drag:none}
   .tv-glare{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.08),rgba(255,255,255,0) 38%)}
   .tv-stand{position:absolute;z-index:1;top:calc(var(--w)*.489);left:40%;width:20%;height:calc(var(--w)*.014);background:linear-gradient(180deg,#1b1b1b,#070707);border-radius:0 0 3px 3px}
@@ -975,15 +976,22 @@
   const nameEl = ov.querySelector('.tv-name'), typeEl = ov.querySelector('.tv-type'), countEl = ov.querySelector('.tv-count');
   let items = [], k = 0, cur = null, busy = false;
   const metaOf = it => META[it.name] || ['', '', 'cm', [0, 0, 0, 0]];
+  // Fit the whole picture inside the screen (no zoom-in crop), keeping it sharp
   const place = (img, it) => {
     const nw = img.naturalWidth, nh = img.naturalHeight, Sw = scr.clientWidth, Sh = scr.clientHeight; if (!nw || !Sw) return;
     let [x, y, w, h] = it.dataset.crop ? it.dataset.crop.split(',').map(Number) : [0, 0, nw, nh];
     const [t, r, b, l] = metaOf(it)[3]; x += w * l; y += h * t; w *= 1 - l - r; h *= 1 - t - b;
-    const s = Math.max(Sw / w, Sh / h);
+    const s = Math.min(Sw / w, Sh / h), box = img.parentNode;
+    box.style.width = w * s + 'px'; box.style.height = h * s + 'px';
     img.style.width = nw * s + 'px'; img.style.height = nh * s + 'px';
-    img.style.left = (-x * s + (Sw - w * s) / 2) + 'px'; img.style.top = (-y * s + (Sh - h * s) / 2) + 'px';
+    img.style.left = -x * s + 'px'; img.style.top = -y * s + 'px';
   };
-  const layer = it => { const im = new Image(); im.draggable = false; im.alt = it.alt; im._it = it; im.onload = () => place(im, it); im.src = it.src; if (im.complete) place(im, it); const d = document.createElement('div'); d.className = 'tv-slide'; d.appendChild(im); return d; };
+  const layer = it => {
+    const d = document.createElement('div'), p = document.createElement('div'), im = new Image();
+    d.className = 'tv-slide'; p.className = 'tv-pic'; im.draggable = false; im.alt = it.alt; im._it = it;
+    p.appendChild(im); d.appendChild(p); im.onload = () => place(im, it); im.src = it.src; if (im.complete) place(im, it);
+    return d;
+  };
   const caption = () => {
     if (!items.length) return; const m = metaOf(items[k]), en = document.documentElement.lang === 'en';
     nameEl.textContent = en ? m[1] : m[0];
@@ -991,7 +999,10 @@
     countEl.textContent = items.length > 1 ? String(k + 1).padStart(2, '0') + ' / ' + String(items.length).padStart(2, '0') : '';
   };
   const size = () => {
-    const W = Math.min(innerWidth * 0.94, 1100, (innerHeight - 90) / 0.9);
+    // Never show a still larger than its source: shrink the whole TV instead
+    const ws = items.map(it => it.dataset.crop ? +it.dataset.crop.split(',')[2] : 0).filter(Boolean).sort((p, q) => p - q);
+    const cap = ws.length ? ws[ws.length >> 1] * 1.1 / 0.844 : 1100;
+    const W = Math.min(innerWidth * 0.94, 1100, cap, (innerHeight - 90) / 0.9);
     ov.style.setProperty('--w', W + 'px');
     scr.querySelectorAll('img').forEach(im => place(im, im._it));
   };
