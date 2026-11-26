@@ -388,6 +388,9 @@
   .sw-name{font-family:var(--serif);font-size:clamp(17px,2.2vw,22px);letter-spacing:.06em;color:var(--ink)}
   .sw-type{margin-top:4px;font-size:10.5px;letter-spacing:.2em;color:var(--muted)}
   @media (max-width:700px){.subwy{--t:26px}.sw-esc{display:none}}
+  .site-credit{display:block;margin-top:6px;font-size:10px;letter-spacing:.12em;color:var(--muted);opacity:.75;transition:opacity .2s}
+  .site-credit:hover{opacity:1;color:var(--ink)}
+  footer .site-credit{text-align:right}
 </style>
 <script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.wheelNav=function(el,isOpen,go){var acc=0,lock=0;el.addEventListener('wheel',function(e){if(!isOpen())return;if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();var now=performance.now();if(now<lock){acc=0;return;}acc+=e.deltaX;if(Math.abs(acc)>40){go(acc>0?1:-1);acc=0;lock=now+650;}},{passive:false});};window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
 </head>
@@ -573,7 +576,7 @@
     <a class="caps" href="#about">About</a>
     <a class="caps" href="https://www.instagram.com/______iis/" target="_blank" rel="noopener">Instagram</a>
   </nav>
-  <div>© <span id="yr">2026</span> 飯田さとみ Satomi Iida</div>
+  <div>© <span id="yr">2026</span> 飯田さとみ Satomi Iida<a class="site-credit" href="https://silverfoxpro.com/" target="_blank" rel="noopener">Website by Silver Fox Production ATL</a></div>
 </footer>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
@@ -942,10 +945,15 @@
         }
       });
     };
-    let prot = new DOMMatrix().rotateSelf(-14, 30, 0), pvx = 0, pvy = 0, pdrag = false, pmoved = 0, plx = 0, ply = 0, pidle = 0;
+    let prot = new DOMMatrix().rotateSelf(-90, 0, 0), pvx = 0, pvy = 0, pdrag = false, pmoved = 0, plx = 0, ply = 0, pidle = 0;
     // Muted autoplay on whichever face is turned toward the viewer (max two players at once)
+    let adx = 0.8, ady = 0.8, tdx = 0.8, tdy = 0.8, nextDir = 0, pseen = false;
+    const steer = now => {
+      if (now > nextDir) { const ang = ((Math.floor(Math.random() * 4) * 90 + 45 + (Math.random() - 0.5) * 40) * Math.PI) / 180; tdx = Math.cos(ang) * 0.8; tdy = Math.sin(ang) * 0.8; nextDir = now + 3000 + Math.random() * 2500; }
+      adx += (tdx - adx) * 0.02; ady += (tdy - ady) * 0.02;
+    };
     let pframe = 0, pvis = false, front = -1, frontAt = 0; const live = new Map();
-    new IntersectionObserver(es => es.forEach(e => { pvis = e.isIntersecting; if (!pvis) { live.forEach(v => v.remove()); live.clear(); pf.forEach(f => f.el.querySelector('.vbox').classList.remove('live')); } }), { threshold: 0.25 }).observe(pyr);
+    new IntersectionObserver(es => es.forEach(e => { pvis = e.isIntersecting; if (pvis && !pseen) { pseen = true; pidle = performance.now() - 1000; } if (!pvis) { live.forEach(v => v.remove()); live.clear(); pf.forEach(f => f.el.querySelector('.vbox').classList.remove('live')); } }), { threshold: 0.25 }).observe(pyr);
     const pickLive = now => {
       if (!pvis || still || document.querySelector('.thlb.open')) return;
       const ar = Math.atan2(0.5, 0.82); let best = -1, bz = 0.35;
@@ -986,7 +994,7 @@
 
     const tick = () => {
       const now = performance.now();
-      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && now - pidle > 2500) pturn(0.4, 0.066); }
+      if (!pdrag) { if (Math.abs(pvx) + Math.abs(pvy) > 0.02) { pturn(pvx, pvy); pvx *= 0.95; pvy *= 0.95; } else if (!still && pseen && now - pidle > 2500) { steer(now); pturn(adx, ady); } }
       pb.style.transform = prot.toString();
       if (++pframe % 12 === 0) pickLive(now);
       if (!tdrag) {
