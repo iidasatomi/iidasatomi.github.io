@@ -332,6 +332,32 @@
   .th-row i.aisle{visibility:hidden;width:calc(var(--seat) * .7)}
   .th-hint{position:absolute;left:0;right:0;bottom:14px;text-shadow:0 1px 6px #000;text-align:center;font-size:10.5px;letter-spacing:.14em;color:#77777e;z-index:2}
   @media (max-width:700px){.th-nav{display:none}}
+
+  /* Commercial films: three silver TVs */
+  #tri{display:none!important}
+  .tvrow{position:relative;width:min(100%,780px);aspect-ratio:1/0.58;perspective:1500px;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+  .tvrow.dragging{cursor:grabbing}
+  .stv{position:absolute;left:50%;top:8%;width:56%;margin-left:-28%;transform-style:preserve-3d;will-change:transform}
+  .stv-body{position:relative;padding:1.2%;border-radius:7px;background:linear-gradient(135deg,#fafafb 0%,#cdd0d5 20%,#f1f2f4 42%,#aeb2b8 68%,#e9ebed 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.18),0 22px 44px rgba(0,0,0,.16)}
+  .stv-body::after{content:"";position:absolute;left:50%;bottom:.35%;width:14px;height:2px;margin-left:-7px;border-radius:2px;background:rgba(0,0,0,.22)}
+  .stv-screen{position:relative;aspect-ratio:16/9;background:#050506;overflow:hidden;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.7)}
+  .stv-screen img,.stv-screen iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;-webkit-user-drag:none}
+  .stv-screen::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,.13),rgba(255,255,255,0) 42%)}
+  .stv-neck{width:8%;height:clamp(10px,3vw,28px);margin:0 auto;background:linear-gradient(90deg,#9da1a7,#f0f1f3 50%,#9da1a7)}
+  .stv-base{width:36%;height:clamp(5px,1.1vw,11px);margin:0 auto;border-radius:2px 2px 7px 7px;background:linear-gradient(180deg,#f5f6f7,#b2b6bb);box-shadow:0 10px 16px rgba(0,0,0,.16)}
+  .stvlb{position:fixed;inset:0;z-index:110;display:none;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(ellipse 80% 60% at 50% 42%,#ffffff,#ececed 65%,#dddde0);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+  .stvlb.open{display:flex}.stvlb.grabbing{cursor:grabbing}
+  .stvlb .stv{position:relative;left:auto;top:auto;margin:0;width:var(--fw);transform:translateY(40px) scale(.82);opacity:0;transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
+  .stvlb.show .stv{transform:none;opacity:1}
+  .stvlb .stv-body{box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.18),0 50px 90px rgba(0,0,0,.22)}
+  .stvlb .stv-screen{transition:opacity .28s ease}.stvlb .stv-screen.fade{opacity:0}
+  .stvlb .stv-screen iframe{pointer-events:auto}
+  .stvlb-close{position:absolute;top:-44px;right:0;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:12px;letter-spacing:.16em;color:var(--ink);padding:12px 4px}
+  .stvlb-cap{margin-top:26px;text-align:center;font-size:10.5px;letter-spacing:.2em;color:var(--muted)}
+  .stvlb-cap .h{display:block;margin-top:8px;letter-spacing:.14em;opacity:.85}
+  .stvlb-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:0;font-size:40px;line-height:1;color:rgba(0,0,0,.35);padding:16px;cursor:pointer}
+  .stvlb-nav:hover{color:var(--ink)}.stvlb-nav.prev{left:max(8px,calc(50% - var(--fw) / 2 - 72px))}.stvlb-nav.next{right:max(8px,calc(50% - var(--fw) / 2 - 72px))}
+  @media (max-width:700px){.stvlb-nav{display:none}}
 </style>
 <script>(function(){var l='ja';try{l=localStorage.getItem('lang')==='en'?'en':'ja'}catch(e){}document.documentElement.lang=l})();window.wheelNav=function(el,isOpen,go){var acc=0,lock=0;el.addEventListener('wheel',function(e){if(!isOpen())return;if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();var now=performance.now();if(now<lock){acc=0;return;}acc+=e.deltaX;if(Math.abs(acc)>40){go(acc>0?1:-1);acc=0;lock=now+650;}},{passive:false});};window.T=function(j,e){return document.documentElement.lang==='en'?e:j};</script>
 </head>
@@ -1195,6 +1221,84 @@
   wheelNav(th, () => th.classList.contains('open'), go);
   document.addEventListener('keydown', e => { if (!th.classList.contains('open')) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
   addEventListener('resize', () => th.classList.contains('open') && size());
+})();
+</script>
+<script>
+(() => {
+  const tri = document.getElementById('tri'); if (!tri) return;
+  const IDS = ['1vuD1j3YTRk', 'W2rTQXZ_vak', 'AgbpQeyN5MM'], N = IDS.length;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const thumb = id => 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+  const mkTV = () => { const d = document.createElement('div'); d.className = 'stv'; d.innerHTML = '<div class="stv-body"><div class="stv-screen"></div></div><div class="stv-neck"></div><div class="stv-base"></div>'; return d; };
+  const row = document.createElement('div'); row.className = 'tvrow'; row.setAttribute('aria-label', 'Commercial films on three TVs. Drag sideways, tap a TV to watch.');
+  tri.after(row);
+  const tvs = IDS.map((id, i) => { const el = mkTV(), sc = el.querySelector('.stv-screen'); sc.innerHTML = '<img alt="Commercial film ' + (i + 1) + ', hair and makeup by Satomi Iida" src="' + thumb(id) + '">'; row.appendChild(el); return { el, sc, id }; });
+  // carousel: the three TVs swing left and right in 3D
+  let off = 0, target = 0, drag = false, moved = 0, lx = 0, idle = performance.now(), vis = false;
+  const wrap = s => { s = ((s % N) + N) % N; return s > N / 2 ? s - N : s; };
+  const render = () => tvs.forEach((t, i) => {
+    const s = wrap(i - off), a = Math.abs(s);
+    t.el.style.transform = 'translateX(' + s * 66 + '%) translateZ(' + (-a * 200) + 'px) rotateY(' + (-s * 32) + 'deg) scale(' + (1 - a * 0.1) + ')';
+    t.el.style.zIndex = String(10 - Math.round(a * 3));
+    t.el.style.opacity = String(a > 1.2 ? Math.max(0, 1 - (a - 1.2) * 4) : 1);
+  });
+  const tick = () => {
+    const now = performance.now();
+    if (!drag) { if (vis && !still && !lb.classList.contains('open') && now - idle > 4500) { target += 1; idle = now; } off += (target - off) * 0.07; }
+    render(); requestAnimationFrame(tick);
+  };
+  // muted autoplay on all three screens while the section is on screen
+  const live = on => tvs.forEach(t => {
+    const f = t.sc.querySelector('iframe');
+    if (on && !f) { const v = document.createElement('iframe'); v.tabIndex = -1; v.setAttribute('aria-hidden', 'true'); v.allow = 'autoplay; encrypted-media'; v.src = 'https://www.youtube-nocookie.com/embed/' + t.id + '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + t.id + '&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1'; t.sc.appendChild(v); }
+    if (!on && f) f.remove();
+  });
+  new IntersectionObserver(es => es.forEach(e => { vis = e.isIntersecting; live(vis && !lb.classList.contains('open')); }), { threshold: 0.2 }).observe(row);
+  row.addEventListener('pointerdown', e => { drag = true; moved = 0; lx = e.clientX; row.classList.add('dragging'); try { row.setPointerCapture(e.pointerId); } catch (_) {} });
+  row.addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - lx; lx = e.clientX; moved += Math.abs(dx); off -= dx / (row.clientWidth * 0.37); target = off; });
+  const up = e => {
+    if (!drag) return; drag = false; row.classList.remove('dragging'); idle = performance.now(); target = Math.round(off);
+    if (moved < 6) { const hit = document.elementsFromPoint(e.clientX, e.clientY).find(x => x.classList && x.classList.contains('stv')); const i = tvs.findIndex(t => t.el === hit); if (i >= 0) open(i); }
+  };
+  row.addEventListener('pointerup', up); row.addEventListener('pointercancel', up);
+
+  // Tapped TV lifts up and plays with sound (falls back to muted if the browser blocks sound)
+  const lb = document.createElement('div'); lb.className = 'stvlb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Commercial film viewer');
+  const big = mkTV(); big.insertAdjacentHTML('afterbegin', '<button class="stvlb-close caps" aria-label="Close">Close ✕</button>');
+  lb.appendChild(big);
+  lb.insertAdjacentHTML('beforeend', '<div class="stvlb-cap caps"><span>Commercial　<b class="n" style="font-weight:400"></b></span><span class="h"><span class="l-ja">左右にスワイプで切り替え　下にスワイプで戻る</span><span class="l-en">Swipe sideways to browse, down to close</span></span></div><button class="stvlb-nav prev" aria-label="Previous">‹</button><button class="stvlb-nav next" aria-label="Next">›</button>');
+  document.body.appendChild(lb);
+  const bsc = big.querySelector('.stv-screen'), num = lb.querySelector('.stvlb-cap .n');
+  let k = 0, busy = false, ys = -1, retry = 0;
+  addEventListener('message', e => { if (!/youtube/.test(e.origin)) return; try { const d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; if (d && d.info && typeof d.info.playerState === 'number') ys = d.info.playerState; } catch (_) {} });
+  const cmd = (v, func, args) => { try { v.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args: args || [] }), '*'); } catch (_) {} };
+  const play = () => {
+    clearTimeout(retry); ys = -1; bsc.innerHTML = '';
+    const id = IDS[k], v = document.createElement('iframe');
+    v.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1&modestbranding=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+    v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; v.allowFullscreen = true; v.title = 'Commercial film ' + (k + 1);
+    v.addEventListener('load', () => { try { v.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 2 }), '*'); } catch (_) {} cmd(v, 'playVideo'); cmd(v, 'unMute'); retry = setTimeout(() => { if (ys !== 1 && v.isConnected) { cmd(v, 'mute'); cmd(v, 'playVideo'); } }, 1600); });
+    bsc.appendChild(v); num.textContent = String(k + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
+  };
+  const size = () => lb.style.setProperty('--fw', Math.min(innerWidth * 0.88, 1000, (innerHeight - 220) * 16 / 9) + 'px');
+  function open(i) { k = i; size(); live(false); lb.classList.add('open'); document.body.style.overflow = 'hidden'; requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('show'))); play(); }
+  const close = () => { clearTimeout(retry); lb.classList.remove('show'); document.body.style.overflow = ''; setTimeout(() => { lb.classList.remove('open'); bsc.innerHTML = ''; live(vis); }, 300); };
+  const go = d => { if (busy) return; busy = true; bsc.classList.add('fade'); setTimeout(() => { k = (k + d + N) % N; play(); bsc.classList.remove('fade'); busy = false; target = Math.round(target) + d; }, 280); };
+  lb.querySelector('.stvlb-close').addEventListener('click', close);
+  lb.querySelector('.stvlb-nav.prev').addEventListener('click', () => go(-1));
+  lb.querySelector('.stvlb-nav.next').addEventListener('click', () => go(1));
+  let sx = 0, sy = 0, dx = 0, dy = 0, sw = false;
+  lb.addEventListener('pointerdown', e => { if (busy || e.target.closest('button')) return; sw = true; sx = e.clientX; sy = e.clientY; dx = dy = 0; lb.classList.add('grabbing'); try { lb.setPointerCapture(e.pointerId); } catch (_) {} big.style.transition = 'none'; });
+  lb.addEventListener('pointermove', e => { if (!sw) return; dx = e.clientX - sx; dy = e.clientY - sy; big.style.transform = dy > Math.abs(dx) ? 'translateY(' + dy * 0.6 + 'px)' : 'translateX(' + dx * 0.5 + 'px) rotateY(' + dx * 0.03 + 'deg)'; });
+  const end = () => {
+    if (!sw) return; sw = false; lb.classList.remove('grabbing'); big.style.transition = ''; big.style.transform = '';
+    if (dy > 90 && dy > Math.abs(dx)) close(); else if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+  };
+  lb.addEventListener('pointerup', end); lb.addEventListener('pointercancel', end);
+  if (window.wheelNav) wheelNav(lb, () => lb.classList.contains('open'), go);
+  document.addEventListener('keydown', e => { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
+  addEventListener('resize', () => lb.classList.contains('open') && size());
+  render(); tick();
 })();
 </script>
 </body>
