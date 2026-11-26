@@ -286,6 +286,7 @@
   .tv-floor::before{content:"";position:absolute;left:calc(100vw + var(--w)*.06);width:calc(var(--w)*.88);top:-6px;height:calc(var(--w)*.04);background:radial-gradient(ellipse at center,rgba(0,0,0,.22),transparent 70%)}
   .tv{position:absolute;z-index:2;top:0;left:7%;width:86%;padding:calc(var(--w)*.008);background:linear-gradient(180deg,#1a1a1a,#0b0b0b);border-radius:3px;box-shadow:0 calc(var(--w)*.025) calc(var(--w)*.06) rgba(0,0,0,.2),inset 0 0 0 1px #2a2a2a}
   .tv-screen{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#050505}
+  .tv-slide{position:absolute;inset:0;overflow:hidden}
   .tv-screen img{position:absolute;max-width:none;pointer-events:none;-webkit-user-drag:none}
   .tv-glare{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.08),rgba(255,255,255,0) 38%)}
   .tv-stand{position:absolute;z-index:1;top:calc(var(--w)*.489);left:40%;width:20%;height:calc(var(--w)*.014);background:linear-gradient(180deg,#1b1b1b,#070707);border-radius:0 0 3px 3px}
@@ -950,7 +951,7 @@
   const META = {
     'Gatsby': ['ギャツビー　PROJECT THE WAY', 'GATSBY  Project THE WAY', 'ad', [.035, .03, .035, .03]],
     'Honda': ['ホンダ　プレリュード', 'Honda Prelude', 'ad', [0, 0, 0, 0]],
-    'Komatsu': ['コマツ', 'Komatsu', 'cm', [.14, 0, .18, 0]],
+    'Komatsu': ['コマツ', 'Komatsu', 'cm', [.14, .015, .18, 0]],
     'Ishida Best': ['ISHIDA', 'ISHIDA', 'cm', [.14, 0, .18, 0]],
     'Asahi Kasei': ['旭化成', 'Asahi Kasei', 'cm', [0, 0, .17, 0]],
     'Nitori': ['ニトリ', 'Nitori', 'cm', [0, .15, 0, 0]],
@@ -982,7 +983,7 @@
     img.style.width = nw * s + 'px'; img.style.height = nh * s + 'px';
     img.style.left = (-x * s + (Sw - w * s) / 2) + 'px'; img.style.top = (-y * s + (Sh - h * s) / 2) + 'px';
   };
-  const layer = it => { const im = new Image(); im.draggable = false; im.alt = it.alt; im._it = it; im.onload = () => place(im, it); im.src = it.src; if (im.complete) place(im, it); return im; };
+  const layer = it => { const im = new Image(); im.draggable = false; im.alt = it.alt; im._it = it; im.onload = () => place(im, it); im.src = it.src; if (im.complete) place(im, it); const d = document.createElement('div'); d.className = 'tv-slide'; d.appendChild(im); return d; };
   const caption = () => {
     if (!items.length) return; const m = metaOf(items[k]), en = document.documentElement.lang === 'en';
     nameEl.textContent = en ? m[1] : m[0];
@@ -997,7 +998,7 @@
   window.openTV = (list, i) => {
     items = list; k = (i + list.length) % list.length;
     ov.classList.add('open'); document.body.style.overflow = 'hidden'; size();
-    scr.querySelectorAll('img').forEach(im => im.remove());
+    scr.querySelectorAll('.tv-slide').forEach(d => d.remove());
     cur = layer(items[k]); scr.prepend(cur); caption();
   };
   const close = () => { ov.classList.remove('open'); document.body.style.overflow = ''; };
