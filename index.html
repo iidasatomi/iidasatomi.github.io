@@ -304,9 +304,9 @@
   .tv-legs .l1{left:5%;transform:rotate(16deg)}.tv-legs .l4{right:5%;transform:rotate(-16deg)}
   .tv-legs .l2{left:9%;height:82%;transform:rotate(9deg);filter:brightness(.65)}.tv-legs .l3{right:9%;height:82%;transform:rotate(-9deg);filter:brightness(.65)}
   .tv-cap{position:absolute;z-index:3;left:0;right:0;top:calc(var(--w)*.735);text-align:center}
-  .tv-name{font-family:var(--serif);font-size:clamp(17px,calc(var(--w)*.026),24px);letter-spacing:.06em;color:var(--ink);min-height:1.3em}
+  .tv-name{white-space:pre-line;line-height:1.45;font-family:var(--serif);font-size:clamp(17px,calc(var(--w)*.026),24px);letter-spacing:.06em;color:var(--ink);min-height:1.3em}
   .tv-meta{margin-top:4px;font-size:10.5px;letter-spacing:.18em;color:var(--muted);display:flex;gap:14px;justify-content:center}
-  .tv-hint{position:absolute;z-index:3;left:12px;right:12px;top:calc(var(--w)*.735 + 76px);line-height:1.6;text-align:center;font-size:10.5px;letter-spacing:.14em;color:var(--muted);opacity:.8}
+  .tv-hint{position:static;margin-top:14px;padding:0 12px;line-height:1.6;text-align:center;font-size:10.5px;letter-spacing:.14em;color:var(--muted);opacity:.8}
   .tv-close{position:absolute;z-index:4;top:-46px;right:6%;background:none;border:0;cursor:pointer;font-family:var(--sans);font-size:12px;letter-spacing:.16em;color:var(--ink);padding:12px 4px}
 
   .vbox{position:absolute;inset:0;overflow:hidden;background:#000}
@@ -1009,8 +1009,8 @@
     'Ishida Best': ['ISHIDA', 'ISHIDA', 'cm', [.14, 0, .18, 0]],
     'Asahi Kasei': ['旭化成', 'Asahi Kasei', 'cm', [0, 0, .17, 0]],
     'Nitori': ['ニトリ', 'Nitori', 'cm', [0, .15, 0, 0]],
-    'School project': ['新潟県　遅刻するおむすび少女プロジェクト', 'Niigata Prefecture  Late Onigiri Girl Project', 'cm', [0, 0, 0, 0]],
-    'TV commercial': ['新潟県　遅刻するおむすび少女プロジェクト', 'Niigata Prefecture  Late Onigiri Girl Project', 'cm', [0, 0, 0, 0]],
+    'School project': ['新潟県プロジェクト\n「遅刻するおむすび少女」', 'Niigata Prefecture Project\n"The Late Onigiri Girl"', 'cm', [0, 0, 0, 0]],
+    'TV commercial': ['新潟県プロジェクト\n「遅刻するおむすび少女」', 'Niigata Prefecture Project\n"The Late Onigiri Girl"', 'cm', [0, 0, 0, 0]],
     'Kao Humming': ['花王　ハミング', 'Kao Humming', 'cm', [0, 0, .15, 0]],
     'Idemitsu': ['出光', 'Idemitsu', 'cm', [0, .18, 0, 0]],
     'Sony': ['ソニー', 'Sony', 'cm', [0, 0, .13, 0]],
@@ -1025,6 +1025,7 @@
   const ov = document.createElement('div'); ov.className = 'tvlb'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Commercial viewer');
   ov.innerHTML = '<div class="tv-scene"><button class="tv-close caps" aria-label="Close">Close ✕</button><div class="tv"><div class="tv-screen"><div class="tv-glare"></div></div></div><div class="tv-stand"></div><div class="tv-cab"><div class="tv-top"></div><div class="tv-drawers"><i></i><i></i><i></i></div></div><div class="tv-legs"><b class="l2"></b><b class="l3"></b><b class="l1"></b><b class="l4"></b></div><div class="tv-floor"></div><div class="tv-cap"><div class="tv-name"></div><div class="tv-meta caps"><span class="tv-type"></span><span class="tv-count"></span></div></div><div class="tv-hint caps"><span class="l-ja">左右にスワイプで切り替え　下にスワイプで戻る</span><span class="l-en">Swipe sideways to browse, down to close</span></div></div>';
   document.body.appendChild(ov);
+  ov.querySelector('.tv-cap').appendChild(ov.querySelector('.tv-hint'));
   const scene = ov.querySelector('.tv-scene'), scr = ov.querySelector('.tv-screen');
   const nameEl = ov.querySelector('.tv-name'), typeEl = ov.querySelector('.tv-type'), countEl = ov.querySelector('.tv-count');
   let items = [], k = 0, cur = null, busy = false;
