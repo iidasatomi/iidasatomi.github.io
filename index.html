@@ -660,7 +660,16 @@
       cs.shadow.style.transform = 'translate3d(' + cs.x + 'px,0,' + (cs.tilt < 0 ? 1 : -1) * lying * H / 2 + 'px) rotateX(90deg) scale(' + (1 + lying * 0.4) + ',' + (1 + lying * 1.6) + ')';
     });
     let active = null, dragging = false, moved = 0, lastX = 0, lastY = 0, downFace = null;
+    // Every few seconds one suitcase tips over, stands back up, or spins on its own
+    let nextMove = performance.now() + 1500; const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const tick = () => {
+      const now = performance.now();
+      if (!dragging && !calm && now > nextMove) {
+        const cs = cases[Math.floor(Math.random() * cases.length)];
+        if (Math.random() < 0.45) cs.target = cs.target === 0 ? (Math.random() < 0.5 ? -90 : 90) : 0;
+        else cs.yv = (Math.random() < 0.5 ? -1 : 1) * (6 + Math.random() * 6);
+        nextMove = now + 1600 + Math.random() * 2200;
+      }
       cases.forEach(cs => {
         if (cs === active && dragging) return;
         cs.tv += (cs.target - cs.tilt) * 0.12; cs.tv *= 0.72; cs.tilt += cs.tv;
@@ -886,7 +895,7 @@
     const tick = () => {
       if (!dragging) {
         if (Math.abs(vx) + Math.abs(vy) > 0.02) { turn(vx, vy); vx *= 0.95; vy *= 0.95; }
-        else if (!still && performance.now() - idleAt > 2500) turn(0.33, 0);
+        else if (!still && performance.now() - idleAt > 2500) turn(0.66, 0);
       }
       render();
       requestAnimationFrame(tick);
